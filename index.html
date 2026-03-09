@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vertical Rectangle</title>
+  <style>
+    @font-face {
+      font-family: 'Inter';
+      src: url('fonts/InterVariable.woff2') format('woff2-variations');
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: block;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --black: #000000;
+      --white: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 48px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--white);
+    }
+
+    .nav-logo svg {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    .nav-wordmark {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 2px;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--white);
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* ── PAGES ── */
+
+    .page {
+      display: none;
+      min-height: 100vh;
+      padding: 0 48px;
+      animation: fadein 0.35s ease forwards;
+    }
+
+    @keyframes fadein {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    #home {
+      display: flex;
+    }
+
+    #work:target {
+      display: block;
+    }
+
+    body:has(#work:target) #home {
+      display: none;
+    }
+
+    #home:target {
+      display: flex;
+    }
+
+    /* ── HOME ── */
+
+    #home {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 24px;
+    }
+
+    .home-logo svg {
+      width: 96px;
+      height: 96px;
+    }
+
+    .home-title {
+      font-size: clamp(40px, 8vw, 96px);
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .home-tagline {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0.45;
+    }
+
+    /* ── WORK ── */
+
+    #work {
+      padding-top: 140px;
+      padding-bottom: 100px;
+      max-width: 860px;
+    }
+
+    .work-header {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      margin-bottom: 64px;
+    }
+
+    .project {
+      display: block;
+      text-decoration: none;
+      color: var(--white);
+      padding: 40px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 24px;
+      transition: border-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .project:last-child {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .project:hover {
+      border-top-color: rgba(255,255,255,0.5);
+    }
+
+    .project:last-child:hover {
+      border-bottom-color: rgba(255,255,255,0.5);
+    }
+
+    .project-name {
+      font-size: clamp(24px, 4vw, 42px);
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 10px;
+      transition: opacity 0.2s ease;
+    }
+
+    .project:hover .project-name {
+      opacity: 0.7;
+    }
+
+    .project-desc {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      opacity: 0.45;
+      max-width: 480px;
+    }
+
+    .project-arrow {
+      font-size: 22px;
+      opacity: 0.2;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .project:hover .project-arrow {
+      opacity: 1;
+      transform: translate(4px, -4px);
+    }
+
+    /* ── EXTERNAL LINK ── */
+
+    a[target="_blank"] .project-arrow::after {
+      content: '↗';
+    }
+
+    .project-arrow-icon {
+      content: '↗';
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#home" class="nav-logo">
+      <!-- Logo SVG -->
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="47" fill="#000" stroke="#fff" stroke-width="3"/>
+        <rect x="29" y="18" width="42" height="64" fill="#000" stroke="#fff" stroke-width="5" rx="1"/>
+      </svg>
+      <span class="nav-wordmark">Vertical Rectangle</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="https://epsilver.xyz" target="_blank" rel="noopener">Epsilver</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home" class="page">
+    <div class="home-logo">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="47" fill="#000" stroke="#fff" stroke-width="3"/>
+        <rect x="29" y="18" width="42" height="64" fill="#000" stroke="#fff" stroke-width="5" rx="1"/>
+      </svg>
+    </div>
+    <h1 class="home-title">Vertical<br>Rectangle</h1>
+    <p class="home-tagline">Freelance psyop agency</p>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="page">
+    <p class="work-header">Work</p>
+
+    <a class="project" href="https://wickrunner.com" target="_blank" rel="noopener">
+      <div>
+        <div class="project-name">Wickrunner</div>
+        <div class="project-desc">The ONLY competitive stock trading game.</div>
+      </div>
+      <span class="project-arrow">↗</span>
+    </a>
+
+    <a class="project" href="https://epsilver.xyz" target="_blank" rel="noopener">
+      <div>
+        <div class="project-name">Epsilver</div>
+        <div class="project-desc">Art.</div>
+      </div>
+      <span class="project-arrow">↗</span>
+    </a>
+
+  </section>
+
+</body>
+</html>
