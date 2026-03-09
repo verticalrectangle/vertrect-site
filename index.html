@@ -38,10 +38,6 @@
 
     /* ── NAV ── */
 
-    #nav-toggle {
-      display: none;
-    }
-
     nav {
       position: fixed;
       top: 0;
@@ -60,7 +56,6 @@
       gap: 14px;
       text-decoration: none;
       color: var(--white);
-      z-index: 200;
     }
 
     .nav-logo svg {
@@ -114,86 +109,22 @@
       width: 100%;
     }
 
-    /* ── HAMBURGER ── */
-
-    .nav-burger {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      z-index: 200;
-    }
-
-    .nav-burger span {
-      display: block;
-      width: 100%;
-      height: 2px;
-      background: var(--white);
-      transition: transform 0.25s ease, opacity 0.2s ease;
-      transform-origin: center;
-    }
-
-    /* X animation when open */
-    body:has(#nav-toggle:checked) .nav-burger span:nth-child(1) {
-      transform: translateY(7px) rotate(45deg);
-    }
-    body:has(#nav-toggle:checked) .nav-burger span:nth-child(2) {
-      opacity: 0;
-    }
-    body:has(#nav-toggle:checked) .nav-burger span:nth-child(3) {
-      transform: translateY(-7px) rotate(-45deg);
-    }
-
-    /* ── MOBILE MENU OVERLAY ── */
-
-    .nav-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: var(--black);
-      z-index: 150;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 48px;
-    }
-
-    .nav-overlay a {
-      font-size: clamp(32px, 8vw, 56px);
-      font-weight: 900;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--white);
-      text-decoration: none;
-      opacity: 0.5;
-      transition: opacity 0.2s ease;
-    }
-
-    .nav-overlay a:hover {
-      opacity: 1;
-    }
-
-    body:has(#nav-toggle:checked) .nav-overlay {
-      display: flex;
-      animation: fadein 0.25s ease forwards;
-    }
-
     /* ── RESPONSIVE ── */
 
     @media (max-width: 600px) {
       nav {
-        padding: 24px 24px;
+        padding: 20px 24px;
+        align-items: flex-start;
       }
 
       .nav-links {
-        display: none;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 8px;
       }
 
-      .nav-burger {
-        display: flex;
+      .nav-links a {
+        font-size: 14px;
       }
     }
 
@@ -267,38 +198,33 @@
     }
 
     .work-header {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.22em;
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      opacity: 0.35;
+      opacity: 1;
       margin-bottom: 64px;
     }
 
     .project {
-      display: block;
-      text-decoration: none;
-      color: var(--white);
-      padding: 40px 0;
-      border-top: 1px solid rgba(255,255,255,0.1);
       display: grid;
       grid-template-columns: 1fr auto;
       align-items: center;
       gap: 24px;
-      transition: border-color 0.2s ease;
+      text-decoration: none;
+      color: var(--white);
+      padding: 40px 0;
+      border-top: 1px solid rgba(255,255,255,0.25);
+      transition: box-shadow 0.2s ease;
       cursor: pointer;
     }
 
     .project:last-child {
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.25);
     }
 
     .project:hover {
-      border-top-color: rgba(255,255,255,0.5);
-    }
-
-    .project:last-child:hover {
-      border-bottom-color: rgba(255,255,255,0.5);
+      box-shadow: 0 -1px 0 rgba(255,255,255,0.7), 0 1px 0 rgba(255,255,255,0.7);
     }
 
     .project-name {
@@ -347,14 +273,6 @@
 </head>
 <body>
 
-  <input type="checkbox" id="nav-toggle" />
-
-  <!-- Mobile overlay menu -->
-  <div class="nav-overlay">
-    <a href="#work" onclick="document.getElementById('nav-toggle').checked=false">Work</a>
-    <a href="https://epsilver.xyz" target="_blank" rel="noopener">Epsilver</a>
-  </div>
-
   <nav>
     <a href="#home" class="nav-logo">
       <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -365,13 +283,8 @@
     </a>
     <ul class="nav-links">
       <li><a href="#work">Work</a></li>
-      <li><a href="https://epsilver.xyz" target="_blank" rel="noopener">Epsilver</a></li>
+      <li><a href="https://epsilver.xyz" target="_blank" rel="noopener">Art</a></li>
     </ul>
-    <label for="nav-toggle" class="nav-burger" aria-label="Menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </label>
   </nav>
 
   <!-- HOME -->
