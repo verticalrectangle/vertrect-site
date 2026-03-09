@@ -36,7 +36,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── NAV ── */
+    /* ── NAV (work page only) ── */
 
     nav {
       position: fixed;
@@ -48,6 +48,11 @@
       align-items: center;
       justify-content: space-between;
       padding: 28px 48px;
+    }
+
+    /* hide nav on home */
+    body:not(:has(#work:target)) nav {
+      display: none;
     }
 
     .nav-logo {
@@ -109,8 +114,6 @@
       width: 100%;
     }
 
-    /* ── RESPONSIVE ── */
-
     @media (max-width: 600px) {
       nav {
         padding: 20px 24px;
@@ -165,7 +168,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 24px;
+      gap: 20px;
     }
 
     .home-logo svg {
@@ -189,6 +192,48 @@
       opacity: 0.45;
     }
 
+    .home-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      margin-top: 16px;
+      list-style: none;
+    }
+
+    .home-nav a {
+      font-size: clamp(32px, 6vw, 64px);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      opacity: 0.5;
+      line-height: 1.9;
+      position: relative;
+      padding-bottom: 1px;
+      transition: opacity 0.2s ease;
+    }
+
+    .home-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--white);
+      transition: width 0.25s ease;
+    }
+
+    .home-nav a:hover {
+      opacity: 1;
+    }
+
+    .home-nav a:hover::after {
+      width: 100%;
+    }
+
     /* ── WORK ── */
 
     #work {
@@ -202,7 +247,6 @@
       font-weight: 900;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      opacity: 1;
       margin-bottom: 64px;
     }
 
@@ -282,7 +326,7 @@
       <span class="nav-wordmark">Vertical Rectangle</span>
     </a>
     <ul class="nav-links">
-      <li><a href="#work">Work</a></li>
+      <li><a href="#home">Home</a></li>
       <li><a href="https://epsilver.xyz" target="_blank" rel="noopener">Art</a></li>
     </ul>
   </nav>
@@ -298,6 +342,10 @@
     <h1 class="home-title">Vertical<br>Rectangle</h1>
     <p class="home-tagline">Freelance psyop agency</p>
     <p class="home-tagline">Web development</p>
+    <ul class="home-nav">
+      <li><a href="#work">Work</a></li>
+      <li><a href="https://epsilver.xyz" target="_blank" rel="noopener">Art</a></li>
+    </ul>
   </section>
 
   <!-- WORK -->
