@@ -38,6 +38,10 @@
 
     /* ── NAV ── */
 
+    #nav-toggle {
+      display: none;
+    }
+
     nav {
       position: fixed;
       top: 0;
@@ -56,6 +60,7 @@
       gap: 14px;
       text-decoration: none;
       color: var(--white);
+      z-index: 200;
     }
 
     .nav-logo svg {
@@ -107,6 +112,89 @@
 
     .nav-links a:hover::after {
       width: 100%;
+    }
+
+    /* ── HAMBURGER ── */
+
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      z-index: 200;
+    }
+
+    .nav-burger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--white);
+      transition: transform 0.25s ease, opacity 0.2s ease;
+      transform-origin: center;
+    }
+
+    /* X animation when open */
+    body:has(#nav-toggle:checked) .nav-burger span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    body:has(#nav-toggle:checked) .nav-burger span:nth-child(2) {
+      opacity: 0;
+    }
+    body:has(#nav-toggle:checked) .nav-burger span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ── MOBILE MENU OVERLAY ── */
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--black);
+      z-index: 150;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+    }
+
+    .nav-overlay a {
+      font-size: clamp(32px, 8vw, 56px);
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+    }
+
+    .nav-overlay a:hover {
+      opacity: 1;
+    }
+
+    body:has(#nav-toggle:checked) .nav-overlay {
+      display: flex;
+      animation: fadein 0.25s ease forwards;
+    }
+
+    /* ── RESPONSIVE ── */
+
+    @media (max-width: 600px) {
+      nav {
+        padding: 24px 24px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-burger {
+        display: flex;
+      }
     }
 
     /* ── PAGES ── */
@@ -246,22 +334,29 @@
       transform: translate(4px, -4px);
     }
 
-    /* ── EXTERNAL LINK ── */
+    @media (max-width: 600px) {
+      .page {
+        padding: 0 24px;
+      }
 
-    a[target="_blank"] .project-arrow::after {
-      content: '↗';
-    }
-
-    .project-arrow-icon {
-      content: '↗';
+      #work {
+        padding-top: 100px;
+      }
     }
   </style>
 </head>
 <body>
 
+  <input type="checkbox" id="nav-toggle" />
+
+  <!-- Mobile overlay menu -->
+  <div class="nav-overlay">
+    <a href="#work" onclick="document.getElementById('nav-toggle').checked=false">Work</a>
+    <a href="https://epsilver.xyz" target="_blank" rel="noopener">Epsilver</a>
+  </div>
+
   <nav>
     <a href="#home" class="nav-logo">
-      <!-- Logo SVG -->
       <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="50" cy="50" r="47" fill="#000" stroke="#fff" stroke-width="3"/>
         <rect x="29" y="18" width="42" height="64" fill="#000" stroke="#fff" stroke-width="5" rx="1"/>
@@ -272,6 +367,11 @@
       <li><a href="#work">Work</a></li>
       <li><a href="https://epsilver.xyz" target="_blank" rel="noopener">Epsilver</a></li>
     </ul>
+    <label for="nav-toggle" class="nav-burger" aria-label="Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
   </nav>
 
   <!-- HOME -->
