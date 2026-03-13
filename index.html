@@ -268,9 +268,17 @@
       margin-bottom: 64px;
     }
 
+    .project-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+
     .project {
       display: grid;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 48px 1fr auto;
       align-items: center;
       gap: 24px;
       text-decoration: none;
@@ -371,6 +379,7 @@
     <p class="work-header">Work</p>
 
     <a class="project" href="https://wickrunner.com" target="_blank" rel="noopener">
+      <img class="project-icon" src="img/wickrunner.png" alt="Wickrunner" />
       <div>
         <div class="project-name">Wickrunner</div>
         <div class="project-desc">The ONLY competitive stock trading game.</div>
@@ -379,6 +388,7 @@
     </a>
 
     <a class="project" href="https://epsilver.xyz" target="_blank" rel="noopener">
+      <img class="project-icon" src="img/epsilver.png" alt="Epsilver" />
       <div>
         <div class="project-name">Epsilver</div>
         <div class="project-desc">Art.</div>
