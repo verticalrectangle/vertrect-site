@@ -257,7 +257,8 @@
     #work {
       padding-top: 140px;
       padding-bottom: 100px;
-      max-width: 860px;
+      max-width: 1000px;
+      margin: 0 auto;
     }
 
     .work-header {
@@ -268,42 +269,57 @@
       margin-bottom: 64px;
     }
 
+    .work-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+    }
+
+    .project {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
+    }
+
+    .project:hover {
+      border-color: rgba(255,255,255,0.5);
+      transform: translateY(-2px);
+    }
+
+    .project-thumbnail {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      object-fit: cover;
+    }
+
+    .project-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+    }
+
     .project-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 10px;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
       object-fit: contain;
       flex-shrink: 0;
     }
 
-    .project {
-      display: grid;
-      grid-template-columns: 48px 1fr auto;
-      align-items: center;
-      gap: 24px;
-      text-decoration: none;
-      color: var(--white);
-      padding: 40px 0;
-      border-top: 1px solid rgba(255,255,255,0.25);
-      transition: box-shadow 0.2s ease;
-      cursor: pointer;
-    }
-
-    .project:last-child {
-      border-bottom: 1px solid rgba(255,255,255,0.25);
-    }
-
-    .project:hover {
-      box-shadow: 0 -1px 0 rgba(255,255,255,0.7), 0 1px 0 rgba(255,255,255,0.7);
-    }
-
     .project-name {
-      font-size: clamp(24px, 4vw, 42px);
+      font-size: 20px;
       font-weight: 800;
       letter-spacing: -0.01em;
       text-transform: uppercase;
       line-height: 1;
-      margin-bottom: 10px;
+      margin-bottom: 4px;
       transition: opacity 0.2s ease;
     }
 
@@ -312,16 +328,16 @@
     }
 
     .project-desc {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 400;
       letter-spacing: 0.04em;
       opacity: 0.45;
-      max-width: 480px;
     }
 
     .project-arrow {
-      font-size: 22px;
+      font-size: 18px;
       opacity: 0.2;
+      margin-left: auto;
       transition: opacity 0.2s ease, transform 0.2s ease;
     }
 
@@ -337,6 +353,10 @@
 
       #work {
         padding-top: 100px;
+      }
+
+      .work-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -378,23 +398,31 @@
   <section id="work" class="page">
     <p class="work-header">Work</p>
 
-    <a class="project" href="https://wickrunner.com" target="_blank" rel="noopener">
-      <img class="project-icon" src="img/wickrunner.png" alt="Wickrunner" />
-      <div>
-        <div class="project-name">Wickrunner</div>
-        <div class="project-desc">The ONLY competitive stock trading game.</div>
-      </div>
-      <span class="project-arrow">↗</span>
-    </a>
+    <div class="work-grid">
+      <a class="project" href="https://wickrunner.com" target="_blank" rel="noopener">
+        <img class="project-thumbnail" src="img/wickrunner-og.png" alt="Wickrunner preview" />
+        <div class="project-info">
+          <img class="project-icon" src="img/wickrunner.png" alt="Wickrunner" />
+          <div>
+            <div class="project-name">Wickrunner</div>
+            <div class="project-desc">The ONLY competitive stock trading game.</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
 
-    <a class="project" href="https://epsilver.xyz" target="_blank" rel="noopener">
-      <img class="project-icon" src="img/epsilver.png" alt="Epsilver" />
-      <div>
-        <div class="project-name">Epsilver</div>
-        <div class="project-desc">Art.</div>
-      </div>
-      <span class="project-arrow">↗</span>
-    </a>
+      <a class="project" href="https://epsilver.xyz" target="_blank" rel="noopener">
+        <img class="project-thumbnail" src="img/epsilver-art.png" alt="Epsilver preview" />
+        <div class="project-info">
+          <img class="project-icon" src="img/epsilver.png" alt="Epsilver" />
+          <div>
+            <div class="project-name">Epsilver</div>
+            <div class="project-desc">Art.</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
+    </div>
 
   </section>
 
