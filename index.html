@@ -70,7 +70,7 @@
     }
 
     /* hide nav on home */
-    body:not(:has(#work:target)) nav {
+    body:not(:has(#work:target)):not(:has(#silvertune:target)) nav {
       display: none;
     }
 
@@ -150,6 +150,14 @@
       }
     }
 
+    .nav-link-work {
+      display: none;
+    }
+
+    body:has(#silvertune:target) .nav-link-work {
+      display: list-item;
+    }
+
     /* ── PAGES ── */
 
     .page {
@@ -173,6 +181,14 @@
     }
 
     body:has(#work:target) #home {
+      display: none;
+    }
+
+    #silvertune:target {
+      display: block;
+    }
+
+    body:has(#silvertune:target) #home {
       display: none;
     }
 
@@ -299,6 +315,10 @@
       object-fit: cover;
     }
 
+    .project-thumbnail--placeholder {
+      background: rgba(255,255,255,0.03);
+    }
+
     .project-info {
       display: flex;
       align-items: center;
@@ -360,6 +380,115 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* ── PROJECT DETAIL ── */
+
+    #silvertune {
+      padding-top: 140px;
+      padding-bottom: 100px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .project-page-header {
+      margin-bottom: 48px;
+    }
+
+    .project-page-title {
+      font-size: clamp(36px, 7vw, 80px);
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 14px;
+    }
+
+    .project-page-tagline {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.45;
+      margin-bottom: 28px;
+    }
+
+    .project-page-link {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 10px 22px;
+      transition: border-color 0.2s ease;
+    }
+
+    .project-page-link:hover {
+      border-color: rgba(255,255,255,0.8);
+    }
+
+    .project-page-image {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.03);
+      margin-bottom: 64px;
+    }
+
+    .project-page-body {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.75;
+      opacity: 0.8;
+      max-width: 680px;
+      margin-bottom: 64px;
+    }
+
+    .project-page-specs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .spec-item {
+      padding: 24px;
+      border-right: 1px solid rgba(255,255,255,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .spec-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      margin-bottom: 8px;
+    }
+
+    .spec-value {
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 600px) {
+      #silvertune {
+        padding-top: 100px;
+      }
+
+      .project-page-body {
+        font-size: 16px;
+      }
+
+      .project-page-specs {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
   </style>
 </head>
 <body>
@@ -374,6 +503,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
+      <li class="nav-link-work"><a href="#work">Work</a></li>
       <li><a href="https://epsilver.xyz" target="_blank" rel="noopener">Art</a></li>
     </ul>
   </nav>
@@ -423,6 +553,58 @@
           <span class="project-arrow">↗</span>
         </div>
       </a>
+
+      <a class="project" href="#silvertune">
+        <!-- swap div for <img class="project-thumbnail" src="img/silvertune-og.png" alt="Silvertune preview" /> when ready -->
+        <div class="project-thumbnail project-thumbnail--placeholder"></div>
+        <div class="project-info">
+          <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="white" transform="rotate(-15 13 27)"/>
+            <rect x="17.5" y="8" width="2.5" height="20" fill="white"/>
+            <path d="M20 8 C28 10 28 17 23 20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div class="project-name">Silvertune</div>
+            <div class="project-desc">Hard pitch correction for Linux.</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
+    </div>
+
+  </section>
+
+  <!-- SILVERTUNE -->
+  <section id="silvertune" class="page">
+
+    <div class="project-page-header">
+      <h1 class="project-page-title">Silvertune</h1>
+      <p class="project-page-tagline">Hard pitch correction for Linux</p>
+      <a class="project-page-link" href="https://github.com/epsilver/silvertune" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+
+    <!-- swap for <img> when ready -->
+    <div class="project-page-image"></div>
+
+    <p class="project-page-body">A real-time CLAP audio plugin that quantizes every note you sing to the nearest tone in your chosen key — instantly, mercilessly, beautifully. The Cher effect. The T-Pain shimmer. The robot in the mirror singing back at you in perfect tune.</p>
+
+    <div class="project-page-specs">
+      <div class="spec-item">
+        <div class="spec-label">Format</div>
+        <div class="spec-value">CLAP</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Language</div>
+        <div class="spec-value">C++17</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Platform</div>
+        <div class="spec-value">Linux</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Detection</div>
+        <div class="spec-value">YIN / Aubio</div>
+      </div>
     </div>
 
   </section>
