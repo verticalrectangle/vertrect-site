@@ -70,7 +70,7 @@
     }
 
     /* hide nav on home */
-    body:not(:has(#projects:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#epsilver:target)):not(:has(#silvertune-pedal:target)) nav {
+    body:not(:has(#projects:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#epsilver:target)):not(:has(#silvertune-pedal:target)):not(:has(#cei:target)) nav {
       display: none;
     }
 
@@ -157,7 +157,8 @@
     body:has(#silvertune:target) .nav-link-projects,
     body:has(#wickrunner:target) .nav-link-projects,
     body:has(#epsilver:target) .nav-link-projects,
-    body:has(#silvertune-pedal:target) .nav-link-projects {
+    body:has(#silvertune-pedal:target) .nav-link-projects,
+    body:has(#cei:target) .nav-link-projects {
       display: list-item;
     }
 
@@ -190,14 +191,16 @@
     #silvertune:target,
     #wickrunner:target,
     #epsilver:target,
-    #silvertune-pedal:target {
+    #silvertune-pedal:target,
+    #cei:target {
       display: block;
     }
 
     body:has(#silvertune:target) #home,
     body:has(#wickrunner:target) #home,
     body:has(#epsilver:target) #home,
-    body:has(#silvertune-pedal:target) #home {
+    body:has(#silvertune-pedal:target) #home,
+    body:has(#cei:target) #home {
       display: none;
     }
 
@@ -440,7 +443,8 @@
     #silvertune,
     #wickrunner,
     #epsilver,
-    #silvertune-pedal {
+    #silvertune-pedal,
+    #cei {
       padding-top: 140px;
       padding-bottom: 100px;
       max-width: 1000px;
@@ -537,7 +541,8 @@
       #silvertune,
       #wickrunner,
       #epsilver,
-      #silvertune-pedal {
+      #silvertune-pedal,
+      #cei {
         padding-top: 100px;
       }
 
@@ -642,6 +647,21 @@
         </div>
       </a>
 
+      <a class="project" href="#cei">
+        <img class="project-thumbnail" src="img/cei-og.png" alt="Cultural Extremity Index preview" />
+        <div class="project-info">
+          <svg class="project-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="50" fill="white"/>
+            <polygon points="50,15 82.94,38.75 70.71,78.75 29.29,78.75 17.06,38.75" fill="black"/>
+          </svg>
+          <div>
+            <div class="project-name">Cultural Extremity Index</div>
+            <div class="project-desc">How extreme is your taste?</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
+
       <a class="project" href="#wickrunner">
         <img class="project-thumbnail" src="img/wickrunner-og.png" alt="Wickrunner preview" />
         <div class="project-info">
@@ -709,6 +729,40 @@
       <div class="spec-item">
         <div class="spec-label">Detection</div>
         <div class="spec-value">YIN / Aubio</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CEI -->
+  <section id="cei" class="page">
+
+    <div class="project-page-header">
+      <h1 class="project-page-title">Cultural Extremity Index</h1>
+      <p class="project-page-tagline">How extreme is your taste?</p>
+      <a class="project-page-link" href="https://github.com/epsilver/epsilver-cei" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+
+    <img class="project-page-image" src="img/cei-og.png" alt="Cultural Extremity Index preview" />
+
+    <p class="project-page-body">A tool for measuring how far outside the mainstream your cultural taste runs — across music, film, and more. Built to answer the question nobody asks but everyone wonders.</p>
+
+    <div class="project-page-specs">
+      <div class="spec-item">
+        <div class="spec-label">Type</div>
+        <div class="spec-value">Tool</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Platform</div>
+        <div class="spec-value">Web</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Data</div>
+        <div class="spec-value">Music / Film</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Status</div>
+        <div class="spec-value">In Dev</div>
       </div>
     </div>
 
