@@ -70,7 +70,7 @@
     }
 
     /* hide nav on home */
-    body:not(:has(#projects:target)):not(:has(#silvertune:target)) nav {
+    body:not(:has(#projects:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#epsilver:target)):not(:has(#silvertune-pedal:target)) nav {
       display: none;
     }
 
@@ -154,7 +154,10 @@
       display: none;
     }
 
-    body:has(#silvertune:target) .nav-link-projects {
+    body:has(#silvertune:target) .nav-link-projects,
+    body:has(#wickrunner:target) .nav-link-projects,
+    body:has(#epsilver:target) .nav-link-projects,
+    body:has(#silvertune-pedal:target) .nav-link-projects {
       display: list-item;
     }
 
@@ -184,11 +187,17 @@
       display: none;
     }
 
-    #silvertune:target {
+    #silvertune:target,
+    #wickrunner:target,
+    #epsilver:target,
+    #silvertune-pedal:target {
       display: block;
     }
 
-    body:has(#silvertune:target) #home {
+    body:has(#silvertune:target) #home,
+    body:has(#wickrunner:target) #home,
+    body:has(#epsilver:target) #home,
+    body:has(#silvertune-pedal:target) #home {
       display: none;
     }
 
@@ -383,7 +392,10 @@
 
     /* ── PROJECT DETAIL ── */
 
-    #silvertune {
+    #silvertune,
+    #wickrunner,
+    #epsilver,
+    #silvertune-pedal {
       padding-top: 140px;
       padding-bottom: 100px;
       max-width: 1000px;
@@ -477,7 +489,10 @@
     }
 
     @media (max-width: 600px) {
-      #silvertune {
+      #silvertune,
+      #wickrunner,
+      #epsilver,
+      #silvertune-pedal {
         padding-top: 100px;
       }
 
@@ -530,7 +545,7 @@
     <p class="work-header">Projects</p>
 
     <div class="work-grid">
-      <a class="project" href="https://wickrunner.com" target="_blank" rel="noopener">
+      <a class="project" href="#wickrunner">
         <img class="project-thumbnail" src="img/wickrunner-og.png" alt="Wickrunner preview" />
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -541,18 +556,6 @@
           <div>
             <div class="project-name">Wickrunner</div>
             <div class="project-desc">The ONLY competitive stock trading game.</div>
-          </div>
-          <span class="project-arrow">↗</span>
-        </div>
-      </a>
-
-      <a class="project" href="https://epsilver.xyz" target="_blank" rel="noopener">
-        <img class="project-thumbnail" src="img/epsilver-art.png" alt="Epsilver preview" />
-        <div class="project-info">
-          <img class="project-icon" src="img/epsilver.png" alt="Epsilver" />
-          <div>
-            <div class="project-name">Epsilver</div>
-            <div class="project-desc">Art.</div>
           </div>
           <span class="project-arrow">↗</span>
         </div>
@@ -575,7 +578,7 @@
         </div>
       </a>
 
-      <a class="project" href="https://github.com/verticalrectangle/silvertune-pedal" target="_blank" rel="noopener">
+      <a class="project" href="#silvertune-pedal">
         <div class="project-thumbnail project-thumbnail--placeholder"></div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -589,6 +592,18 @@
           <div>
             <div class="project-name">Silvertune Pedal</div>
             <div class="project-desc">Pitch correction in hardware.</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
+
+      <a class="project" href="#epsilver">
+        <img class="project-thumbnail" src="img/epsilver-art.png" alt="Epsilver preview" />
+        <div class="project-info">
+          <img class="project-icon" src="img/epsilver.png" alt="Epsilver" />
+          <div>
+            <div class="project-name">Epsilver</div>
+            <div class="project-desc">Art.</div>
           </div>
           <span class="project-arrow">↗</span>
         </div>
@@ -627,6 +642,108 @@
       <div class="spec-item">
         <div class="spec-label">Detection</div>
         <div class="spec-value">YIN / Aubio</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- WICKRUNNER -->
+  <section id="wickrunner" class="page">
+
+    <div class="project-page-header">
+      <h1 class="project-page-title">Wickrunner</h1>
+      <p class="project-page-tagline">The only competitive stock trading game</p>
+      <a class="project-page-link" href="https://wickrunner.com" target="_blank" rel="noopener">Visit ↗</a>
+    </div>
+
+    <img class="project-page-image" src="img/wickrunner-og.png" alt="Wickrunner preview" />
+
+    <p class="project-page-body">A competitive real-time stock trading game where players go head-to-head picking positions on live market data. No luck, no random events — just reads, timing, and conviction.</p>
+
+    <div class="project-page-specs">
+      <div class="spec-item">
+        <div class="spec-label">Type</div>
+        <div class="spec-value">Game</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Platform</div>
+        <div class="spec-value">Web</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Mode</div>
+        <div class="spec-value">PVP</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Status</div>
+        <div class="spec-value">Live</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- EPSILVER -->
+  <section id="epsilver" class="page">
+
+    <div class="project-page-header">
+      <h1 class="project-page-title">Epsilver</h1>
+      <p class="project-page-tagline">Art</p>
+      <a class="project-page-link" href="https://epsilver.xyz" target="_blank" rel="noopener">Visit ↗</a>
+    </div>
+
+    <img class="project-page-image" src="img/epsilver-art.png" alt="Epsilver preview" />
+
+    <p class="project-page-body">Digital art and visual work by Alexis Lucio. Glitch, collage, and motion — made under the name epsilver.</p>
+
+    <div class="project-page-specs">
+      <div class="spec-item">
+        <div class="spec-label">Medium</div>
+        <div class="spec-value">Digital</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Artist</div>
+        <div class="spec-value">Epsilver</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Platform</div>
+        <div class="spec-value">Web</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Status</div>
+        <div class="spec-value">Ongoing</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SILVERTUNE PEDAL -->
+  <section id="silvertune-pedal" class="page">
+
+    <div class="project-page-header">
+      <h1 class="project-page-title">Silvertune Pedal</h1>
+      <p class="project-page-tagline">Pitch correction in hardware</p>
+      <a class="project-page-link" href="https://github.com/verticalrectangle/silvertune-pedal" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+
+    <div class="project-page-image"></div>
+
+    <p class="project-page-body">A hardware implementation of the Silvertune pitch correction algorithm. The same hard-tune effect — instant, merciless, in a box you can put on your pedalboard.</p>
+
+    <div class="project-page-specs">
+      <div class="spec-item">
+        <div class="spec-label">Format</div>
+        <div class="spec-value">Pedal</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Language</div>
+        <div class="spec-value">C++</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Platform</div>
+        <div class="spec-value">Embedded</div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-label">Status</div>
+        <div class="spec-value">In Dev</div>
       </div>
     </div>
 
