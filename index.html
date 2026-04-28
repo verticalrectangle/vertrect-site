@@ -70,7 +70,7 @@
     }
 
     /* hide nav on home */
-    body:not(:has(#work:target)):not(:has(#silvertune:target)) nav {
+    body:not(:has(#projects:target)):not(:has(#silvertune:target)) nav {
       display: none;
     }
 
@@ -150,11 +150,11 @@
       }
     }
 
-    .nav-link-work {
+    .nav-link-projects {
       display: none;
     }
 
-    body:has(#silvertune:target) .nav-link-work {
+    body:has(#silvertune:target) .nav-link-projects {
       display: list-item;
     }
 
@@ -176,11 +176,11 @@
       display: flex;
     }
 
-    #work:target {
+    #projects:target {
       display: block;
     }
 
-    body:has(#work:target) #home {
+    body:has(#projects:target) #home {
       display: none;
     }
 
@@ -271,7 +271,7 @@
 
     /* ── WORK ── */
 
-    #work {
+    #projects {
       padding-top: 140px;
       padding-bottom: 100px;
       max-width: 1000px;
@@ -372,7 +372,7 @@
         padding: 0 24px;
       }
 
-      #work {
+      #projects {
         padding-top: 100px;
       }
 
@@ -503,7 +503,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
-      <li class="nav-link-work"><a href="#work">Work</a></li>
+      <li class="nav-link-projects"><a href="#projects">Projects</a></li>
       <li><a href="https://epsilver.xyz" target="_blank" rel="noopener">Art</a></li>
     </ul>
   </nav>
@@ -520,14 +520,14 @@
     <p class="home-tagline">Freelance psyop agency</p>
     <p class="home-tagline">Web development</p>
     <ul class="home-nav">
-      <li><a href="#work">Work</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="https://epsilver.xyz" target="_blank" rel="noopener">Art</a></li>
     </ul>
   </section>
 
-  <!-- WORK -->
-  <section id="work" class="page">
-    <p class="work-header">Work</p>
+  <!-- PROJECTS -->
+  <section id="projects" class="page">
+    <p class="work-header">Projects</p>
 
     <div class="work-grid">
       <a class="project" href="https://wickrunner.com" target="_blank" rel="noopener">
@@ -566,6 +566,25 @@
           <div>
             <div class="project-name">Silvertune</div>
             <div class="project-desc">Hard pitch correction for Linux.</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
+
+      <a class="project" href="https://github.com/verticalrectangle/silvertune-pedal" target="_blank" rel="noopener">
+        <div class="project-thumbnail project-thumbnail--placeholder"></div>
+        <div class="project-info">
+          <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="7" y="10" width="22" height="16" rx="2" stroke="white" stroke-width="2.5"/>
+            <circle cx="13" cy="18" r="3" stroke="white" stroke-width="2"/>
+            <line x1="22" y1="14" x2="25" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="18" x2="25" y2="18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="13" y1="26" x2="13" y2="29" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="26" x2="23" y2="29" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div class="project-name">Silvertune Pedal</div>
+            <div class="project-desc">Pitch correction in hardware.</div>
           </div>
           <span class="project-arrow">↗</span>
         </div>
