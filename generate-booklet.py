@@ -458,6 +458,33 @@ html, body {{
   max-width: 5.5in;
 }}
 
+.dg-members {{
+  display: flex;
+  flex-direction: column;
+  gap: 0.08in;
+  margin-top: 0.12in;
+}}
+
+.dg-member {{
+  display: flex;
+  gap: 0.12in;
+  align-items: baseline;
+}}
+
+.dg-member-name {{
+  font-size: 0.13in;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}}
+
+.dg-member-role {{
+  font-size: 0.12in;
+  font-weight: 400;
+  opacity: 0.65;
+}}
+
 /* ── BACK COVER ── */
 .back-cover {{
   display: flex;
@@ -701,6 +728,11 @@ PAGE_ARTISTS = f"""
       {make_qr_svg("https://verticalrectangle.com/#depravity-girlz", "0.55in")}
     </div>
     <p class="artist-body">A collective of cyber artists and content creators.</p>
+    <div class="dg-members">
+      <div class="dg-member"><span class="dg-member-name">Elise</span><span class="dg-member-role">Queen of the internet (currently in exile)</span></div>
+      <div class="dg-member"><span class="dg-member-name">Nick</span><span class="dg-member-role">A really funny guy so that's why we let him be the only male member.</span></div>
+      <div class="dg-member"><span class="dg-member-name">Alexis</span><span class="dg-member-role">Clout sourcer and freelance psyop</span></div>
+    </div>
   </div>
 
   {make_footer()}
