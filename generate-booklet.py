@@ -538,9 +538,9 @@ COMPANY = f"""
 PAGE_SILVERTUNE = project_page(
     icon_html=SILVERTUNE_SVG,
     name="Silvertune",
-    tagline="Hard pitch correction for Linux",
+    tagline="An Industry-Standard, 100% FLOSS Autotune. Only 74KBs.",
     image_html=logo_thumb(SILVERTUNE_SVG, "Silvertune"),
-    body="A real-time CLAP audio plugin for Linux that locks your pitch to the nearest note in any chosen key. Instant, merciless, and musical. The Cher effect. The T-Pain shimmer. The robot in the mirror singing back at you in perfect tune.",
+    body="A real-time CLAP and VST3 audio plugin that locks your pitch to the nearest note in any chosen key. Instant, merciless, and musical. The Cher effect. The T-Pain shimmer. The Yeezy edge. Your soul in the mirror singing back at you in perfect tune.",
     spec_pairs=[
         ("Format", "CLAP"),
         ("Language", "C++17"),
@@ -570,7 +570,7 @@ PAGE_CEI = project_page(
     name="Cultural Extremity Index",
     tagline="How extreme is your taste?",
     image_html=img_thumb(cei_og_b64),
-    body="A tool for measuring how far outside the mainstream your cultural taste runs, across music, film, and more. Built to answer the question nobody asks but everyone wonders.",
+    body="A tool for measuring how far outside the mainstream you are. Built to answer the question nobody asks but everyone wonders.",
     spec_pairs=[
         ("Format", "Web App"),
         ("Language", "JavaScript"),
