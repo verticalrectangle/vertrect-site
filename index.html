@@ -657,6 +657,12 @@
     /* member roster (Depravity Girlz style) */
     .member-section { margin-top: 64px; }
 
+    .member-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
     .member-section-header {
       font-size: 26px;
       font-weight: 700;
@@ -669,8 +675,7 @@
     }
 
     .member-entry {
-      padding: 32px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0;
     }
 
     .member-name {
@@ -687,7 +692,7 @@
       font-weight: 500;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      opacity: 0.4;
+      opacity: 1;
       margin-bottom: 16px;
     }
 
@@ -1125,6 +1130,7 @@
     <div class="member-section">
       <p class="member-section-header">Members</p>
 
+      <div class="member-grid">
       <div class="member-entry">
         <div class="member-carousel">
           <img class="member-carousel-slide" style="animation-delay:0s"   src="img/C8B9C76C-0F2D-4D3C-96E1-57B2CC1F1929.jpg" alt="" />
@@ -1166,6 +1172,7 @@
         </div>
       </div>
 
+      </div> <!-- end member-grid -->
     </div>
   </section>
 
