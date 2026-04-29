@@ -1070,7 +1070,9 @@
   </section>
 
   <script>
-const slides = document.querySelectorAll('#epsilver-carousel .carousel-slide');
+    window.addEventListener('hashchange', () => window.scrollTo(0, 0));
+
+    const slides = document.querySelectorAll('#epsilver-carousel .carousel-slide');
     let current = 0;
     setInterval(() => {
       slides[current].classList.remove('active');
