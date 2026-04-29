@@ -4,7 +4,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).parent
 
-logo_b64 = base64.b64encode((ROOT / "logo.png").read_bytes()).decode()
+logo_b64 = base64.b64encode((ROOT / "logo-large.png").read_bytes()).decode()
 font_var_b64   = base64.b64encode((ROOT / "fonts/InterVariable.woff2").read_bytes()).decode()
 font_black_b64 = base64.b64encode((ROOT / "fonts/Inter-Black.otf").read_bytes()).decode()
 
