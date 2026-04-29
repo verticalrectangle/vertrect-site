@@ -584,10 +584,10 @@ PAGE_CEI = project_page(
 
 PAGE_WICKRUNNER = project_page(
     icon_html=WICKRUNNER_SVG,
-    name="[Project Name]",
-    tagline="[Tagline]",
+    name="WICKRUNNER_SVG",
+    tagline="Competetive trading game",
     image_html=img_thumb(wickrunner_og_b64),
-    body="[Project description — coming soon.]",
+    body="Wickrunner is a dystopian stock trading game set in a world governed by six massive corporations that maintain an endless conflict known as the Forever War. These entities form a closed ecosystem where NEON provides military AI, AURA develops psionic super soldiers, and BYTE launders profits through untraceable cryptocurrency, while other firms manage space expansion, public distraction, and soldier memories. Players act as opportunistic investors within this grim reality, trading stocks in these megacorporations to profit from the same military contracts and societal control that keep the world in a state of profitable chaos. Powered by our lightChart charting engine.",
     spec_pairs=[
         ("Format", "[Value]"),
         ("Language", "[Value]"),
