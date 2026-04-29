@@ -624,16 +624,23 @@
       overflow: hidden;
     }
 
+    @keyframes carousel-fade {
+      0%   { opacity: 0; }
+      3%   { opacity: 1; }
+      17%  { opacity: 1; }
+      20%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
     .carousel-slide {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
       object-fit: cover;
       opacity: 0;
-      transition: opacity 0.9s ease;
+      animation: carousel-fade 17.5s infinite;
+      animation-fill-mode: backwards;
     }
-
-    .carousel-slide.active { opacity: 1; }
 
     .artist-page-body {
       font-size: 18px;
@@ -1034,12 +1041,12 @@
       <a class="artist-page-link" href="mailto:alexis@epsilver.xyz">alexis@epsilver.xyz ↗</a>
     </div>
 
-    <div class="artist-page-art-carousel" id="epsilver-carousel">
-      <img class="carousel-slide active" src="https://epsilver.xyz/assets/art/llunatic.png" alt="" />
-      <img class="carousel-slide" src="https://epsilver.xyz/assets/art/numa%20numa.png" alt="" />
-      <img class="carousel-slide" src="https://epsilver.xyz/assets/art/say%20to%20me.png" alt="" />
-      <img class="carousel-slide" src="https://epsilver.xyz/assets/art/sister%20golden%20hair.jpeg" alt="" />
-      <img class="carousel-slide" src="https://epsilver.xyz/assets/art/slit%20your%20throat%20you%20stupid%20fucking%20moid.png" alt="" />
+    <div class="artist-page-art-carousel">
+      <img class="carousel-slide" style="animation-delay:0s"    src="https://epsilver.xyz/assets/art/llunatic.png" alt="" />
+      <img class="carousel-slide" style="animation-delay:3.5s"  src="https://epsilver.xyz/assets/art/numa%20numa.png" alt="" />
+      <img class="carousel-slide" style="animation-delay:7s"    src="https://epsilver.xyz/assets/art/say%20to%20me.png" alt="" />
+      <img class="carousel-slide" style="animation-delay:10.5s" src="https://epsilver.xyz/assets/art/sister%20golden%20hair.jpeg" alt="" />
+      <img class="carousel-slide" style="animation-delay:14s"   src="https://epsilver.xyz/assets/art/slit%20your%20throat%20you%20stupid%20fucking%20moid.png" alt="" />
     </div>
 
     <p class="artist-page-body">Digital art, music, and writing made under the name epsilver. Glitch, collage, and motion. Also publishes a blog.</p>
@@ -1069,18 +1076,5 @@
     </div>
   </section>
 
-  <script>
-    document.querySelectorAll('a[href^="#"]').forEach(a =>
-      a.addEventListener('click', () => setTimeout(() => window.scrollTo(0, 0), 0))
-    );
-
-    const slides = document.querySelectorAll('#epsilver-carousel .carousel-slide');
-    let current = 0;
-    setInterval(() => {
-      slides[current].classList.remove('active');
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
-    }, 3500);
-  </script>
 </body>
 </html>
