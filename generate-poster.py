@@ -80,7 +80,7 @@ body {{
   font-size: 0.76in;
   font-weight: 400;
   letter-spacing: 0.06em;
-  opacity: 0.5;
+  opacity: 1;
 }}
 </style>
 </head>
