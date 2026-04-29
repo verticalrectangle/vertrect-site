@@ -555,9 +555,9 @@ PAGE_SILVERTUNE = project_page(
 PAGE_PEDAL = project_page(
     icon_html=PEDAL_SVG,
     name="Silvertune Pedal",
-    tagline="Pitch correction in hardware",
+    tagline="Silvtertune in hardware",
     image_html=logo_thumb(PEDAL_SVG, "Silvertune Pedal"),
-    body="Silvertune in hardware. The same pitch correction algorithm built into a pedalboard-ready enclosure. Plug in, choose your key, and sing in tune.",
+    body="The same pitch correction algorithm built into a pedalboard-ready enclosure. Plug in, choose your key, and sing in tune.",
     spec_pairs=[
         ("Format", "Pedal"),
         ("Language", "C++"),
@@ -584,7 +584,7 @@ PAGE_CEI = project_page(
 
 PAGE_WICKRUNNER = project_page(
     icon_html=WICKRUNNER_SVG,
-    name="WICKRUNNER_SVG",
+    name="WICKRUNNER",
     tagline="A competetive trading game",
     image_html=img_thumb(wickrunner_og_b64),
     body="Wickrunner is a dystopian stock trading game set in a world governed by six massive corporations that maintain an endless conflict known as the Forever War. These entities form a closed ecosystem where NEON provides military AI, AURA develops psionic super soldiers, and BYTE launders profits through untraceable cryptocurrency, while other firms manage space expansion, public distraction, and soldier memories. Players act as opportunistic investors within this grim reality, trading stocks in these megacorporations to profit from the same military contracts and societal control that keep the world in a state of profitable chaos. Powered by our lightChart charting engine.",
