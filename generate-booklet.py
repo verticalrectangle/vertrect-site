@@ -487,6 +487,34 @@ html, body {{
   opacity: 1;
 }}
 
+.dg-roster {{
+  display: flex;
+  flex-direction: column;
+  gap: 0.35in;
+  margin-top: 0.3in;
+}}
+
+.dg-roster-member {{
+  border-top: 1px solid rgba(255,255,255,0.15);
+  padding-top: 0.2in;
+}}
+
+.dg-roster-name {{
+  font-family: 'InterBlack', sans-serif;
+  font-size: 0.34in;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 0.1in;
+}}
+
+.dg-roster-role {{
+  font-size: 0.15in;
+  font-weight: 400;
+  line-height: 1.6;
+}}
+
 /* ── BACK COVER ── */
 .back-cover {{
   display: flex;
@@ -734,7 +762,12 @@ PAGE_ARTISTS = f"""
     <p class="artist-body">Published author and artist. timhrklit.com</p>
   </div>
 
-  <div class="artist-entry">
+  {make_footer()}
+</div>"""
+
+PAGE_DG = f"""
+<div class="page artists-page">
+  <div class="artist-entry" style="border-bottom:none;padding-bottom:0.2in;">
     <div class="artist-header">
       <div class="artist-header-left">
         <div class="artist-icon">{DG_ICON_SVG}</div>
@@ -746,10 +779,20 @@ PAGE_ARTISTS = f"""
       {make_qr_svg("https://verticalrectangle.com/#depravity-girlz", "0.55in")}
     </div>
     <p class="artist-body">A collective of cyber artists and content creators. We do tiktok. We do X.</p>
-    <div class="dg-members">
-      <div class="dg-member"><span class="dg-member-name">Elise</span><span class="dg-member-role">Queen of the internet (currently in exile)</span></div>
-      <div class="dg-member"><span class="dg-member-name">Nick</span><span class="dg-member-role">A really funny guy so that's why we let him be the only male member.</span></div>
-      <div class="dg-member"><span class="dg-member-name">Alexis</span><span class="dg-member-role">Clout sourcer and freelance psyop</span></div>
+  </div>
+
+  <div class="dg-roster">
+    <div class="dg-roster-member">
+      <div class="dg-roster-name">Elise</div>
+      <div class="dg-roster-role">Queen of the internet (currently in exile)</div>
+    </div>
+    <div class="dg-roster-member">
+      <div class="dg-roster-name">Nick</div>
+      <div class="dg-roster-role">A really funny guy so that's why we let him be the only male member.</div>
+    </div>
+    <div class="dg-roster-member">
+      <div class="dg-roster-name">Alexis</div>
+      <div class="dg-roster-role">Clout sourcer and freelance psyop</div>
     </div>
   </div>
 
@@ -778,6 +821,7 @@ HTML = f"""<!DOCTYPE html>
 {PAGE_CEI}
 {PAGE_WICKRUNNER}
 {PAGE_ARTISTS}
+{PAGE_DG}
 {BACK_COVER}
 </body>
 </html>"""
@@ -793,6 +837,6 @@ with sync_playwright() as pw:
         print_background=True,
         margin={"top": "0", "right": "0", "bottom": "0", "left": "0"},
     )
-    print("✓  booklet.pdf  (8.5×11in letter, 9 pages, print-ready)")
+    print("✓  booklet.pdf  (8.5×11in letter, 10 pages, print-ready)")
     browser.close()
     print("\nDone. Send to printer.")
