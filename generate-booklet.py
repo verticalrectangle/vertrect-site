@@ -482,7 +482,7 @@ html, body {{
 .dg-member-role {{
   font-size: 0.12in;
   font-weight: 400;
-  opacity: 0.65;
+  opacity: 1;
 }}
 
 /* ── BACK COVER ── */
