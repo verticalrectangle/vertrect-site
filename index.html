@@ -54,7 +54,7 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── NAV (work page only) ── */
+    /* ── NAV ── */
 
     nav {
       position: fixed;
@@ -70,7 +70,7 @@
     }
 
     /* hide nav on home */
-    body:not(:has(#projects:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#epsilver:target)):not(:has(#silvertune-pedal:target)):not(:has(#cei:target)) nav {
+    body:not(:has(#projects:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#epsilver:target)):not(:has(#silvertune-pedal:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)) nav {
       display: none;
     }
 
@@ -180,11 +180,15 @@
       display: flex;
     }
 
-    #projects:target {
+    #projects:target,
+    #connect:target,
+    #artists:target {
       display: block;
     }
 
-    body:has(#projects:target) #home {
+    body:has(#projects:target) #home,
+    body:has(#connect:target) #home,
+    body:has(#artists:target) #home {
       display: none;
     }
 
@@ -554,6 +558,188 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
+
+    /* ── CONNECT ── */
+
+    #connect {
+      padding-top: 140px;
+      padding-bottom: 100px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .connect-header {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 64px;
+    }
+
+    .connect-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-bottom: none;
+    }
+
+    .connect-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      text-decoration: none;
+      color: var(--white);
+      transition: background 0.2s ease;
+    }
+
+    .connect-item:hover {
+      background: rgba(255,255,255,0.04);
+    }
+
+    .connect-item-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      margin-bottom: 6px;
+    }
+
+    .connect-item-value {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .connect-item-arrow {
+      font-size: 18px;
+      opacity: 0.25;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .connect-item:hover .connect-item-arrow {
+      opacity: 1;
+      transform: translate(4px, -4px);
+    }
+
+    @media (max-width: 600px) {
+      #connect {
+        padding-top: 100px;
+      }
+
+      .connect-item-value {
+        font-size: 16px;
+      }
+    }
+
+    /* ── ARTISTS ── */
+
+    #artists {
+      padding-top: 140px;
+      padding-bottom: 100px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .artists-header {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 64px;
+    }
+
+    .artist-entry {
+      margin-bottom: 80px;
+    }
+
+    .artist-name {
+      font-size: clamp(36px, 7vw, 72px);
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .artist-handle {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.45;
+      margin-bottom: 36px;
+    }
+
+    .artist-art {
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.03);
+      margin-bottom: 36px;
+    }
+
+    .artist-bio {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.75;
+      opacity: 0.8;
+      max-width: 680px;
+      margin-bottom: 36px;
+    }
+
+    .artist-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .artist-link {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 10px 22px;
+      transition: border-color 0.2s ease;
+    }
+
+    .artist-link:hover {
+      border-color: rgba(255,255,255,0.8);
+    }
+
+    .artists-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin: 64px 0;
+    }
+
+    .artists-more {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.25;
+    }
+
+    @media (max-width: 600px) {
+      #artists {
+        padding-top: 100px;
+      }
+
+      .artist-bio {
+        font-size: 16px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -569,7 +755,8 @@
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
       <li class="nav-link-projects"><a href="#projects">Projects</a></li>
-      <li><a href="https://epsilver.xyz" target="_blank" rel="noopener">Art</a></li>
+      <li><a href="#connect">Connect</a></li>
+      <li><a href="#artists">Artists</a></li>
     </ul>
   </nav>
 
@@ -585,7 +772,8 @@
     <p class="home-tagline">Independent creative technology studio</p>
     <ul class="home-nav">
       <li><a href="#projects">Projects</a></li>
-      <li><a href="https://epsilver.xyz" target="_blank" rel="noopener">Art</a></li>
+      <li><a href="#connect">Connect</a></li>
+      <li><a href="#artists">Artists</a></li>
     </ul>
   </section>
 
@@ -677,7 +865,7 @@
         </div>
       </a>
 
-      <a class="project" href="#epsilver">
+      <a class="project" href="#artists">
         <img class="project-thumbnail" src="img/epsilver-art.png" alt="Epsilver preview" />
         <div class="project-info">
           <img class="project-icon" src="img/epsilver.png" alt="Epsilver" />
@@ -768,29 +956,6 @@
 
   </section>
 
-  <!-- EPSILVER -->
-  <section id="epsilver" class="page">
-
-    <div class="project-page-header">
-      <h1 class="project-page-title">Epsilver</h1>
-      <p class="project-page-tagline">Art</p>
-      <a class="project-page-link" href="https://epsilver.xyz" target="_blank" rel="noopener">Visit ↗</a>
-    </div>
-
-    <img class="project-page-image" src="img/epsilver-art.png" alt="Epsilver preview" />
-
-    <p class="project-page-body">Digital art and visual work by Alexis Lucio. Glitch, collage, and motion, made under the name epsilver.</p>
-
-    <div class="project-page-specs">
-      <div class="spec-item"><div class="spec-label">Format</div><div class="spec-value">Digital</div></div>
-      <div class="spec-item"><div class="spec-label">Language</div><div class="spec-value">N/A</div></div>
-      <div class="spec-item"><div class="spec-label">Platform</div><div class="spec-value">Web</div></div>
-      <div class="spec-item"><div class="spec-label">Status</div><div class="spec-value">Ongoing</div></div>
-      <div class="spec-item"><div class="spec-label">License</div><div class="spec-value">N/A</div></div>
-    </div>
-
-  </section>
-
   <!-- SILVERTUNE PEDAL -->
   <section id="silvertune-pedal" class="page">
 
@@ -821,6 +986,60 @@
       <div class="spec-item"><div class="spec-label">Status</div><div class="spec-value">In Dev</div></div>
       <div class="spec-item"><div class="spec-label">License</div><div class="spec-value">GPLv3</div></div>
     </div>
+
+  </section>
+
+  <!-- CONNECT -->
+  <section id="connect" class="page">
+    <p class="connect-header">Connect</p>
+
+    <ul class="connect-list">
+      <li>
+        <a class="connect-item" href="mailto:alexis@verticalrectangle.com">
+          <div>
+            <div class="connect-item-label">Email</div>
+            <div class="connect-item-value">alexis@verticalrectangle.com</div>
+          </div>
+          <span class="connect-item-arrow">↗</span>
+        </a>
+      </li>
+      <li>
+        <a class="connect-item" href="https://x.com/VertRect" target="_blank" rel="noopener">
+          <div>
+            <div class="connect-item-label">X / Twitter</div>
+            <div class="connect-item-value">@VertRect</div>
+          </div>
+          <span class="connect-item-arrow">↗</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ARTISTS -->
+  <section id="artists" class="page">
+    <p class="artists-header">Artists</p>
+
+    <div class="artist-entry">
+      <h2 class="artist-name">Alexis Lucio</h2>
+      <p class="artist-handle">epsilver</p>
+
+      <img class="artist-art" src="img/epsilver-art.png" alt="Epsilver art" />
+
+      <p class="artist-bio">Digital art and visual work made under the name epsilver. Glitch, collage, and motion.</p>
+
+      <div class="artist-links">
+        <a class="artist-link" href="https://www.tiktok.com/@epsilver" target="_blank" rel="noopener">TikTok ↗</a>
+        <a class="artist-link" href="https://open.spotify.com/artist/732Bt8NRkphmqJ8o5NLfJY" target="_blank" rel="noopener">Spotify ↗</a>
+        <a class="artist-link" href="https://www.youtube.com/@epsilverart" target="_blank" rel="noopener">YouTube ↗</a>
+        <a class="artist-link" href="https://substack.com/@epsilver" target="_blank" rel="noopener">Substack ↗</a>
+        <a class="artist-link" href="https://soundcloud.com/explodingplasticsilver" target="_blank" rel="noopener">SoundCloud ↗</a>
+        <a class="artist-link" href="https://xhslink.com/m/GTGOY3fsh3" target="_blank" rel="noopener">小红书 ↗</a>
+        <a class="artist-link" href="mailto:alexis@epsilver.xyz">alexis@epsilver.xyz ↗</a>
+      </div>
+    </div>
+
+    <hr class="artists-divider" />
+    <p class="artists-more">More artists coming soon.</p>
 
   </section>
 
