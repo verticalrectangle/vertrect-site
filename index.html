@@ -61,7 +61,7 @@
       padding: 28px 48px;
     }
 
-    body:not(:has(#development:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)) nav {
+    body:not(:has(#development:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#lyric-video-blender:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)) nav {
       display: none;
     }
 
@@ -164,6 +164,7 @@
     #silvertune:target,
     #wickrunner:target,
     #silvertune-pedal:target,
+    #lyric-video-blender:target,
     #cei:target,
     #epsilver:target,
     #depravity-girlz:target,
@@ -172,6 +173,7 @@
     body:has(#silvertune:target) #home,
     body:has(#wickrunner:target) #home,
     body:has(#silvertune-pedal:target) #home,
+    body:has(#lyric-video-blender:target) #home,
     body:has(#cei:target) #home,
     body:has(#epsilver:target) #home,
     body:has(#depravity-girlz:target) #home,
@@ -393,6 +395,7 @@
     #silvertune,
     #wickrunner,
     #silvertune-pedal,
+    #lyric-video-blender,
     #cei {
       padding-top: 64px;
       padding-bottom: 100px;
@@ -483,7 +486,7 @@
     }
 
     @media (max-width: 600px) {
-      #silvertune, #wickrunner, #silvertune-pedal, #cei { padding-top: 100px; }
+      #silvertune, #wickrunner, #silvertune-pedal, #lyric-video-blender, #cei { padding-top: 100px; }
       .project-page-body { font-size: 16px; }
       .project-page-specs { grid-template-columns: repeat(2, 1fr); }
     }
@@ -857,6 +860,29 @@
         </div>
       </a>
 
+      <a class="project" href="#lyric-video-blender">
+        <div class="project-thumbnail project-thumbnail--logo">
+          <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="8" width="26" height="20" rx="2" stroke="white" stroke-width="2.5"/>
+            <line x1="11" y1="15" x2="25" y2="15" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="13" y1="21" x2="23" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="tl-name">Lyric Video Blender</span>
+        </div>
+        <div class="project-info">
+          <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="8" width="26" height="20" rx="2" stroke="white" stroke-width="2.5"/>
+            <line x1="11" y1="15" x2="25" y2="15" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="13" y1="21" x2="23" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div class="project-name">Lyric Video Blender</div>
+            <div class="project-desc">Blender addon that separates vocals, transcribes lyrics with AI, and generates animated lyric videos.</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
+
       <a class="project" href="#cei">
         <img class="project-thumbnail" src="img/cei-og.png" alt="Cultural Extremity Index preview" />
         <div class="project-info">
@@ -983,6 +1009,33 @@
       <div class="spec-item"><div class="spec-label">Platform</div><div class="spec-value">Embedded</div></div>
       <div class="spec-item"><div class="spec-label">Status</div><div class="spec-value">In Dev</div></div>
       <div class="spec-item"><div class="spec-label">License</div><div class="spec-value">GPLv3</div></div>
+    </div>
+  </section>
+
+  <!-- LYRIC VIDEO BLENDER -->
+  <section id="lyric-video-blender" class="page">
+    <a class="back-link" href="#development">← Back</a>
+    <div class="project-page-header">
+      <h1 class="project-page-title">Lyric Video Blender</h1>
+      <p class="project-page-tagline">AI-powered lyric video generation inside Blender.</p>
+      <a class="project-page-link" href="/downloads/lyric_video_blender.zip" download>Download Addon ↓</a>
+      <a class="project-page-link" href="https://github.com/epsilver/lyric-video-blender" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+    <div class="project-page-image project-page-image--logo">
+      <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="8" width="26" height="20" rx="2" stroke="white" stroke-width="2.5"/>
+        <line x1="11" y1="15" x2="25" y2="15" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="13" y1="21" x2="23" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="tl-name">Lyric Video Blender</span>
+    </div>
+    <p class="project-page-body">A Blender addon that turns any audio or video file into a fully animated lyric video. It runs Demucs to separate the vocals, then WhisperX for word-level forced-alignment transcription — giving you precise per-word timestamps automatically. The lyric list populates inside Blender, ready to animate with 20+ built-in styles including Glitch, Typewriter, Corrupt, and more.</p>
+    <div class="project-page-specs">
+      <div class="spec-item"><div class="spec-label">Format</div><div class="spec-value">Blender Addon</div></div>
+      <div class="spec-item"><div class="spec-label">AI</div><div class="spec-value">Demucs + WhisperX</div></div>
+      <div class="spec-item"><div class="spec-label">Platform</div><div class="spec-value">Blender 3.0+</div></div>
+      <div class="spec-item"><div class="spec-label">Status</div><div class="spec-value">Stable</div></div>
+      <div class="spec-item"><div class="spec-label">License</div><div class="spec-value">Public Domain</div></div>
     </div>
   </section>
 
