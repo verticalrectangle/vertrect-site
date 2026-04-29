@@ -1071,7 +1071,11 @@
   </section>
 
   <script>
-const slides = document.querySelectorAll('#epsilver-carousel .carousel-slide');
+    document.querySelectorAll('a[href^="#"]').forEach(a =>
+      a.addEventListener('click', () => setTimeout(() => window.scrollTo(0, 0), 0))
+    );
+
+    const slides = document.querySelectorAll('#epsilver-carousel .carousel-slide');
     let current = 0;
     setInterval(() => {
       slides[current].classList.remove('active');
