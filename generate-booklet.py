@@ -4,7 +4,11 @@ from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).parent
 
-font_b64 = base64.b64encode((ROOT / "fonts/InterVariable.woff2").read_bytes()).decode()
+font_var_b64        = base64.b64encode((ROOT / "fonts/InterVariable.woff2").read_bytes()).decode()
+font_regular_b64    = base64.b64encode((ROOT / "fonts/Inter-Regular.otf").read_bytes()).decode()
+font_medium_b64     = base64.b64encode((ROOT / "fonts/Inter-Medium.otf").read_bytes()).decode()
+font_bold_b64       = base64.b64encode((ROOT / "fonts/Inter-Bold.otf").read_bytes()).decode()
+font_extrabold_b64  = base64.b64encode((ROOT / "fonts/Inter-ExtraBold.otf").read_bytes()).decode()
 
 def b64(rel):
     return base64.b64encode((ROOT / rel).read_bytes()).decode()
@@ -27,8 +31,32 @@ WICKRUNNER_SVG = '<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/
 CSS = f"""
 @font-face {{
   font-family: 'Inter';
-  src: url('data:font/woff2;base64,{font_b64}') format('woff2-variations');
-  font-weight: 100 900;
+  src: url('data:font/otf;base64,{font_regular_b64}') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}}
+@font-face {{
+  font-family: 'Inter';
+  src: url('data:font/otf;base64,{font_medium_b64}') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}}
+@font-face {{
+  font-family: 'Inter';
+  src: url('data:font/otf;base64,{font_bold_b64}') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}}
+@font-face {{
+  font-family: 'Inter';
+  src: url('data:font/otf;base64,{font_extrabold_b64}') format('opentype');
+  font-weight: 800;
+  font-style: normal;
+}}
+@font-face {{
+  font-family: 'InterBlack';
+  src: url('data:font/woff2;base64,{font_var_b64}') format('woff2-variations');
+  font-weight: 900;
   font-style: normal;
 }}
 
@@ -68,6 +96,7 @@ html, body {{
 }}
 
 .cover-title {{
+  font-family: 'InterBlack', sans-serif;
   font-size: 0.68in;
   font-weight: 900;
   letter-spacing: -0.01em;
@@ -98,6 +127,7 @@ html, body {{
 }}
 
 .company-name {{
+  font-family: 'InterBlack', sans-serif;
   font-size: 0.38in;
   font-weight: 900;
   letter-spacing: -0.01em;
@@ -126,6 +156,7 @@ html, body {{
 }}
 
 .member-name {{
+  font-family: 'InterBlack', sans-serif;
   font-size: 0.26in;
   font-weight: 900;
   letter-spacing: -0.01em;
@@ -191,6 +222,7 @@ html, body {{
 }}
 
 .project-name {{
+  font-family: 'InterBlack', sans-serif;
   font-size: 0.44in;
   font-weight: 900;
   letter-spacing: -0.01em;
@@ -239,6 +271,7 @@ html, body {{
 }}
 
 .logo-thumbnail-name {{
+  font-family: 'InterBlack', sans-serif;
   font-size: 0.3in;
   font-weight: 900;
   letter-spacing: -0.01em;
@@ -339,6 +372,7 @@ html, body {{
 }}
 
 .back-wordmark {{
+  font-family: 'InterBlack', sans-serif;
   font-size: 0.22in;
   font-weight: 900;
   letter-spacing: -0.01em;
@@ -430,7 +464,7 @@ PAGE_SILVERTUNE = project_page(
     name="Silvertune",
     tagline="Hard pitch correction for Linux",
     image_html=logo_thumb(SILVERTUNE_SVG, "Silvertune"),
-    body="A real-time CLAP audio plugin that quantizes every note you sing to the nearest tone in your chosen key — instantly, mercilessly, beautifully. The Cher effect. The T-Pain shimmer. The robot in the mirror singing back at you in perfect tune.",
+    body="A real-time CLAP audio plugin for Linux that locks your pitch to the nearest note in any chosen key. Instant, merciless, and musical. The Cher effect. The T-Pain shimmer. The robot in the mirror singing back at you in perfect tune. Licensed under GPLv3.",
     spec_pairs=[
         ("Format", "CLAP"),
         ("Language", "C++17"),
@@ -444,7 +478,7 @@ PAGE_PEDAL = project_page(
     name="Silvertune Pedal",
     tagline="Pitch correction in hardware",
     image_html=logo_thumb(PEDAL_SVG, "Silvertune Pedal"),
-    body="A hardware implementation of the Silvertune pitch correction algorithm. The same hard-tune effect — instant, merciless, in a box you can put on your pedalboard.",
+    body="Silvertune in hardware. The same pitch correction algorithm built into a pedalboard-ready enclosure. Plug in, choose your key, and sing in tune. Licensed under GPLv3.",
     spec_pairs=[
         ("Format", "Pedal"),
         ("Language", "C++"),
@@ -458,7 +492,7 @@ PAGE_CEI = project_page(
     name="Cultural Extremity Index",
     tagline="How extreme is your taste?",
     image_html=img_thumb(cei_og_b64),
-    body="A tool for measuring how far outside the mainstream your cultural taste runs — across music, film, and more. Built to answer the question nobody asks but everyone wonders.",
+    body="A tool for measuring how far outside the mainstream your cultural taste runs, across music, film, and more. Built to answer the question nobody asks but everyone wonders. Licensed under GPLv3.",
     spec_pairs=[
         ("Type", "Tool"),
         ("Platform", "Web"),
@@ -486,7 +520,7 @@ PAGE_EPSILVER = project_page(
     name="Epsilver",
     tagline="Art",
     image_html=img_thumb(epsilver_art_b64),
-    body="Digital art and visual work by Alexis Lucio. Glitch, collage, and motion — made under the name epsilver.",
+    body="Digital art and visual work by Alexis Lucio. Glitch, collage, and motion, made under the name epsilver.",
     spec_pairs=[
         ("Medium", "Digital"),
         ("Artist", "Epsilver"),
