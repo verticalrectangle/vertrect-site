@@ -712,6 +712,35 @@
 
     .member-link:hover { border-color: rgba(255,255,255,0.7); }
 
+    @keyframes carousel-fade-3 {
+      0%   { opacity: 0; }
+      3%   { opacity: 1; }
+      30%  { opacity: 1; }
+      33%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .member-carousel {
+      position: relative;
+      width: 100%;
+      max-width: 300px;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.15);
+      margin-bottom: 20px;
+    }
+
+    .member-carousel-slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top;
+      opacity: 0;
+      animation: carousel-fade-3 10.5s infinite;
+      animation-fill-mode: backwards;
+    }
+
     .members-more {
       font-size: 13px;
       font-weight: 400;
@@ -1089,10 +1118,16 @@
       <p class="member-section-header">Members</p>
 
       <div class="member-entry">
-        <div class="member-name">Member Name</div>
-        <div class="member-role">Role / Handle</div>
+        <div class="member-carousel">
+          <img class="member-carousel-slide" style="animation-delay:0s"   src="img/C8B9C76C-0F2D-4D3C-96E1-57B2CC1F1929.jpg" alt="" />
+          <img class="member-carousel-slide" style="animation-delay:3.5s" src="img/37596606-D369-4ECC-8970-A6D105C12754.jpg" alt="" />
+          <img class="member-carousel-slide" style="animation-delay:7s"   src="img/5F5EAFDE-F09E-4C02-87EC-194BC4E920D8.jpg" alt="" />
+        </div>
+        <div class="member-name">Elise</div>
+        <div class="member-role">queen of the internet (currently in exile)</div>
         <div class="member-links">
-          <a class="member-link" href="#">Link ↗</a>
+          <a class="member-link" href="https://www.tiktok.com/@hotscenekid" target="_blank" rel="noopener">TikTok ↗</a>
+          <a class="member-link" href="https://x.com/hotscenekid4eva" target="_blank" rel="noopener">X ↗</a>
         </div>
       </div>
 
