@@ -415,7 +415,7 @@ html, body {{
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  opacity: 0.55;
+  opacity: 1;
 }}
 
 .artist-body {{
