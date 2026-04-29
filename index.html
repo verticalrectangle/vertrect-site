@@ -65,7 +65,7 @@
       background: var(--black);
     }
 
-    body:not(:has(#projects:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)) nav {
+    body:not(:has(#development:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)) nav {
       display: none;
     }
 
@@ -154,11 +154,11 @@
 
     #home { display: flex; }
 
-    #projects:target,
+    #development:target,
     #connect:target,
     #artists:target { display: block; }
 
-    body:has(#projects:target) #home,
+    body:has(#development:target) #home,
     body:has(#connect:target) #home,
     body:has(#artists:target) #home { display: none; }
 
@@ -243,7 +243,7 @@
 
     /* ── SHARED GRID PAGE ── */
 
-    #projects,
+    #development,
     #artists {
       padding-top: 140px;
       padding-bottom: 100px;
@@ -383,7 +383,7 @@
 
     @media (max-width: 600px) {
       .page { padding: 0 24px; }
-      #projects, #artists { padding-top: 100px; }
+      #development, #artists { padding-top: 100px; }
       .work-grid { grid-template-columns: 1fr; }
     }
 
@@ -730,9 +730,9 @@
     </a>
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#connect">Connect</a></li>
+      <li><a href="#development">Development</a></li>
       <li><a href="#artists">Artists</a></li>
+      <li><a href="#connect">Connect</a></li>
     </ul>
   </nav>
 
@@ -747,15 +747,15 @@
     <h1 class="home-title">Vertical<br>Rectangle</h1>
     <p class="home-tagline">Independent creative technology studio</p>
     <ul class="home-nav">
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#connect">Connect</a></li>
+      <li><a href="#development">Development</a></li>
       <li><a href="#artists">Artists</a></li>
+      <li><a href="#connect">Connect</a></li>
     </ul>
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects" class="page">
-    <p class="work-header">Projects</p>
+  <section id="development" class="page">
+    <p class="work-header">Development</p>
     <div class="work-grid">
 
       <a class="project" href="#silvertune">
@@ -846,7 +846,7 @@
 
   <!-- SILVERTUNE -->
   <section id="silvertune" class="page">
-    <a class="back-link" href="#projects">← Back</a>
+    <a class="back-link" href="#development">← Back</a>
     <div class="project-page-header">
       <h1 class="project-page-title">Silvertune</h1>
       <p class="project-page-tagline">Hard pitch correction for Linux</p>
@@ -872,7 +872,7 @@
 
   <!-- CEI -->
   <section id="cei" class="page">
-    <a class="back-link" href="#projects">← Back</a>
+    <a class="back-link" href="#development">← Back</a>
     <div class="project-page-header">
       <h1 class="project-page-title">Cultural Extremity Index</h1>
       <p class="project-page-tagline">How extreme is your taste?</p>
@@ -891,7 +891,7 @@
 
   <!-- WICKRUNNER -->
   <section id="wickrunner" class="page">
-    <a class="back-link" href="#projects">← Back</a>
+    <a class="back-link" href="#development">← Back</a>
     <div class="project-page-header">
       <h1 class="project-page-title">Wickrunner</h1>
       <p class="project-page-tagline">The only competitive stock trading game</p>
@@ -910,7 +910,7 @@
 
   <!-- SILVERTUNE PEDAL -->
   <section id="silvertune-pedal" class="page">
-    <a class="back-link" href="#projects">← Back</a>
+    <a class="back-link" href="#development">← Back</a>
     <div class="project-page-header">
       <h1 class="project-page-title">Silvertune Pedal</h1>
       <p class="project-page-tagline">Pitch correction in hardware</p>
