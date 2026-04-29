@@ -36,13 +36,13 @@ html, body {{
 }}
 """
 
-# ── FRONT: landscape 3.5" × 2" (content rotated to portrait) ─────────────────
+# ── FRONT: landscape 3.75" × 2.25" with 0.125" bleed ────────────────────────
 FRONT_HTML = f"""<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <style>
-{base_css("3.5in", "2in")}
+{base_css("3.75in", "2.25in")}
 
 body {{
   display: flex;
@@ -86,13 +86,13 @@ body {{
 </body>
 </html>"""
 
-# ── BACK: landscape 3.5" × 2" ────────────────────────────────────────────────
+# ── BACK: landscape 3.75" × 2.25" with 0.125" bleed ─────────────────────────
 BACK_HTML = f"""<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <style>
-{base_css("3.5in", "2in")}
+{base_css("3.75in", "2.25in")}
 
 body {{
   display: flex;
@@ -181,6 +181,6 @@ def render_card(playwright, html: str, base_name: str, w_in: str, h_in: str):
 
 
 with sync_playwright() as pw:
-    render_card(pw, FRONT_HTML, "card-front", "3.5in", "2in")
-    render_card(pw, BACK_HTML,  "card-back",  "3.5in", "2in")
+    render_card(pw, FRONT_HTML, "card-front", "3.75in", "2.25in")
+    render_card(pw, BACK_HTML,  "card-back",  "3.75in", "2.25in")
     print("\nDone. Upload the PDFs to Staples.")
