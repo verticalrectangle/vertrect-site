@@ -24,8 +24,8 @@ HTML = f"""<!DOCTYPE html>
 *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
 
 html, body {{
-  width: 24in;
-  height: 36in;
+  width: 18in;
+  height: 24in;
   overflow: hidden;
   background: #000;
   color: #fff;
@@ -108,11 +108,11 @@ with sync_playwright() as pw:
     page.set_content(HTML, wait_until="networkidle")
     page.pdf(
         path=str(ROOT / "poster.pdf"),
-        width="24in",
-        height="36in",
+        width="18in",
+        height="24in",
         print_background=True,
         margin={"top": "0", "right": "0", "bottom": "0", "left": "0"},
     )
-    print("✓  poster.pdf  (24×36in, print-ready)")
+    print("✓  poster.pdf  (18×24in, print-ready)")
     browser.close()
     print("\nDone. Upload to Staples.")
