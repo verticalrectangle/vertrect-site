@@ -344,9 +344,10 @@ html, body {{
 .footer-icon svg {{ width: 100%; height: 100%; }}
 
 .footer-wordmark {{
+  font-family: 'InterBlack', sans-serif;
   font-size: 0.12in;
-  font-weight: 800;
-  letter-spacing: 0.15em;
+  font-weight: 900;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
 }}
 
@@ -366,19 +367,19 @@ html, body {{
 }}
 
 .back-logo {{
-  width: 1.1in;
-  height: 1.1in;
-  margin-bottom: 0.24in;
+  width: 1.7in;
+  height: 1.7in;
+  margin-bottom: 0.32in;
 }}
 
 .back-wordmark {{
   font-family: 'InterBlack', sans-serif;
-  font-size: 0.22in;
+  font-size: 0.68in;
   font-weight: 900;
   letter-spacing: -0.01em;
   text-transform: uppercase;
   line-height: 1;
-  margin-bottom: 0.55in;
+  margin-bottom: 0.24in;
 }}
 
 .back-contact {{
@@ -537,7 +538,8 @@ PAGE_EPSILVER = project_page(
 BACK_COVER = f"""
 <div class="page back-cover">
   <div class="back-logo">{VR_SVG}</div>
-  <p class="back-wordmark">Vertical Rectangle</p>
+  <h1 class="back-wordmark">Vertical<br>Rectangle</h1>
+  <p class="cover-tagline">Independent creative technology studio</p>
 </div>"""
 
 HTML = f"""<!DOCTYPE html>
