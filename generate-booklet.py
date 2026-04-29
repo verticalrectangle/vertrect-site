@@ -727,7 +727,7 @@ PAGE_ARTISTS = f"""
       </div>
       {make_qr_svg("https://verticalrectangle.com/#depravity-girlz", "0.55in")}
     </div>
-    <p class="artist-body">A collective of cyber artists and content creators.</p>
+    <p class="artist-body">A collective of cyber artists and content creators. We do tiktok. We do X.</p>
     <div class="dg-members">
       <div class="dg-member"><span class="dg-member-name">Elise</span><span class="dg-member-role">Queen of the internet (currently in exile)</span></div>
       <div class="dg-member"><span class="dg-member-name">Nick</span><span class="dg-member-role">A really funny guy so that's why we let him be the only male member.</span></div>
