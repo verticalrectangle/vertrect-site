@@ -653,7 +653,7 @@ PAGE_ARTISTS = f"""
 BACK_COVER = f"""
 <div class="page back-cover">
   <div class="back-logo">{VR_SVG}</div>
-  <h1 class="back-wordmark">Vertical<br>Rectangle</h1>
+  <h1 class="cover-title" style="margin-bottom: 0; line-height: 0.9;">Vertical<br>Rectangle</h1>
   <p class="cover-tagline">Independent creative technology studio</p>
 </div>"""
 
