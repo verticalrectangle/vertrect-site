@@ -515,7 +515,7 @@ COMPANY = f"""
   <p class="company-tagline">Independent creative technology studio</p>
   <div class="company-rule"></div>
   <div class="team-member">
-    <h1 class="artists-page-title">Artists</h1>
+    <h1 class="artists-page-title">STAFF</h1>
 
     <div class="member-name">Alexis Lucio</div>
     <div class="member-role">CEO, visionary leader, creative direction, and developer.</div>
