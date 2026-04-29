@@ -501,8 +501,11 @@ def project_page(icon_html, name, tagline, image_html, body, spec_pairs):
 COVER = f"""
 <div class="page cover-page">
   <div class="cover-logo">{VR_SVG}</div>
-  <h1 class="cover-title">Vertical<br>Rectangle</h1>
+  <h1 class="cover-title" style="margin-bottom: 0; line-height: 0.9;">Vertical<br>Rectangle</h1>
   <p class="cover-tagline">Independent creative technology studio</p>
+  <br><br>
+
+  <h1 class="cover-title">PROJECT AND ARTIST DIRECTORY</h1>
 </div>"""
 
 COMPANY = f"""
@@ -513,11 +516,15 @@ COMPANY = f"""
   <div class="company-rule"></div>
   <div class="team-member">
     <div class="member-name">Alexis Lucio</div>
-    <div class="member-role">CEO / Artist</div>
+    <div class="member-role">CEO, visionary leader, creative direction, and developer.</div>
   </div>
   <div class="team-member">
     <div class="member-name">Leah Macaraeg</div>
-    <div class="member-role">Writer</div>
+    <div class="member-role">Creative direction, editor, and writer.</div>
+  </div>
+  <div class="team-member">
+    <div class="member-name">Timothy Herrick</div>
+    <div class="member-role">Author and guru.</div>
   </div>
   <div class="company-footer">
     <div class="company-footer-url">
@@ -617,7 +624,16 @@ PAGE_ARTISTS = f"""
     </div>
     <p class="artist-body">Creative writing, character concept art, and digital artist.</p>
   </div>
-
+  <div class="artist-entry">
+    <div class="artist-header">
+      <div class="artist-icon">{EKIOZE_ICON_SVG}</div>
+      <div>
+        <div class="artist-name">Timothy Herrick</div>
+        <div class="artist-tagline">Author</div>
+      </div>
+    </div>
+    <p class="artist-body">Published author and artist. timhrklit.com</p>
+  </div>
   <div class="artist-entry">
     <div class="artist-header">
       <div class="artist-icon">{DG_ICON_SVG}</div>

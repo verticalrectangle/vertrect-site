@@ -1,7 +1,36 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:epsilver.xyz)"
+      "WebFetch(domain:epsilver.xyz)",
+      "Bash(gh repo *)",
+      "Bash(gh api *)",
+      "Read(//home/alexis/.nvm/versions/**)",
+      "Read(//usr/local/bin/**)",
+      "Read(//home/alexis/**)",
+      "Read(//usr/bin/**)",
+      "Read(//opt/homebrew/**)",
+      "Bash(command -v node)",
+      "Bash(pip3 install *)",
+      "Bash(python3 -m playwright install chromium)",
+      "Bash(python3 *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "WebFetch(domain:github.com)",
+      "WebSearch",
+      "Bash(curl -s -I https://github.com/epsilver/cei-site)",
+      "Bash(xargs curl *)",
+      "Bash(grep -E \"\\\\.otf$\")",
+      "Bash(unzip -j /tmp/inter.zip \"extras/otf/Inter-Regular.otf\" \"extras/otf/Inter-Medium.otf\" \"extras/otf/Inter-Bold.otf\" \"extras/otf/Inter-ExtraBold.otf\" -d /home/alexis/dev/vertrect-site/fonts/)",
+      "Bash(curl -s https://epsilver.xyz)",
+      "Bash(curl -s https://epsilver.xyz/art.html)",
+      "Bash(curl -s -o \"img/epsilver-art-llunatic.png\" \"https://epsilver.xyz/assets/art/llunatic.png\")",
+      "Bash(curl -s -o \"img/epsilver-art-numa-numa.png\" \"https://epsilver.xyz/assets/art/numa%20numa.png\")",
+      "Bash(curl -s -o \"img/epsilver-art-say-to-me.png\" \"https://epsilver.xyz/assets/art/say%20to%20me.png\")",
+      "Bash(curl -s -o \"img/epsilver-art-sister-golden-hair.jpeg\" \"https://epsilver.xyz/assets/art/sister%20golden%20hair.jpeg\")",
+      "Bash(curl -s -o \"img/epsilver-art-slit.png\" \"https://epsilver.xyz/assets/art/slit%20your%20throat%20you%20stupid%20fucking%20moid.png\")",
+      "Bash(identify /home/alexis/dev/vertrect-site/logo.png)",
+      "Bash(convert /home/alexis/dev/vertrect-site/logo.png -resize 192x192 /home/alexis/dev/vertrect-site/logo.png)"
     ]
   }
 }
