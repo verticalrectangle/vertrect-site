@@ -123,21 +123,20 @@
       .nav-links a { font-size: 14px; }
     }
 
-    .nav-link-projects { display: none; }
-
-    body:has(#silvertune:target) .nav-link-projects,
-    body:has(#wickrunner:target) .nav-link-projects,
-    body:has(#silvertune-pedal:target) .nav-link-projects,
-    body:has(#cei:target) .nav-link-projects {
-      display: list-item;
+    .back-link {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+      opacity: 0.45;
+      margin-bottom: 48px;
+      transition: opacity 0.2s ease;
     }
 
-    .nav-link-artists { display: none; }
-
-    body:has(#epsilver:target) .nav-link-artists,
-    body:has(#depravity-girlz:target) .nav-link-artists {
-      display: list-item;
-    }
+    .back-link:hover { opacity: 1; }
 
     /* ── PAGES ── */
 
@@ -711,10 +710,8 @@
     <ul class="nav-links">
       <li><a href="#home">Home</a></li>
       <li><a href="#projects">Projects</a></li>
-      <li class="nav-link-projects"><a href="#projects">← Projects</a></li>
       <li><a href="#connect">Connect</a></li>
       <li><a href="#artists">Artists</a></li>
-      <li class="nav-link-artists"><a href="#artists">← Artists</a></li>
     </ul>
   </nav>
 
@@ -828,6 +825,7 @@
 
   <!-- SILVERTUNE -->
   <section id="silvertune" class="page">
+    <a class="back-link" href="#projects">← Back</a>
     <div class="project-page-header">
       <h1 class="project-page-title">Silvertune</h1>
       <p class="project-page-tagline">Hard pitch correction for Linux</p>
@@ -853,6 +851,7 @@
 
   <!-- CEI -->
   <section id="cei" class="page">
+    <a class="back-link" href="#projects">← Back</a>
     <div class="project-page-header">
       <h1 class="project-page-title">Cultural Extremity Index</h1>
       <p class="project-page-tagline">How extreme is your taste?</p>
@@ -871,6 +870,7 @@
 
   <!-- WICKRUNNER -->
   <section id="wickrunner" class="page">
+    <a class="back-link" href="#projects">← Back</a>
     <div class="project-page-header">
       <h1 class="project-page-title">Wickrunner</h1>
       <p class="project-page-tagline">The only competitive stock trading game</p>
@@ -889,6 +889,7 @@
 
   <!-- SILVERTUNE PEDAL -->
   <section id="silvertune-pedal" class="page">
+    <a class="back-link" href="#projects">← Back</a>
     <div class="project-page-header">
       <h1 class="project-page-title">Silvertune Pedal</h1>
       <p class="project-page-tagline">Pitch correction in hardware</p>
@@ -996,6 +997,7 @@
 
   <!-- EPSILVER ARTIST PAGE -->
   <section id="epsilver" class="page">
+    <a class="back-link" href="#artists">← Back</a>
     <div class="artist-page-header">
       <h1 class="artist-page-title">Epsilver</h1>
       <p class="artist-page-tagline">Alexis Lucio</p>
@@ -1017,8 +1019,9 @@
     <p class="artist-page-body">Digital art, music, and writing made under the name epsilver. Glitch, collage, and motion. Also publishes a blog.</p>
   </section>
 
-  <!-- DEPRAVITTY GIRLZ -->
+  <!-- DEPRAVITY GIRLZ -->
   <section id="depravity-girlz" class="page">
+    <a class="back-link" href="#artists">← Back</a>
     <div class="artist-page-header">
       <h1 class="artist-page-title">Depravity Girlz</h1>
       <p class="artist-page-tagline">Invest in the future. Invest in depravity.</p>
