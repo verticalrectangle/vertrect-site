@@ -36,20 +36,30 @@ html, body {{
 }}
 """
 
-# ── FRONT: portrait 2" × 3.5" ────────────────────────────────────────────────
+# ── FRONT: landscape 3.5" × 2" (content rotated to portrait) ─────────────────
 FRONT_HTML = f"""<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
 <style>
-{base_css("2in", "3.5in")}
+{base_css("3.5in", "2in")}
 
 body {{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}}
+
+.card-inner {{
+  width: 2in;
+  height: 3.5in;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   padding: 0.28in 0.22in 0.22in;
+  transform: rotate(-90deg);
 }}
 
 .logo {{
@@ -69,8 +79,10 @@ body {{
 </style>
 </head>
 <body>
-  <img class="logo" src="data:image/png;base64,{logo_b64}" alt="" />
-  <div class="wordmark">VERTICAL<br>RECTANGLE</div>
+  <div class="card-inner">
+    <img class="logo" src="data:image/png;base64,{logo_b64}" alt="" />
+    <div class="wordmark">VERTICAL<br>RECTANGLE</div>
+  </div>
 </body>
 </html>"""
 
@@ -169,6 +181,6 @@ def render_card(playwright, html: str, base_name: str, w_in: str, h_in: str):
 
 
 with sync_playwright() as pw:
-    render_card(pw, FRONT_HTML, "card-front", "2in", "3.5in")
+    render_card(pw, FRONT_HTML, "card-front", "3.5in", "2in")
     render_card(pw, BACK_HTML,  "card-back",  "3.5in", "2in")
     print("\nDone. Upload the PDFs to Staples.")
