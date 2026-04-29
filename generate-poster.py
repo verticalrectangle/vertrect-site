@@ -42,8 +42,8 @@ body {{
 }}
 
 .logo {{
-  width: 2in;
-  height: 2in;
+  width: 2.8in;
+  height: 2.8in;
 }}
 
 .lines {{
@@ -70,14 +70,14 @@ body {{
 }}
 
 .footer-wordmark {{
-  font-size: 0.35in;
+  font-size: 0.55in;
   font-weight: 900;
   letter-spacing: -0.01em;
   text-transform: uppercase;
 }}
 
 .footer-url {{
-  font-size: 0.25in;
+  font-size: 0.38in;
   font-weight: 400;
   letter-spacing: 0.06em;
   opacity: 0.5;
