@@ -505,7 +505,7 @@ COVER = f"""
   <p class="cover-tagline">Independent creative technology studio</p>
   <br><br>
 
-  <h1 class="cover-title">PROJECT AND ARTIST DIRECTORY</h1>
+  <h1 class="cover-title">DEVELOPMENT PROJECTS AND ARTIST DIRECTORY</h1>
 </div>"""
 
 COMPANY = f"""
