@@ -143,6 +143,7 @@
       min-height: 100vh;
       padding: 0 48px;
       animation: fadein 0.35s ease forwards;
+      scroll-margin-top: 9999px;
     }
 
     @keyframes fadein {
@@ -1070,9 +1071,7 @@
   </section>
 
   <script>
-    document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', () => window.scrollTo(0, 0)));
-
-    const slides = document.querySelectorAll('#epsilver-carousel .carousel-slide');
+const slides = document.querySelectorAll('#epsilver-carousel .carousel-slide');
     let current = 0;
     setInterval(() => {
       slides[current].classList.remove('active');
