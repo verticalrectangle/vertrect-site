@@ -609,17 +609,6 @@ PAGE_ARTISTS = f"""
 
   <div class="artist-entry">
     <div class="artist-header">
-      <div class="artist-icon">{DG_ICON_SVG}</div>
-      <div>
-        <div class="artist-name">Depravity Girlz</div>
-        <div class="artist-tagline">Invest in the future. Invest in depravity.</div>
-      </div>
-    </div>
-    <p class="artist-body">A collective of cyber artists and content creators.</p>
-  </div>
-
-  <div class="artist-entry">
-    <div class="artist-header">
       <div class="artist-icon">{EKIOZE_ICON_SVG}</div>
       <div>
         <div class="artist-name">Ekioze</div>
@@ -627,6 +616,17 @@ PAGE_ARTISTS = f"""
       </div>
     </div>
     <p class="artist-body">Creative writing, character concept art, and digital artist.</p>
+  </div>
+
+  <div class="artist-entry">
+    <div class="artist-header">
+      <div class="artist-icon">{DG_ICON_SVG}</div>
+      <div>
+        <div class="artist-name">Depravity Girlz</div>
+        <div class="artist-tagline">Invest in the future. Invest in depravity.</div>
+      </div>
+    </div>
+    <p class="artist-body">A collective of cyber artists and content creators.</p>
   </div>
 
   {FOOTER}
