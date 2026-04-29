@@ -512,9 +512,9 @@ def logo_thumb(icon_svg, name):
 def img_thumb(data, ext="png"):
     return f'<img class="page-image" src="data:image/{ext};base64,{data}" />'
 
-def project_page(icon_html, name, tagline, image_html, body, spec_pairs, page_url=None):
+def project_page(icon_html, name, tagline, image_html, body, spec_pairs, page_url=None, qr_size="1.5in"):
     specs = "".join(spec(l, v) for l, v in spec_pairs)
-    qr_block = f'<div class="project-qr">{make_qr_svg(page_url, "1.5in")}</div>' if page_url else ""
+    qr_block = f'<div class="project-qr">{make_qr_svg(page_url, qr_size)}</div>' if page_url else ""
     return f"""
 <div class="page project-page">
   <div class="page-inner">
@@ -636,6 +636,7 @@ PAGE_WICKRUNNER = project_page(
         ("License", "GPLv3"),
     ],
     page_url="https://verticalrectangle.com/#wickrunner",
+    qr_size="0.75in",
 )
 
 EPSILVER_ICON_SVG = '<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" stroke="white" stroke-width="2"/><text x="18" y="25" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="white">e</text></svg>'
