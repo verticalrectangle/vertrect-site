@@ -336,8 +336,8 @@ html, body {{
 }}
 
 .footer-icon {{
-  width: 0.19in;
-  height: 0.19in;
+  width: 0.57in;
+  height: 0.57in;
   flex-shrink: 0;
 }}
 
@@ -345,14 +345,14 @@ html, body {{
 
 .footer-wordmark {{
   font-family: 'InterBlack', sans-serif;
-  font-size: 0.12in;
+  font-size: 0.36in;
   font-weight: 900;
   letter-spacing: -0.01em;
   text-transform: uppercase;
 }}
 
 .footer-url {{
-  font-size: 0.12in;
+  font-size: 0.36in;
   font-weight: 400;
   letter-spacing: 0.05em;
 }}
