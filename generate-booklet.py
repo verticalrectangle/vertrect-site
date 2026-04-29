@@ -357,6 +357,74 @@ html, body {{
   letter-spacing: 0.05em;
 }}
 
+/* ── ARTISTS PAGE ── */
+.artists-page {{
+  display: flex;
+  flex-direction: column;
+  padding: 0.6in 0.7in 0;
+}}
+
+.artists-page-title {{
+  font-family: 'InterBlack', sans-serif;
+  font-size: 0.38in;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 0.3in;
+}}
+
+.artist-entry {{
+  display: flex;
+  flex-direction: column;
+  gap: 0.15in;
+  padding-bottom: 0.3in;
+  margin-bottom: 0.3in;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}}
+
+.artist-entry:last-of-type {{
+  border-bottom: none;
+}}
+
+.artist-header {{
+  display: flex;
+  align-items: center;
+  gap: 0.18in;
+}}
+
+.artist-icon {{
+  width: 0.55in;
+  height: 0.55in;
+  flex-shrink: 0;
+}}
+
+.artist-icon svg {{ width: 100%; height: 100%; }}
+
+.artist-name {{
+  font-family: 'InterBlack', sans-serif;
+  font-size: 0.34in;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  line-height: 1;
+}}
+
+.artist-tagline {{
+  font-size: 0.12in;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}}
+
+.artist-body {{
+  font-size: 0.15in;
+  font-weight: 400;
+  line-height: 1.75;
+  max-width: 5.5in;
+}}
+
 /* ── BACK COVER ── */
 .back-cover {{
   display: flex;
@@ -520,20 +588,37 @@ PAGE_WICKRUNNER = project_page(
     ],
 )
 
-PAGE_EPSILVER = project_page(
-    icon_html=f'<img src="data:image/png;base64,{epsilver_logo_b64}" />',
-    name="Epsilver",
-    tagline="Art",
-    image_html=img_thumb(epsilver_art_b64),
-    body="Digital art and visual work by Alexis Lucio. Glitch, collage, and motion, made under the name epsilver.",
-    spec_pairs=[
-        ("Format", "Digital"),
-        ("Language", "N/A"),
-        ("Platform", "Web"),
-        ("Status", "Ongoing"),
-        ("License", "N/A"),
-    ],
-)
+EPSILVER_ICON_SVG = '<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" stroke="white" stroke-width="2"/><text x="18" y="25" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="white">e</text></svg>'
+DG_ICON_SVG = '<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="14" r="8" stroke="white" stroke-width="2"/><line x1="18" y1="22" x2="18" y2="32" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="13" y1="27" x2="23" y2="27" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>'
+
+PAGE_ARTISTS = f"""
+<div class="page artists-page">
+  <h1 class="artists-page-title">Artists</h1>
+
+  <div class="artist-entry">
+    <div class="artist-header">
+      <div class="artist-icon">{EPSILVER_ICON_SVG}</div>
+      <div>
+        <div class="artist-name">Epsilver</div>
+        <div class="artist-tagline">Alexis Lucio</div>
+      </div>
+    </div>
+    <p class="artist-body">Digital art, music, and writing made under the name epsilver. Glitch, collage, and motion. Also publishes a blog.</p>
+  </div>
+
+  <div class="artist-entry">
+    <div class="artist-header">
+      <div class="artist-icon">{DG_ICON_SVG}</div>
+      <div>
+        <div class="artist-name">Depravity Girlz</div>
+        <div class="artist-tagline">Invest in the future. Invest in depravity.</div>
+      </div>
+    </div>
+    <p class="artist-body">A collective of cyber artists and content creators.</p>
+  </div>
+
+  {FOOTER}
+</div>"""
 
 BACK_COVER = f"""
 <div class="page back-cover">
@@ -555,7 +640,7 @@ HTML = f"""<!DOCTYPE html>
 {PAGE_PEDAL}
 {PAGE_CEI}
 {PAGE_WICKRUNNER}
-{PAGE_EPSILVER}
+{PAGE_ARTISTS}
 {BACK_COVER}
 </body>
 </html>"""
