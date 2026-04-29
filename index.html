@@ -615,6 +615,27 @@
       margin-bottom: 64px;
     }
 
+    .artist-page-art-carousel {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1200 / 630;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.03);
+      margin-bottom: 64px;
+      overflow: hidden;
+    }
+
+    .carousel-slide {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.9s ease;
+    }
+
+    .carousel-slide.active { opacity: 1; }
+
     .artist-page-body {
       font-size: 18px;
       font-weight: 400;
@@ -1014,7 +1035,13 @@
       <a class="artist-page-link" href="mailto:alexis@epsilver.xyz">alexis@epsilver.xyz ↗</a>
     </div>
 
-    <img class="artist-page-art" src="img/epsilver-art.png" alt="Epsilver art" />
+    <div class="artist-page-art-carousel" id="epsilver-carousel">
+      <img class="carousel-slide active" src="https://epsilver.xyz/assets/art/llunatic.png" alt="" />
+      <img class="carousel-slide" src="https://epsilver.xyz/assets/art/numa%20numa.png" alt="" />
+      <img class="carousel-slide" src="https://epsilver.xyz/assets/art/say%20to%20me.png" alt="" />
+      <img class="carousel-slide" src="https://epsilver.xyz/assets/art/sister%20golden%20hair.jpeg" alt="" />
+      <img class="carousel-slide" src="https://epsilver.xyz/assets/art/slit%20your%20throat%20you%20stupid%20fucking%20moid.png" alt="" />
+    </div>
 
     <p class="artist-page-body">Digital art, music, and writing made under the name epsilver. Glitch, collage, and motion. Also publishes a blog.</p>
   </section>
@@ -1043,5 +1070,14 @@
     </div>
   </section>
 
+  <script>
+    const slides = document.querySelectorAll('#epsilver-carousel .carousel-slide');
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 3500);
+  </script>
 </body>
 </html>
