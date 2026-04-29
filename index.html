@@ -61,7 +61,7 @@
       padding: 28px 48px;
     }
 
-    body:not(:has(#development:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)) nav {
+    body:not(:has(#development:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)) nav {
       display: none;
     }
 
@@ -166,14 +166,16 @@
     #silvertune-pedal:target,
     #cei:target,
     #epsilver:target,
-    #depravity-girlz:target { display: block; }
+    #depravity-girlz:target,
+    #ekioze:target { display: block; }
 
     body:has(#silvertune:target) #home,
     body:has(#wickrunner:target) #home,
     body:has(#silvertune-pedal:target) #home,
     body:has(#cei:target) #home,
     body:has(#epsilver:target) #home,
-    body:has(#depravity-girlz:target) #home { display: none; }
+    body:has(#depravity-girlz:target) #home,
+    body:has(#ekioze:target) #home { display: none; }
 
     #home:target { display: flex; }
 
@@ -556,7 +558,8 @@
     /* ── ARTIST DETAIL PAGES ── */
 
     #epsilver,
-    #depravity-girlz {
+    #depravity-girlz,
+    #ekioze {
       padding-top: 64px;
       padding-bottom: 100px;
       max-width: 1000px;
@@ -1012,6 +1015,31 @@
         </div>
       </a>
 
+      <a class="project" href="#ekioze">
+        <div class="project-thumbnail project-thumbnail--logo">
+          <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="18" r="15" stroke="white" stroke-width="2"/>
+            <line x1="18" y1="9" x2="18" y2="27" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="10" y1="13.5" x2="26" y2="22.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="10" y1="22.5" x2="26" y2="13.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="tl-name">Ekioze</span>
+        </div>
+        <div class="project-info">
+          <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="18" r="15" stroke="white" stroke-width="2"/>
+            <line x1="18" y1="9" x2="18" y2="27" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="10" y1="13.5" x2="26" y2="22.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="10" y1="22.5" x2="26" y2="13.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div class="project-name">Ekioze</div>
+            <div class="project-desc">Creative writing, concept art, and digital art.</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
+
     </div>
   </section>
 
@@ -1068,6 +1096,17 @@
       </div>
 
     </div>
+  </section>
+
+  <!-- EKIOZE -->
+  <section id="ekioze" class="page">
+    <a class="back-link" href="#artists">← Back</a>
+    <div class="artist-page-header">
+      <h1 class="artist-page-title">Ekioze</h1>
+      <p class="artist-page-tagline">Leah Macaraeg</p>
+    </div>
+
+    <p class="artist-page-body">Creative writing, character concept art, and digital art.</p>
   </section>
 
 </body>

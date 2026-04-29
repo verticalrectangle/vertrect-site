@@ -590,6 +590,7 @@ PAGE_WICKRUNNER = project_page(
 
 EPSILVER_ICON_SVG = '<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" stroke="white" stroke-width="2"/><text x="18" y="25" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="white">e</text></svg>'
 DG_ICON_SVG = '<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="14" r="8" stroke="white" stroke-width="2"/><line x1="18" y1="22" x2="18" y2="32" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="13" y1="27" x2="23" y2="27" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>'
+EKIOZE_ICON_SVG = '<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" stroke="white" stroke-width="2"/><line x1="18" y1="9" x2="18" y2="27" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="10" y1="13.5" x2="26" y2="22.5" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="10" y1="22.5" x2="26" y2="13.5" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>'
 
 PAGE_ARTISTS = f"""
 <div class="page artists-page">
@@ -615,6 +616,17 @@ PAGE_ARTISTS = f"""
       </div>
     </div>
     <p class="artist-body">A collective of cyber artists and content creators.</p>
+  </div>
+
+  <div class="artist-entry">
+    <div class="artist-header">
+      <div class="artist-icon">{EKIOZE_ICON_SVG}</div>
+      <div>
+        <div class="artist-name">Ekioze</div>
+        <div class="artist-tagline">Leah Macaraeg</div>
+      </div>
+    </div>
+    <p class="artist-body">Creative writing, character concept art, and digital artist.</p>
   </div>
 
   {FOOTER}
