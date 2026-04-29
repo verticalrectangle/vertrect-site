@@ -55,7 +55,7 @@ body {{
 }}
 
 .line {{
-  font-size: 2in;
+  font-size: 2.8in;
   font-weight: 900;
   letter-spacing: -0.02em;
   text-transform: uppercase;
