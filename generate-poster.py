@@ -42,20 +42,20 @@ body {{
 }}
 
 .logo {{
-  width: 5.6in;
-  height: 5.6in;
+  width: 2in;
+  height: 2in;
 }}
 
 .lines {{
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2in;
+  gap: 0.15in;
   text-align: center;
 }}
 
 .line {{
-  font-size: 3.8in;
+  font-size: 2in;
   font-weight: 900;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -66,18 +66,18 @@ body {{
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.15in;
+  gap: 0.1in;
 }}
 
 .footer-wordmark {{
-  font-size: 1.1in;
+  font-size: 0.45in;
   font-weight: 900;
   letter-spacing: -0.01em;
   text-transform: uppercase;
 }}
 
 .footer-url {{
-  font-size: 0.76in;
+  font-size: 0.3in;
   font-weight: 400;
   letter-spacing: 0.06em;
   opacity: 1;
