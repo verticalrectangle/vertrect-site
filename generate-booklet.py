@@ -1,5 +1,6 @@
 import base64
 from pathlib import Path
+import qrcode
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).parent
@@ -17,6 +18,25 @@ cei_og_b64       = b64("img/cei-og.png")
 epsilver_art_b64 = b64("img/epsilver-art.png")
 epsilver_logo_b64 = b64("img/epsilver.png")
 wickrunner_og_b64 = b64("img/wickrunner-og.png")
+
+def make_qr_svg(url, size_in="0.45in"):
+    qr = qrcode.QRCode(version=None, error_correction=qrcode.constants.ERROR_CORRECT_M, box_size=1, border=1)
+    qr.add_data(url)
+    qr.make(fit=True)
+    matrix = qr.get_matrix()
+    n = len(matrix)
+    rects = "".join(
+        f'<rect x="{c}" y="{r}" width="1" height="1"/>'
+        for r, row in enumerate(matrix)
+        for c, val in enumerate(row) if val
+    )
+    return (
+        f'<svg viewBox="0 0 {n} {n}" xmlns="http://www.w3.org/2000/svg" '
+        f'style="width:{size_in};height:{size_in};flex-shrink:0">'
+        f'<rect width="{n}" height="{n}" fill="white"/>'
+        f'<g fill="black">{rects}</g>'
+        f'</svg>'
+    )
 
 VR_SVG = '<svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="47" fill="#000" stroke="#fff" stroke-width="3"/><rect x="29" y="18" width="42" height="64" fill="#000" stroke="#fff" stroke-width="5" rx="1"/></svg>'
 
@@ -390,6 +410,13 @@ html, body {{
 .artist-header {{
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 0.18in;
+}}
+
+.artist-header-left {{
+  display: flex;
+  align-items: center;
   gap: 0.18in;
 }}
 
@@ -459,13 +486,15 @@ html, body {{
 }}
 """
 
-FOOTER = f"""
+def make_footer(page_url=None):
+    right = make_qr_svg(page_url, "0.43in") if page_url else '<span class="footer-url">verticalrectangle.com</span>'
+    return f"""
 <div class="footer">
   <div class="footer-left">
     <div class="footer-icon">{VR_SVG}</div>
     <span class="footer-wordmark">Vertical Rectangle</span>
   </div>
-  <span class="footer-url">verticalrectangle.com</span>
+  {right}
 </div>"""
 
 def spec(label, value):
@@ -477,7 +506,7 @@ def logo_thumb(icon_svg, name):
 def img_thumb(data, ext="png"):
     return f'<img class="page-image" src="data:image/{ext};base64,{data}" />'
 
-def project_page(icon_html, name, tagline, image_html, body, spec_pairs):
+def project_page(icon_html, name, tagline, image_html, body, spec_pairs, page_url=None):
     specs = "".join(spec(l, v) for l, v in spec_pairs)
     return f"""
 <div class="page project-page">
@@ -494,7 +523,7 @@ def project_page(icon_html, name, tagline, image_html, body, spec_pairs):
     <p class="project-body">{body}</p>
     <div class="specs">{specs}</div>
   </div>
-  {FOOTER}
+  {make_footer(page_url)}
 </div>"""
 
 
@@ -550,6 +579,7 @@ PAGE_SILVERTUNE = project_page(
         ("Status", "In Dev"),
         ("License", "GPLv3"),
     ],
+    page_url="https://verticalrectangle.com/#silvertune",
 )
 
 PAGE_PEDAL = project_page(
@@ -565,6 +595,7 @@ PAGE_PEDAL = project_page(
         ("Status", "In Dev"),
         ("License", "GPLv3"),
     ],
+    page_url="https://verticalrectangle.com/#silvertune-pedal",
 )
 
 PAGE_CEI = project_page(
@@ -580,6 +611,7 @@ PAGE_CEI = project_page(
         ("Status", "In Dev"),
         ("License", "GPLv3"),
     ],
+    page_url="https://verticalrectangle.com/#cei",
 )
 
 PAGE_WICKRUNNER = project_page(
@@ -595,6 +627,7 @@ PAGE_WICKRUNNER = project_page(
         ("Status", "IN DEV"),
         ("License", "GPLv3"),
     ],
+    page_url="https://verticalrectangle.com/#wickrunner",
 )
 
 EPSILVER_ICON_SVG = '<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="18" r="15" stroke="white" stroke-width="2"/><text x="18" y="25" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="white">e</text></svg>'
@@ -607,47 +640,61 @@ PAGE_ARTISTS = f"""
 
   <div class="artist-entry">
     <div class="artist-header">
-      <div class="artist-icon">{EPSILVER_ICON_SVG}</div>
-      <div>
-        <div class="artist-name">Epsilver</div>
-        <div class="artist-tagline">Alexis Lucio</div>
+      <div class="artist-header-left">
+        <div class="artist-icon">{EPSILVER_ICON_SVG}</div>
+        <div>
+          <div class="artist-name">Epsilver</div>
+          <div class="artist-tagline">Alexis Lucio</div>
+        </div>
       </div>
+      {make_qr_svg("https://verticalrectangle.com/#epsilver", "0.55in")}
     </div>
     <p class="artist-body">Digital art, music, and writing made under the name epsilver. Glitch, collage, and motion. Also publishes a blog.</p>
   </div>
 
   <div class="artist-entry">
     <div class="artist-header">
-      <div class="artist-icon">{EKIOZE_ICON_SVG}</div>
-      <div>
-        <div class="artist-name">Ekioze</div>
-        <div class="artist-tagline">Leah Macaraeg</div>
+      <div class="artist-header-left">
+        <div class="artist-icon">{EKIOZE_ICON_SVG}</div>
+        <div>
+          <div class="artist-name">Ekioze</div>
+          <div class="artist-tagline">Leah Macaraeg</div>
+        </div>
       </div>
+      {make_qr_svg("https://verticalrectangle.com/#ekioze", "0.55in")}
     </div>
     <p class="artist-body">Creative writing, character concept art, and digital artist.</p>
   </div>
+
   <div class="artist-entry">
     <div class="artist-header">
-      <div class="artist-icon">{EKIOZE_ICON_SVG}</div>
-      <div>
-        <div class="artist-name">Timothy Herrick</div>
-        <div class="artist-tagline">Author</div>
+      <div class="artist-header-left">
+        <div class="artist-icon">{EKIOZE_ICON_SVG}</div>
+        <div>
+          <div class="artist-name">Timothy Herrick</div>
+          <div class="artist-tagline">Author</div>
+        </div>
       </div>
+      {make_qr_svg("https://timhrklit.com", "0.55in")}
     </div>
     <p class="artist-body">Published author and artist. timhrklit.com</p>
   </div>
+
   <div class="artist-entry">
     <div class="artist-header">
-      <div class="artist-icon">{DG_ICON_SVG}</div>
-      <div>
-        <div class="artist-name">Depravity Girlz</div>
-        <div class="artist-tagline">Invest in the future. Invest in depravity.</div>
+      <div class="artist-header-left">
+        <div class="artist-icon">{DG_ICON_SVG}</div>
+        <div>
+          <div class="artist-name">Depravity Girlz</div>
+          <div class="artist-tagline">Invest in the future. Invest in depravity.</div>
+        </div>
       </div>
+      {make_qr_svg("https://verticalrectangle.com/#depravity-girlz", "0.55in")}
     </div>
     <p class="artist-body">A collective of cyber artists and content creators.</p>
   </div>
 
-  {FOOTER}
+  {make_footer()}
 </div>"""
 
 BACK_COVER = f"""
