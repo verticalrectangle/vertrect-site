@@ -335,6 +335,12 @@ html, body {{
   text-transform: uppercase;
 }}
 
+.project-qr {{
+  display: flex;
+  justify-content: center;
+  padding-top: 0.1in;
+}}
+
 /* ── FOOTER ── */
 .footer {{
   position: absolute;
@@ -508,6 +514,7 @@ def img_thumb(data, ext="png"):
 
 def project_page(icon_html, name, tagline, image_html, body, spec_pairs, page_url=None):
     specs = "".join(spec(l, v) for l, v in spec_pairs)
+    qr_block = f'<div class="project-qr">{make_qr_svg(page_url, "1.5in")}</div>' if page_url else ""
     return f"""
 <div class="page project-page">
   <div class="page-inner">
@@ -522,8 +529,9 @@ def project_page(icon_html, name, tagline, image_html, body, spec_pairs, page_ur
     {image_html}
     <p class="project-body">{body}</p>
     <div class="specs">{specs}</div>
+    {qr_block}
   </div>
-  {make_footer(page_url)}
+  {make_footer()}
 </div>"""
 
 
