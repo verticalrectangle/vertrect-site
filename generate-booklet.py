@@ -287,7 +287,7 @@ html, body {{
 
 .specs {{
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   border: 1px solid rgba(255,255,255,0.15);
   border-right: none;
   border-bottom: none;
@@ -464,12 +464,13 @@ PAGE_SILVERTUNE = project_page(
     name="Silvertune",
     tagline="Hard pitch correction for Linux",
     image_html=logo_thumb(SILVERTUNE_SVG, "Silvertune"),
-    body="A real-time CLAP audio plugin for Linux that locks your pitch to the nearest note in any chosen key. Instant, merciless, and musical. The Cher effect. The T-Pain shimmer. The robot in the mirror singing back at you in perfect tune. Licensed under GPLv3.",
+    body="A real-time CLAP audio plugin for Linux that locks your pitch to the nearest note in any chosen key. Instant, merciless, and musical. The Cher effect. The T-Pain shimmer. The robot in the mirror singing back at you in perfect tune.",
     spec_pairs=[
         ("Format", "CLAP"),
         ("Language", "C++17"),
         ("Platform", "Linux"),
-        ("Detection", "YIN / Aubio"),
+        ("Status", "In Dev"),
+        ("License", "GPLv3"),
     ],
 )
 
@@ -478,12 +479,13 @@ PAGE_PEDAL = project_page(
     name="Silvertune Pedal",
     tagline="Pitch correction in hardware",
     image_html=logo_thumb(PEDAL_SVG, "Silvertune Pedal"),
-    body="Silvertune in hardware. The same pitch correction algorithm built into a pedalboard-ready enclosure. Plug in, choose your key, and sing in tune. Licensed under GPLv3.",
+    body="Silvertune in hardware. The same pitch correction algorithm built into a pedalboard-ready enclosure. Plug in, choose your key, and sing in tune.",
     spec_pairs=[
         ("Format", "Pedal"),
         ("Language", "C++"),
         ("Platform", "Embedded"),
         ("Status", "In Dev"),
+        ("License", "GPLv3"),
     ],
 )
 
@@ -492,12 +494,13 @@ PAGE_CEI = project_page(
     name="Cultural Extremity Index",
     tagline="How extreme is your taste?",
     image_html=img_thumb(cei_og_b64),
-    body="A tool for measuring how far outside the mainstream your cultural taste runs, across music, film, and more. Built to answer the question nobody asks but everyone wonders. Licensed under GPLv3.",
+    body="A tool for measuring how far outside the mainstream your cultural taste runs, across music, film, and more. Built to answer the question nobody asks but everyone wonders.",
     spec_pairs=[
-        ("Type", "Tool"),
+        ("Format", "Web App"),
+        ("Language", "JavaScript"),
         ("Platform", "Web"),
-        ("Data", "Music / Film"),
         ("Status", "In Dev"),
+        ("License", "GPLv3"),
     ],
 )
 
@@ -508,10 +511,11 @@ PAGE_WICKRUNNER = project_page(
     image_html=img_thumb(wickrunner_og_b64),
     body="[Project description — coming soon.]",
     spec_pairs=[
-        ("[Label]", "[Value]"),
-        ("[Label]", "[Value]"),
-        ("[Label]", "[Value]"),
-        ("[Label]", "[Value]"),
+        ("Format", "[Value]"),
+        ("Language", "[Value]"),
+        ("Platform", "[Value]"),
+        ("Status", "[Value]"),
+        ("License", "GPLv3"),
     ],
 )
 
@@ -522,10 +526,11 @@ PAGE_EPSILVER = project_page(
     image_html=img_thumb(epsilver_art_b64),
     body="Digital art and visual work by Alexis Lucio. Glitch, collage, and motion, made under the name epsilver.",
     spec_pairs=[
-        ("Medium", "Digital"),
-        ("Artist", "Epsilver"),
+        ("Format", "Digital"),
+        ("Language", "N/A"),
         ("Platform", "Web"),
         ("Status", "Ongoing"),
+        ("License", "N/A"),
     ],
 )
 
