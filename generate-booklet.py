@@ -48,6 +48,8 @@ CEI_SVG = '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle
 
 WICKRUNNER_SVG = '<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="18" y1="7" x2="18" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/><rect x="13" y="12" width="10" height="13" stroke="white" stroke-width="2.5"/><line x1="18" y1="25" x2="18" y2="30" stroke="white" stroke-width="2.5" stroke-linecap="round"/></svg>'
 
+LVB_SVG = '<svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="8" width="26" height="20" rx="2" stroke="white" stroke-width="2.5"/><line x1="11" y1="15" x2="25" y2="15" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="13" y1="21" x2="23" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>'
+
 CSS = f"""
 @font-face {{
   font-family: 'Inter';
@@ -633,6 +635,22 @@ PAGE_PEDAL = project_page(
     page_url="https://verticalrectangle.com/#silvertune-pedal",
 )
 
+PAGE_LVB = project_page(
+    icon_html=LVB_SVG,
+    name="Lyric Video Blender",
+    tagline="AI-powered lyric video generation inside Blender.",
+    image_html=logo_thumb(LVB_SVG, "Lyric Video Blender"),
+    body="A Blender addon that turns any audio or video file into a fully animated lyric video. Runs Demucs for vocal separation and WhisperX for word-level forced-alignment transcription — giving precise per-word timestamps automatically. The lyric list populates inside Blender, ready to animate with 20+ built-in styles including Glitch, Typewriter, Corrupt, and more.",
+    spec_pairs=[
+        ("Format", "Blender Addon"),
+        ("AI", "Demucs + WhisperX"),
+        ("Platform", "Blender 3.0+"),
+        ("Status", "Stable"),
+        ("License", "Public Domain"),
+    ],
+    page_url="https://verticalrectangle.com/#lyric-video-blender",
+)
+
 PAGE_CEI = project_page(
     icon_html=CEI_SVG,
     name="Cultural Extremity Index",
@@ -756,6 +774,7 @@ HTML = f"""<!DOCTYPE html>
 {COMPANY}
 {PAGE_SILVERTUNE}
 {PAGE_PEDAL}
+{PAGE_LVB}
 {PAGE_CEI}
 {PAGE_WICKRUNNER}
 {PAGE_ARTISTS}
@@ -774,6 +793,6 @@ with sync_playwright() as pw:
         print_background=True,
         margin={"top": "0", "right": "0", "bottom": "0", "left": "0"},
     )
-    print("✓  booklet.pdf  (8.5×11in letter, 8 pages, print-ready)")
+    print("✓  booklet.pdf  (8.5×11in letter, 9 pages, print-ready)")
     browser.close()
     print("\nDone. Send to printer.")
