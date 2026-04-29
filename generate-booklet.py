@@ -399,14 +399,14 @@ COVER = f"""
 <div class="page cover-page">
   <div class="cover-logo">{VR_SVG}</div>
   <h1 class="cover-title">Vertical<br>Rectangle</h1>
-  <p class="cover-tagline">Independent technology studio</p>
+  <p class="cover-tagline">Independent creative technology studio</p>
 </div>"""
 
 COMPANY = f"""
 <div class="page company-page">
   <div class="company-logo">{VR_SVG}</div>
   <h1 class="company-name">Vertical Rectangle</h1>
-  <p class="company-tagline">Independent technology studio</p>
+  <p class="company-tagline">Independent creative technology studio</p>
   <div class="company-rule"></div>
   <div class="team-member">
     <div class="member-name">Alexis Lucio</div>
