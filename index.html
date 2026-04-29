@@ -55,14 +55,10 @@
     /* ── NAV ── */
 
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 28px 48px;
-      background: var(--black);
     }
 
     body:not(:has(#development:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)) nav {
@@ -1074,9 +1070,7 @@
   </section>
 
   <script>
-    window.addEventListener('hashchange', () => window.scrollTo(0, 0));
-
-    const slides = document.querySelectorAll('#epsilver-carousel .carousel-slide');
+const slides = document.querySelectorAll('#epsilver-carousel .carousel-slide');
     let current = 0;
     setInterval(() => {
       slides[current].classList.remove('active');
