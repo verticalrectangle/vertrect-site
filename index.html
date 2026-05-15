@@ -61,7 +61,7 @@
       padding: 28px 48px;
     }
 
-    body:not(:has(#development:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#lyric-video-blender:target)):not(:has(#silvertune-web:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)) nav {
+    body:not(:has(#development:target)):not(:has(#pop-maker-studio:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#lyric-video-blender:target)):not(:has(#silvertune-web:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)) nav {
       display: none;
     }
 
@@ -161,6 +161,7 @@
     body:has(#connect:target) #home,
     body:has(#artists:target) #home { display: none; }
 
+    #pop-maker-studio:target,
     #silvertune:target,
     #wickrunner:target,
     #silvertune-pedal:target,
@@ -171,6 +172,7 @@
     #depravity-girlz:target,
     #ekioze:target { display: block; }
 
+    body:has(#pop-maker-studio:target) #home,
     body:has(#silvertune:target) #home,
     body:has(#wickrunner:target) #home,
     body:has(#silvertune-pedal:target) #home,
@@ -489,7 +491,7 @@
     }
 
     @media (max-width: 600px) {
-      #silvertune, #wickrunner, #silvertune-pedal, #lyric-video-blender, #silvertune-web, #cei { padding-top: 100px; }
+      #pop-maker-studio, #silvertune, #wickrunner, #silvertune-pedal, #lyric-video-blender, #silvertune-web, #cei { padding-top: 100px; }
       .project-page-body { font-size: 16px; }
       .project-page-specs { grid-template-columns: repeat(2, 1fr); }
     }
@@ -813,6 +815,33 @@
     <p class="work-header">Development</p>
     <div class="work-grid">
 
+      <a class="project" href="#pop-maker-studio">
+        <div class="project-thumbnail project-thumbnail--logo">
+          <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="13" width="26" height="18" rx="1" stroke="white" stroke-width="2.5"/>
+            <rect x="5" y="8" width="26" height="6" rx="1" stroke="white" stroke-width="2.5"/>
+            <line x1="13" y1="8" x2="10" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="20" y1="8" x2="17" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="27" y1="8" x2="24" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span class="tl-name">Pop Maker Studio</span>
+        </div>
+        <div class="project-info">
+          <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="5" y="13" width="26" height="18" rx="1" stroke="white" stroke-width="2.5"/>
+            <rect x="5" y="8" width="26" height="6" rx="1" stroke="white" stroke-width="2.5"/>
+            <line x1="13" y1="8" x2="10" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="20" y1="8" x2="17" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <line x1="27" y1="8" x2="24" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div class="project-name">Pop Maker Studio</div>
+            <div class="project-desc">Local-first ML lyric video editor. C++ from scratch. No cloud.</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
+
       <a class="project" href="#silvertune">
         <div class="project-thumbnail project-thumbnail--logo">
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -946,6 +975,34 @@
         </div>
       </a>
 
+    </div>
+  </section>
+
+  <!-- POP MAKER STUDIO -->
+  <section id="pop-maker-studio" class="page">
+    <a class="back-link" href="#development">← Back</a>
+    <div class="project-page-header">
+      <h1 class="project-page-title">Pop Maker Studio</h1>
+      <p class="project-page-tagline">Local-first ML lyric video editor. C++ from scratch. No cloud.</p>
+      <a class="project-page-link" href="https://github.com/verticalrectangle/pop-maker-studio" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+    <div class="project-page-image project-page-image--logo">
+      <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="13" width="26" height="18" rx="1" stroke="white" stroke-width="2.5"/>
+        <rect x="5" y="8" width="26" height="6" rx="1" stroke="white" stroke-width="2.5"/>
+        <line x1="13" y1="8" x2="10" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="20" y1="8" x2="17" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <line x1="27" y1="8" x2="24" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="tl-name">Pop Maker Studio</span>
+    </div>
+    <p class="project-page-body">A complete music video and lyric video editor written entirely in C++ from scratch — no Electron, no Python runtime, no cloud. Drop your track and Pop Maker Studio separates the vocals, transcribes every word down to the millisecond via whisper.cpp, and lets you animate them against your footage with GPU-accelerated GLSL shaders. All ML inference runs fully on-device via ONNX Runtime: vocal separation with MDX-Net, background removal with u2net, voice conversion without ever touching Python. Eight subtitle animation styles. Pixel-identical preview and export. One binary. Zero dependencies.</p>
+    <div class="project-page-specs">
+      <div class="spec-item"><div class="spec-label">Language</div><div class="spec-value">C++ / GLSL</div></div>
+      <div class="spec-item"><div class="spec-label">ML</div><div class="spec-value">ONNX Runtime</div></div>
+      <div class="spec-item"><div class="spec-label">Graphics</div><div class="spec-value">OpenGL</div></div>
+      <div class="spec-item"><div class="spec-label">Platform</div><div class="spec-value">Linux / macOS / Win</div></div>
+      <div class="spec-item"><div class="spec-label">Status</div><div class="spec-value">In Dev</div></div>
     </div>
   </section>
 
