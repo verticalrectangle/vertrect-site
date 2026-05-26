@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "vr-branding": {
+      "command": "python",
+      "args": ["/home/alexis/dev/vertrect-site/mcp-server.py"]
+    }
+  }
+}
