@@ -143,6 +143,70 @@ body {{ display: flex; flex-direction: column; align-items: flex-start; justify-
 {"<div class='body'>" + body + "</div>" if body else ""}
 """)
 
+# ── FLOW ──────────────────────────────────────────────────────────────────────
+# title   = pipeline/doc name  e.g. "Mode D CI Pipeline"
+# subtitle = project name       e.g. "Pop Maker Studio"
+# body    = comma-separated steps e.g. "BUILD FAILS,CLAUDE DIAGNOSES,COMMENT POSTED,HUMAN FIXES"
+LAYOUTS["flow"] = lambda title, subtitle, body: _shell(None, None, f"""
+<style>
+body {{ display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; padding: 64px; padding-top: 160px; }}
+.top {{ display: flex; flex-direction: column; gap: 12px; }}
+.project {{
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.35;
+}}
+.title {{
+  font-size: 72px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  line-height: 0.95;
+}}
+.steps {{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0;
+  flex-wrap: wrap;
+  row-gap: 16px;
+}}
+.step {{
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.08);
+  padding: 14px 22px;
+  border: 1px solid rgba(255,255,255,0.12);
+}}
+.arrow {{
+  font-size: 18px;
+  opacity: 0.3;
+  padding: 0 12px;
+  font-weight: 400;
+}}
+.meta {{
+  font-size: 16px;
+  font-weight: 400;
+  opacity: 0.35;
+  letter-spacing: 0.03em;
+}}
+</style>
+<div class="top">
+  {"<div class='project'>" + subtitle + "</div>" if subtitle else ""}
+  <div class="title">{title}</div>
+</div>
+<div class="steps">
+  {"".join(
+    f"<div class='step'>{s.strip()}</div><div class='arrow'>→</div>"
+    for s in body.split(",")
+  ).rstrip("<div class='arrow'>→</div>") if body else ""}
+</div>
+""")
+
 # ── QUOTE ─────────────────────────────────────────────────────────────────────
 LAYOUTS["quote"] = lambda title, subtitle, body: _shell(None, None, f"""
 <style>

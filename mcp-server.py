@@ -35,11 +35,12 @@ async def list_tools() -> list[types.Tool]:
                 "properties": {
                     "layout": {
                         "type": "string",
-                        "enum": ["announcement", "release", "quote"],
+                        "enum": ["announcement", "release", "quote", "flow"],
                         "description": (
                             "announcement — big title + optional subtitle/body, bottom-anchored. "
                             "release — project name + version tag + optional notes. "
-                            "quote — large pull quote + attribution."
+                            "quote — large pull quote + attribution. "
+                            "flow — pipeline/process diagram: title + subtitle (project name) + body (comma-separated steps)."
                         ),
                     },
                     "title": {
