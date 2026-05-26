@@ -15,7 +15,7 @@ from mcp.server.models import InitializationOptions
 
 ROOT = Path(__file__).parent
 sys.path.insert(0, str(ROOT))
-from generate_post import render  # noqa: E402  (import after path setup)
+from generate_post import render  # noqa: E402
 
 server = Server("vr-branding")
 
@@ -40,27 +40,33 @@ async def list_tools() -> list[types.Tool]:
                             "announcement — big title + optional subtitle/body, bottom-anchored. "
                             "release — project name + version tag + optional notes. "
                             "quote — large pull quote + attribution. "
-                            "flow — pipeline/process diagram: title + subtitle (project name) + body (comma-separated steps)."
+                            "flow — pipeline/process diagram. Use for any doc describing a sequence of actions or steps. "
+                            "body format: 'steps|tagline|stats' where: "
+                            "steps = every distinct action in the pipeline, comma-separated, in order, NOTHING SKIPPED — "
+                            "if the doc mentions a notification, a webhook, a comment, an artifact upload, include it; "
+                            "tagline = one punchy sentence summarising what the pipeline does; "
+                            "stats = all real numbers/facts from the doc (latency, cost, model name, context size, etc.), comma-separated."
                         ),
                     },
                     "title": {
                         "type": "string",
-                        "description": "Main text. For 'quote' layout this is the quote body.",
+                        "description": "Pipeline or feature name. Short, max 4 words, screams off the page.",
                     },
                     "subtitle": {
                         "type": "string",
-                        "description": (
-                            "Subtitle (announcement), version string (release), "
-                            "or attribution (quote). Optional."
-                        ),
+                        "description": "Project or repo name. Sits above the title as a label.",
                     },
                     "body": {
                         "type": "string",
-                        "description": "Optional secondary copy (announcement / release only).",
+                        "description": (
+                            "For 'flow': pipe-separated string 'steps|tagline|stats'. "
+                            "For 'announcement'/'release': supporting copy. "
+                            "For 'quote': not used."
+                        ),
                     },
                     "out": {
                         "type": "string",
-                        "description": "Output file path. Defaults to a generated name in the repo root.",
+                        "description": "Output PNG path. Optional — defaults to a generated name.",
                     },
                 },
             },

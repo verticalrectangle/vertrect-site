@@ -144,68 +144,103 @@ body {{ display: flex; flex-direction: column; align-items: flex-start; justify-
 """)
 
 # ── FLOW ──────────────────────────────────────────────────────────────────────
-# title   = pipeline/doc name  e.g. "Mode D CI Pipeline"
-# subtitle = project name       e.g. "Pop Maker Studio"
-# body    = comma-separated steps e.g. "BUILD FAILS,CLAUDE DIAGNOSES,COMMENT POSTED,HUMAN FIXES"
-LAYOUTS["flow"] = lambda title, subtitle, body: _shell(None, None, f"""
+# title    = pipeline/doc name   e.g. "Mode D CI Pipeline"
+# subtitle = project name        e.g. "Pop Maker Studio"
+# body     = pipe-separated sections:
+#            steps (comma-separated) | tagline | stats (comma-separated)
+#   e.g. "BUILD FAILS,CLAUDE DIAGNOSES,COMMENT POSTED,HUMAN FIXES|No auto-patching. Human applies the fix.|~60s turnaround,~$1/run,claude-opus-4-7"
+def _flow_html(title, subtitle, body):
+    parts = (body or "").split("|")
+    steps_raw  = parts[0].strip() if len(parts) > 0 else ""
+    tagline    = parts[1].strip() if len(parts) > 1 else ""
+    stats_raw  = parts[2].strip() if len(parts) > 2 else ""
+    steps = [s.strip() for s in steps_raw.split(",") if s.strip()]
+    stats = [s.strip() for s in stats_raw.split(",") if s.strip()]
+
+    steps_html = "".join(
+        f"<div class='step'><span class='num'>{i+1:02d}</span><span class='step-text'>{s}</span></div>"
+        for i, s in enumerate(steps)
+    )
+    stats_html = " <span class='dot'>·</span> ".join(f"<span>{s}</span>" for s in stats)
+
+    return _shell(None, None, f"""
 <style>
-body {{ display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; padding: 64px; padding-top: 160px; }}
-.top {{ display: flex; flex-direction: column; gap: 12px; }}
+body {{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 72px;
+  padding-top: 148px;
+  gap: 40px;
+}}
+.top {{ display: flex; flex-direction: column; gap: 10px; margin-bottom: 0; }}
 .project {{
-  font-size: 16px;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  opacity: 0.35;
 }}
 .title {{
-  font-size: 72px;
+  font-size: 100px;
   font-weight: 900;
   letter-spacing: -0.03em;
   text-transform: uppercase;
-  line-height: 0.95;
+  line-height: 0.92;
+}}
+.tagline {{
+  font-size: 32px;
+  font-weight: 400;
+  max-width: 900px;
+  line-height: 1.4;
+  margin-top: 8px;
 }}
 .steps {{
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 0;
-  flex-wrap: wrap;
-  row-gap: 16px;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
 }}
 .step {{
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}}
+.num {{
   font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+  width: 36px;
+}}
+.step-text {{
+  font-size: 44px;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
-  background: rgba(255,255,255,0.08);
-  padding: 14px 22px;
-  border: 1px solid rgba(255,255,255,0.12);
 }}
-.arrow {{
-  font-size: 18px;
-  opacity: 0.3;
-  padding: 0 12px;
-  font-weight: 400;
+.stats {{
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }}
-.meta {{
-  font-size: 16px;
-  font-weight: 400;
-  opacity: 0.35;
-  letter-spacing: 0.03em;
-}}
+.dot {{ margin: 0 12px; }}
 </style>
 <div class="top">
   {"<div class='project'>" + subtitle + "</div>" if subtitle else ""}
   <div class="title">{title}</div>
+  {"<div class='tagline'>" + tagline + "</div>" if tagline else ""}
 </div>
-<div class="steps">
-  {"".join(
-    f"<div class='step'>{s.strip()}</div><div class='arrow'>→</div>"
-    for s in body.split(",")
-  ).rstrip("<div class='arrow'>→</div>") if body else ""}
-</div>
+<div class="steps">{steps_html}</div>
+{"<div class='stats'>" + stats_html + "</div>" if stats else ""}
 """)
+
+LAYOUTS["flow"] = _flow_html
 
 # ── QUOTE ─────────────────────────────────────────────────────────────────────
 LAYOUTS["quote"] = lambda title, subtitle, body: _shell(None, None, f"""
