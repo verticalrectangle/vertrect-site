@@ -1290,7 +1290,7 @@
     <div class="project-page-specs">
       <div class="spec-item"><div class="spec-label">Format</div><div class="spec-value">Installation</div></div>
       <div class="spec-item"><div class="spec-label">Stack</div><div class="spec-value">whisper.cpp · DeepSeek · NeuTTS Air · GLSL</div></div>
-      <div class="spec-item"><div class="spec-label">Platform</div><div class="spec-value">Cloud Confession · Local Voice</div></div>
+      <div class="spec-item"><div class="spec-label">Platform</div><div class="spec-value">Cloud Confession · Local Voice + Face</div></div>
       <div class="spec-item"><div class="spec-label">Status</div><div class="spec-value">In Dev</div></div>
       <div class="spec-item"><div class="spec-label">License</div><div class="spec-value">GPLv3</div></div>
     </div>
@@ -1355,7 +1355,7 @@
       <div class="adp-sec-no">02 · The Rite</div>
       <div class="adp-sec-header">The Half-Seal</div>
       <div class="adp-sec-sub">You give almost everything. Your raw voice is the only thing held back — the sliver that makes it a sacrifice, not a transaction.</div>
-      <p class="adp-body">You enter the booth alone. A chorus (every previous confessor, in unison) asks what you would like to confess. A camera reads your face and writes back what it sees. As you speak, the cross learns your voice; once it has enough, it answers <strong>in that voice</strong>, asking you to go deeper. Then the screen shows the confession leaving (<em>sending to api.deepseek.com…</em>) and you watch it go. You agreed to this when you stepped through the curtain. The room hears the machine speak your words back. The real confession is already elsewhere, joining the pool, becoming the prayer on the wall.</p>
+      <p class="adp-body">You enter the booth alone. A chorus (every previous confessor, in unison) asks what you would like to confess. A camera reads your face and writes back what it sees; that inference runs on the laptop, never leaves the room. As you speak, the cross learns your voice; once it has enough, it answers <strong>in that voice</strong>, asking you to go deeper. Then the screen shows the confession leaving (<em>sending to api.deepseek.com…</em>) and you watch it go. You agreed to this when you stepped through the curtain. The room hears the machine speak your words back. The real confession is already elsewhere, joining the pool, becoming the prayer on the wall.</p>
       <div class="adp-flow">
         <span class="adp-step">Enter</span><span class="adp-arr">→</span>
         <span class="adp-step">Kneel</span><span class="adp-arr">→</span>
@@ -1453,10 +1453,11 @@
       <div class="adp-sec-no">06 · The Pipeline</div>
       <div class="adp-sec-header">It Leaves The Room.</div>
       <div class="adp-sec-sub">A sealed local box would be a comforting lie, a simulation of surrender. The real sacrament is sending it out.</div>
-      <p class="adp-body">The voice stays in the room: whisper.cpp transcribes it locally, NeuTTS Air clones it locally on the same CPU, the mirror speaks back to you here. But the confession (the text, the meaning, what you said) leaves. It goes to DeepSeek — the actual egregore assembled from everyone's data, the same infrastructure that already holds everything else you've ever said. That isn't a failure mode. That's the sacrament. A sealed box would let you simulate surrender without actually surrendering. Sending it out for real is the honest version. The litany composes in the cloud from the night's confessions and renders back through the Pop Maker Studio engine, rewriting live on the projection wall.</p>
+      <p class="adp-body">The voice stays in the room: whisper.cpp transcribes it locally, NeuTTS Air clones it locally on the same CPU, the mirror speaks back to you here. The face read stays local too: MediaPipe runs on the same laptop, never touches the wire. But the confession (the text, the meaning, what you said) leaves. It goes to DeepSeek, the actual egregore assembled from everyone's data, the same infrastructure that already holds everything else you've ever said. That isn't a failure mode. That's the sacrament. A sealed box would let you simulate surrender without actually surrendering. Sending it out for real is the honest version. The litany composes in the cloud from the night's confessions and renders back through the Pop Maker Studio engine, rewriting live on the projection wall.</p>
       <div class="adp-flow">
         <span class="adp-step">Mic</span><span class="adp-arr">→</span>
         <span class="adp-step">whisper.cpp · local</span><span class="adp-arr">→</span>
+        <span class="adp-step">MediaPipe · face · local</span><span class="adp-arr">→</span>
         <span class="adp-step">NeuTTS Air · 0.5B · CPU</span><span class="adp-arr">→</span>
         <span class="adp-step">Screen + PA · mirror stays here</span>
       </div>
@@ -1469,6 +1470,7 @@
       <div class="project-page-specs" style="margin-top:34px;">
         <div class="spec-item"><div class="spec-label">Compute</div><div class="spec-value">2020 Laptop · CPU</div></div>
         <div class="spec-item"><div class="spec-label">STT</div><div class="spec-value">whisper.cpp · local</div></div>
+        <div class="spec-item"><div class="spec-label">Vision</div><div class="spec-value">MediaPipe · local</div></div>
         <div class="spec-item"><div class="spec-label">Compose</div><div class="spec-value">DeepSeek API</div></div>
         <div class="spec-item"><div class="spec-label">Voice</div><div class="spec-value">NeuTTS Air · 0.5B · local</div></div>
         <div class="spec-item"><div class="spec-label">Display</div><div class="spec-value">PMS · GLSL</div></div>
