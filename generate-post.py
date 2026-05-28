@@ -7,6 +7,7 @@ Usage:
 """
 import argparse
 import base64
+import html as _html
 import sys
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -25,7 +26,7 @@ BASE_CSS = f"""
   font-weight: 100 900;
   font-style: normal;
 }}
-*, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+*, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; text-rendering: optimizeLegibility; }}
 html, body {{
   width: {SIZE}px;
   height: {SIZE}px;
@@ -37,21 +38,19 @@ html, body {{
 }}
 .logo {{
   position: absolute;
-  top: 64px;
+  top: 56px;
   left: 64px;
-  width: 52px;
-  height: 52px;
-  opacity: 0.9;
+  width: 44px;
+  height: 44px;
 }}
 .wordmark {{
   position: absolute;
-  top: 72px;
-  left: 128px;
-  font-size: 20px;
+  top: 62px;
+  left: 120px;
+  font-size: 28px;
   font-weight: 900;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  opacity: 0.9;
 }}
 """
 
@@ -158,10 +157,10 @@ def _flow_html(title, subtitle, body):
     stats = [s.strip() for s in stats_raw.split(",") if s.strip()]
 
     steps_html = "".join(
-        f"<div class='step'><span class='num'>{i+1:02d}</span><span class='step-text'>{s}</span></div>"
+        f"<div class='step'><span class='num'>{i+1:02d}</span><span class='step-text'>{_html.escape(s)}</span></div>"
         for i, s in enumerate(steps)
     )
-    stats_html = " <span class='dot'>·</span> ".join(f"<span>{s}</span>" for s in stats)
+    stats_html = " <span class='dot'>·</span> ".join(f"<span>{_html.escape(s)}</span>" for s in stats)
 
     return _shell(None, None, f"""
 <style>
@@ -176,21 +175,22 @@ body {{
 }}
 .top {{ display: flex; flex-direction: column; gap: 10px; margin-bottom: 0; }}
 .project {{
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }}
 .title {{
-  font-size: 100px;
+  font-size: 76px;
   font-weight: 900;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.01em;
   text-transform: uppercase;
-  line-height: 0.92;
+  line-height: 0.95;
 }}
 .tagline {{
-  font-size: 32px;
+  font-size: 26px;
   font-weight: 400;
+  letter-spacing: 0;
   max-width: 900px;
   line-height: 1.4;
   margin-top: 8px;
@@ -205,25 +205,25 @@ body {{
   display: flex;
   align-items: center;
   gap: 32px;
-  padding: 24px 0;
+  padding: 22px 0;
   border-bottom: 1px solid rgba(255,255,255,0.15);
 }}
 .num {{
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
   flex-shrink: 0;
   width: 36px;
 }}
 .step-text {{
-  font-size: 44px;
-  font-weight: 800;
-  letter-spacing: -0.01em;
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
 }}
 .stats {{
-  font-size: 22px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 400;
   letter-spacing: 0.04em;
   display: flex;
   align-items: center;
