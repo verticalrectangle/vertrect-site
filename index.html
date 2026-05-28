@@ -995,6 +995,12 @@
 
     .adp-bom tr:last-child td { border-bottom: none; }
 
+    .adp-rules { list-style: none; margin: 20px 0 32px; padding: 0; }
+    .adp-rules li { font-size: 15px; line-height: 1.7; padding: 6px 0 6px 20px; position: relative; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .adp-rules li:last-child { border-bottom: none; }
+    .adp-rules li::before { content: "·"; position: absolute; left: 0; color: #ffb850; font-weight: 900; }
+    .adp-rules li strong { color: rgba(255,255,255,0.9); font-weight: 700; }
+
     .adp-note {
       font-size: 14px;
       font-weight: 400;
@@ -1011,6 +1017,10 @@
     .adp-sd  { stroke: #fff; stroke-width: 0.8; fill: none; opacity: 0.4; stroke-dasharray: 4 3; }
     .adp-lbl  { font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; fill: #fff; opacity: 0.55; }
     .adp-lbl-d { font-family: 'Inter', sans-serif; font-size: 8.5px; font-weight: 600; letter-spacing: 0.08em; fill: #fff; opacity: 0.35; }
+    .adp-lbl-a { font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; fill: #ffb850; opacity: 0.85; }
+    .adp-lbl-r { font-family: 'Inter', sans-serif; font-size: 8.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; fill: #c05040; opacity: 0.9; }
+    .adp-strap { stroke: #f5c518; stroke-width: 2.2; fill: none; }
+    .adp-force { stroke: #c05040; stroke-width: 1.3; fill: none; stroke-dasharray: 4 3; }
 
     @media (max-width: 600px) {
       #a-digital-prayer { padding-top: 100px; }
@@ -1472,35 +1482,124 @@
       <div class="adp-sec-sub">The screen hangs from hardware-store hardware · the restraint is the most honest object in the piece</div>
       <p class="adp-body">A fixed VESA mount, rotated 90° to portrait-mount the screen and run its rails down the strong vertical beam, bolted to a PCB-clad wood panel at the intersection, dowels inside the tube at every bolt point. Aesthetic cables woven over the bracket hide it: the rated mount is the truth, the cables are the testimony.</p>
 
+      <h3 class="adp-mini">Stability Rigging</h3>
+      <p class="adp-body">The TV's weight cantilevered off the front of the cross tries to rotate the whole thing toward the audience. A deep base platform (~24–36″, extending well behind the cross) plus rear ballast keeps it planted. Two ratchet straps — tied high on the cross, above the TV — splay out to stage weights at the rear corners. That triangle stops a forward fall and side sway at once. Dowel inside the tube wherever a strap wraps. Squeeze the S-hooks closed, or loop the webbing directly; no open hooks over a crowd.</p>
+
       <div class="adp-figure">
         <div class="adp-fig-frame">
-          <svg viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg" aria-label="Freestanding stability rig">
-            <text x="120" y="38" class="adp-lbl-d">◀ front (audience)</text>
-            <text x="880" y="38" text-anchor="end" class="adp-lbl-d">back ▶</text>
-            <line x1="60" y1="400" x2="940" y2="400" class="adp-s1"/>
-            <rect x="300" y="388" width="430" height="12" class="adp-s05"/>
-            <text x="515" y="438" text-anchor="middle" class="adp-lbl">base platform, extends rear · ballast hidden under skirt</text>
-            <rect x="470" y="70" width="16" height="318" class="adp-s1"/>
-            <rect x="440" y="120" width="14" height="170" rx="2" class="adp-s1"/>
-            <rect x="438" y="124" width="3" height="162" fill="#ffb850" opacity="0.4"/>
-            <text x="300" y="150" text-anchor="end" class="adp-lbl">light portrait TV</text>
-            <line x1="305" y1="150" x2="440" y2="175" class="adp-s03"/>
-            <rect x="650" y="368" width="80" height="20" class="adp-s05" fill="rgba(255,255,255,0.05)"/>
-            <text x="690" y="360" text-anchor="middle" class="adp-lbl">ballast</text>
-            <path d="M478,84 L700,380" class="adp-s1"/>
-            <rect x="588" y="222" width="18" height="11" transform="rotate(28 597 228)" fill="rgba(255,255,255,0.15)" stroke="#fff" stroke-width="0.8"/>
-            <text x="640" y="230" class="adp-lbl">ratchet strap · 500 lb</text>
-            <rect x="690" y="384" width="34" height="14" class="adp-s05" fill="rgba(255,255,255,0.06)"/>
-            <text x="707" y="394" text-anchor="middle" class="adp-lbl-d">weight</text>
-            <circle cx="478" cy="84" r="6" class="adp-s1"/>
-            <text x="300" y="86" text-anchor="end" class="adp-lbl">tie high</text>
-            <line x1="305" y1="84" x2="472" y2="84" class="adp-s03"/>
-            <path d="M447,290 L447,330" class="adp-sd"/><text x="400" y="320" class="adp-lbl-d">weight</text>
-            <path d="M470,396 Q445,392 440,360" class="adp-sd"/><text x="360" y="372" class="adp-lbl-d">forward tip</text>
+          <!-- SIDE VIEW -->
+          <svg viewBox="0 0 1000 490" xmlns="http://www.w3.org/2000/svg" aria-label="Side elevation: TV tips forward, two straps pull back">
+            <defs>
+              <marker id="arr-r" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#c05040"/></marker>
+              <marker id="arr-a" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#ffb850"/></marker>
+            </defs>
+            <text x="140" y="28" text-anchor="middle" class="adp-lbl-d">◀ front (audience)</text>
+            <text x="860" y="28" text-anchor="end" class="adp-lbl-d">back ▶</text>
+            <!-- floor -->
+            <line x1="40" y1="410" x2="960" y2="410" class="adp-s05"/>
+            <text x="50" y="426" class="adp-lbl-d">floor</text>
+            <!-- base platform ~24–36" deep, extends rear -->
+            <rect x="280" y="396" width="460" height="14" class="adp-s05" fill="rgba(255,255,255,0.04)"/>
+            <text x="510" y="450" text-anchor="middle" class="adp-lbl-a">base platform ~24–36″ · extends rear</text>
+            <line x1="280" y1="440" x2="280" y2="410" class="adp-s03"/>
+            <line x1="740" y1="440" x2="740" y2="410" class="adp-s03"/>
+            <line x1="280" y1="440" x2="740" y2="440" class="adp-s03"/>
+            <!-- cross vertical beam (set slightly forward of center) -->
+            <rect x="456" y="68" width="18" height="328" class="adp-s1" fill="rgba(255,255,255,0.04)"/>
+            <!-- TV (portrait, cantilevered front) -->
+            <rect x="428" y="118" width="14" height="180" rx="2" fill="#111" stroke="#333" stroke-width="1"/>
+            <rect x="426" y="122" width="3" height="172" fill="#ffb850" opacity="0.25"/>
+            <text x="280" y="148" text-anchor="end" class="adp-lbl">TV (portrait)</text>
+            <line x1="285" y1="148" x2="428" y2="175" class="adp-s03"/>
+            <!-- rear ballast block + skirt hint -->
+            <rect x="650" y="376" width="72" height="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.25)" stroke-width="0.8"/>
+            <path d="M645,376 Q660,388 650,396 Q665,390 678,396 Q692,390 706,396 Q718,390 728,396" stroke="rgba(255,255,255,0.2)" stroke-width="0.7" fill="none"/>
+            <text x="686" y="367" text-anchor="middle" class="adp-lbl-a">ballast + skirt</text>
+            <!-- STRAP 1 (left in side view = one strap, slightly offset) -->
+            <path d="M465,80 L670,386" class="adp-strap"/>
+            <!-- STRAP 2 (slightly offset to show 2 straps) -->
+            <path d="M472,80 L700,386" stroke="#caa410" stroke-width="1.4" fill="none"/>
+            <!-- ratchet box -->
+            <rect x="548" y="218" width="20" height="12" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.4)" stroke-width="0.8" transform="rotate(28 558 224)"/>
+            <text x="590" y="222" class="adp-lbl-a">2 ratchet straps</text>
+            <text x="590" y="233" class="adp-lbl-d">500 lb · Stanley 2-pack</text>
+            <!-- stage weight anchors -->
+            <rect x="660" y="390" width="36" height="14" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+            <text x="678" y="474" text-anchor="middle" class="adp-lbl-d">stage weights</text>
+            <!-- tie high callout -->
+            <circle cx="466" cy="80" r="7" fill="none" stroke="#ffb850" stroke-width="1.3"/>
+            <text x="290" y="78" text-anchor="end" class="adp-lbl-a">tie HIGH</text>
+            <text x="290" y="89" text-anchor="end" class="adp-lbl-d">above the TV</text>
+            <line x1="295" y1="80" x2="459" y2="80" class="adp-s03"/>
+            <!-- FORCE: TV tries to tip forward -->
+            <line x1="432" y1="215" x2="432" y2="255" class="adp-force" marker-end="url(#arr-r)"/>
+            <path d="M458,400 Q430,394 426,362" class="adp-force" marker-end="url(#arr-r)"/>
+            <text x="310" y="342" class="adp-lbl-r">TV tips it</text>
+            <text x="310" y="353" class="adp-lbl-r">FORWARD</text>
+            <line x1="362" y1="348" x2="424" y2="362" class="adp-s03"/>
+            <!-- strap tension pulls back -->
+            <line x1="570" y1="254" x2="606" y2="314" class="adp-force" stroke="#ffb850" stroke-dasharray="none" marker-end="url(#arr-a)"/>
+            <text x="616" y="302" class="adp-lbl-a">straps hold</text>
+            <text x="616" y="313" class="adp-lbl-a">it BACK</text>
           </svg>
         </div>
-        <p class="adp-figcaption">Fig. 03 · Freestanding Stability · deep base + rear ballast + two ratchet-strap guy-lines</p>
       </div>
+
+      <div class="adp-figure">
+        <div class="adp-fig-frame">
+          <!-- TOP VIEW -->
+          <svg viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg" aria-label="Top view: two straps splay to rear corners">
+            <defs>
+              <marker id="arr-r2" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" fill="#c05040"/></marker>
+            </defs>
+            <text x="400" y="26" text-anchor="middle" class="adp-lbl-d">top view</text>
+            <!-- audience label -->
+            <text x="400" y="390" text-anchor="middle" class="adp-lbl-d">▼ front — audience this side ▼</text>
+            <!-- base platform from above -->
+            <rect x="230" y="100" width="340" height="220" class="adp-s05" fill="rgba(255,255,255,0.03)"/>
+            <text x="400" y="92" text-anchor="middle" class="adp-lbl-d">base platform</text>
+            <!-- cross footprint: horizontal bar + vertical square -->
+            <rect x="320" y="192" width="160" height="12" class="adp-s1" fill="rgba(255,255,255,0.06)"/>
+            <rect x="392" y="180" width="16" height="36" class="adp-s1" fill="rgba(255,255,255,0.06)"/>
+            <!-- TV faces front (bottom of diagram) -->
+            <rect x="358" y="216" width="84" height="10" rx="1" fill="#111" stroke="#333" stroke-width="1"/>
+            <rect x="358" y="224" width="84" height="2" fill="#ffb850" opacity="0.5"/>
+            <text x="400" y="244" text-anchor="middle" class="adp-lbl-d">TV faces front</text>
+            <!-- wants to fall toward audience -->
+            <line x1="400" y1="256" x2="400" y2="310" class="adp-force" marker-end="url(#arr-r2)"/>
+            <text x="490" y="290" class="adp-lbl-r">wants to fall</text>
+            <text x="490" y="301" class="adp-lbl-r">toward crowd</text>
+            <!-- STRAP 1: cross → rear left corner weight -->
+            <path d="M400,192 L252,118" class="adp-strap"/>
+            <!-- STRAP 2: cross → rear right corner weight -->
+            <path d="M400,192 L548,118" class="adp-strap"/>
+            <!-- stage weights at rear corners -->
+            <rect x="232" y="106" width="34" height="14" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+            <text x="249" y="100" text-anchor="middle" class="adp-lbl-d">weight</text>
+            <rect x="534" y="106" width="34" height="14" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+            <text x="551" y="100" text-anchor="middle" class="adp-lbl-d">weight</text>
+            <!-- strap labels -->
+            <text x="300" y="168" class="adp-lbl-a">strap 1</text>
+            <text x="492" y="168" class="adp-lbl-a">strap 2</text>
+            <!-- splay hint -->
+            <path d="M376,178 Q400,165 424,178" stroke="#8b6f3d" stroke-width="0.7" fill="none" stroke-dasharray="2 2"/>
+            <text x="400" y="158" text-anchor="middle" class="adp-lbl-d">splay wide</text>
+            <!-- explanatory -->
+            <text x="400" y="355" text-anchor="middle" class="adp-lbl-a">two rear straps catch forward fall + side sway</text>
+          </svg>
+        </div>
+        <p class="adp-figcaption">Fig. 03 · Freestanding Stability · side + top · deep base · rear ballast · two ratchet straps to rear corners</p>
+      </div>
+
+      <h3 class="adp-mini">The Recipe</h3>
+      <ul class="adp-rules">
+        <li><strong>Base platform</strong> — plywood, ~24–36″ deep, cross bolted to it, extends well behind.</li>
+        <li><strong>Rear ballast</strong> — sandbags or steel on the back of the platform, hidden under a fabric skirt.</li>
+        <li><strong>2 ratchet straps</strong> — tied HIGH above the TV, splayed back to the rear corners.</li>
+        <li><strong>2 stage weights</strong> (or floor eye-bolts) — the rear anchor points, low and behind.</li>
+        <li><strong>Snug, not loose</strong> — crank taut so the cross can't shift before the straps catch. Dowel inside the tube where the strap wraps.</li>
+        <li><strong>No open hooks</strong> — squeeze S-hooks closed or loop the webbing directly over a crowd.</li>
+      </ul>
 
       <h3 class="adp-mini">Bill of Materials</h3>
       <table class="adp-bom">
