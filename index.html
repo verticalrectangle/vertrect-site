@@ -482,7 +482,7 @@
     .pms-carousel {
       position: relative;
       max-width: 75%;
-      margin: 0 auto 10px;
+      margin: 0 auto 48px;
     }
     .pms-slide img {
       width: 100%;
@@ -512,28 +512,7 @@
     #pms-2:checked ~ .pms-carousel .pms-arrow label.pms-from-2,
     #pms-3:checked ~ .pms-carousel .pms-arrow label.pms-from-3 { display: block; }
 
-    .pms-dots {
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      margin-bottom: 48px;
-      padding-top: 14px;
-    }
-    .pms-dot {
-      display: block;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.25);
-      cursor: pointer;
-      transition: background 0.15s ease;
-    }
-    .pms-dot:hover { background: rgba(255,255,255,0.5); }
-    #pms-1:checked ~ .pms-dots .pms-dot:nth-child(1),
-    #pms-2:checked ~ .pms-dots .pms-dot:nth-child(2),
-    #pms-3:checked ~ .pms-dots .pms-dot:nth-child(3) { background: rgba(255,255,255,0.9); }
-
-    .pms-examples {
+.pms-examples {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
@@ -1322,18 +1301,6 @@
         <label for="pms-1" class="pms-from-3">›</label>
       </div>
     </div>
-    <div class="pms-dots">
-      <label for="pms-1" class="pms-dot"></label>
-      <label for="pms-2" class="pms-dot"></label>
-      <label for="pms-3" class="pms-dot"></label>
-    </div>
-    <div class="pms-examples">
-      <div class="pms-examples-left">
-        <video src="img/pms-loop-1.mp4" autoplay loop muted playsinline></video>
-        <video src="img/pms-loop-2.mp4" autoplay loop muted playsinline></video>
-      </div>
-      <video src="img/pms-demo.mp4" autoplay loop muted playsinline></video>
-    </div>
     <p class="project-page-body">A complete music video and lyric video editor written entirely in C++ from scratch — no Electron, no Python runtime, no cloud. Drop your track and Pop Maker Studio separates the vocals, transcribes every word down to the millisecond via whisper.cpp, and lets you animate them against your footage with GPU-accelerated GLSL shaders. All ML inference runs fully on-device via ONNX Runtime: vocal separation with MDX-Net, background removal with u2net, voice conversion without ever touching Python. Eight subtitle animation styles. Pixel-identical preview and export. One binary. Zero dependencies.</p>
     <div class="project-page-specs">
       <div class="spec-item"><div class="spec-label">Format</div><div class="spec-value">Desktop App</div></div>
@@ -1341,6 +1308,13 @@
       <div class="spec-item"><div class="spec-label">Platform</div><div class="spec-value">Linux / macOS / Win</div></div>
       <div class="spec-item"><div class="spec-label">Status</div><div class="spec-value">In Dev</div></div>
       <div class="spec-item"><div class="spec-label">License</div><div class="spec-value">GPLv3</div></div>
+    </div>
+    <div class="pms-examples">
+      <div class="pms-examples-left">
+        <video src="img/pms-loop-1.mp4" autoplay loop muted playsinline></video>
+        <video src="img/pms-loop-2.mp4" autoplay loop muted playsinline></video>
+      </div>
+      <video src="img/pms-demo.mp4" autoplay loop muted playsinline></video>
     </div>
   </section>
 
