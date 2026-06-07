@@ -472,6 +472,18 @@
       margin-bottom: 64px;
     }
 
+    .pms-screens {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 48px;
+    }
+    .pms-screen {
+      width: 100%;
+      display: block;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
     .project-page-specs {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -1222,15 +1234,10 @@
       <p class="project-page-tagline">Local-first ML lyric video editor. C++ from scratch. No cloud.</p>
       <a class="project-page-link" href="https://github.com/verticalrectangle/pop-maker-studio" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
-    <div class="project-page-image project-page-image--logo">
-      <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="5" y="13" width="26" height="18" rx="1" stroke="white" stroke-width="2.5"/>
-        <rect x="5" y="8" width="26" height="6" rx="1" stroke="white" stroke-width="2.5"/>
-        <line x1="13" y1="8" x2="10" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        <line x1="20" y1="8" x2="17" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        <line x1="27" y1="8" x2="24" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <span class="tl-name">Pop Maker Studio</span>
+    <div class="pms-screens">
+      <img src="img/pms-screen-2.png" alt="Pop Maker Studio: lyric animation editor with effects panel" class="pms-screen">
+      <img src="img/pms-screen-3.png" alt="Pop Maker Studio: glitch effect applied to portrait clip" class="pms-screen">
+      <img src="img/pms-screen-1.png" alt="Pop Maker Studio: clip inspector with timeline" class="pms-screen">
     </div>
     <p class="project-page-body">A complete music video and lyric video editor written entirely in C++ from scratch — no Electron, no Python runtime, no cloud. Drop your track and Pop Maker Studio separates the vocals, transcribes every word down to the millisecond via whisper.cpp, and lets you animate them against your footage with GPU-accelerated GLSL shaders. All ML inference runs fully on-device via ONNX Runtime: vocal separation with MDX-Net, background removal with u2net, voice conversion without ever touching Python. Eight subtitle animation styles. Pixel-identical preview and export. One binary. Zero dependencies.</p>
     <div class="project-page-specs">
