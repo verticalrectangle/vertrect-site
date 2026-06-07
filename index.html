@@ -479,12 +479,38 @@
     #pms-2:checked ~ .pms-carousel .pms-slide:nth-child(2),
     #pms-3:checked ~ .pms-carousel .pms-slide:nth-child(3) { display: block; }
 
-    .pms-carousel { margin-bottom: 10px; }
+    .pms-carousel {
+      position: relative;
+      max-width: 75%;
+      margin: 0 auto 10px;
+    }
     .pms-slide img {
       width: 100%;
       display: block;
       border: 1px solid rgba(255,255,255,0.15);
     }
+    .pms-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    .pms-arrow-prev { left: 0; }
+    .pms-arrow-next { right: 0; }
+    .pms-arrow label {
+      display: none;
+      cursor: pointer;
+      font-size: 24px;
+      color: rgba(255,255,255,0.8);
+      padding: 10px 14px;
+      background: rgba(0,0,0,0.45);
+      line-height: 1;
+      user-select: none;
+    }
+    .pms-arrow label:hover { color: white; background: rgba(0,0,0,0.7); }
+    #pms-1:checked ~ .pms-carousel .pms-arrow label.pms-from-1,
+    #pms-2:checked ~ .pms-carousel .pms-arrow label.pms-from-2,
+    #pms-3:checked ~ .pms-carousel .pms-arrow label.pms-from-3 { display: block; }
 
     .pms-dots {
       display: flex;
@@ -1282,6 +1308,16 @@
       <div class="pms-slide"><img src="img/pms-screen-2.png" alt="Pop Maker Studio: lyric animation editor with effects panel"></div>
       <div class="pms-slide"><img src="img/pms-screen-3.png" alt="Pop Maker Studio: glitch effect applied to portrait clip"></div>
       <div class="pms-slide"><img src="img/pms-screen-1.png" alt="Pop Maker Studio: clip inspector with timeline"></div>
+      <div class="pms-arrow pms-arrow-prev">
+        <label for="pms-3" class="pms-from-1">‹</label>
+        <label for="pms-1" class="pms-from-2">‹</label>
+        <label for="pms-2" class="pms-from-3">‹</label>
+      </div>
+      <div class="pms-arrow pms-arrow-next">
+        <label for="pms-2" class="pms-from-1">›</label>
+        <label for="pms-3" class="pms-from-2">›</label>
+        <label for="pms-1" class="pms-from-3">›</label>
+      </div>
     </div>
     <div class="pms-dots">
       <label for="pms-1" class="pms-dot"></label>
