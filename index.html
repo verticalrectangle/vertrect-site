@@ -472,28 +472,50 @@
       margin-bottom: 64px;
     }
 
-    .pms-outputs {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 10px;
-      align-items: start;
-    }
-    .pms-output {
+    .pms-radio { display: none; }
+
+    .pms-slide { display: none; }
+    #pms-1:checked ~ .pms-gallery .pms-slide:nth-child(1),
+    #pms-2:checked ~ .pms-gallery .pms-slide:nth-child(2),
+    #pms-3:checked ~ .pms-gallery .pms-slide:nth-child(3) { display: block; }
+
+    .pms-gallery { margin-bottom: 48px; }
+
+    .pms-slide img {
       width: 100%;
       display: block;
       border: 1px solid rgba(255,255,255,0.15);
+      margin-bottom: 8px;
     }
-    .pms-screens {
+
+    .pms-nav {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 48px;
+      gap: 8px;
     }
-    .pms-screen {
-      width: 100%;
+
+    .pms-nav-item {
       display: block;
+      cursor: pointer;
       border: 1px solid rgba(255,255,255,0.15);
+      overflow: hidden;
+      height: 120px;
+      opacity: 0.45;
+      transition: opacity 0.15s ease;
+    }
+    .pms-nav-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .pms-nav-item:hover { opacity: 0.75; }
+
+    #pms-1:checked ~ .pms-gallery .pms-nav-item:nth-child(1),
+    #pms-2:checked ~ .pms-gallery .pms-nav-item:nth-child(2),
+    #pms-3:checked ~ .pms-gallery .pms-nav-item:nth-child(3) {
+      opacity: 1;
+      border-color: rgba(255,255,255,0.6);
     }
 
     .project-page-specs {
@@ -1240,21 +1262,24 @@
 
   <!-- POP MAKER STUDIO -->
   <section id="pop-maker-studio" class="page">
+    <input type="radio" name="pms-carousel" id="pms-1" class="pms-radio" checked>
+    <input type="radio" name="pms-carousel" id="pms-2" class="pms-radio">
+    <input type="radio" name="pms-carousel" id="pms-3" class="pms-radio">
     <a class="back-link" href="#development">← Back</a>
     <div class="project-page-header">
       <h1 class="project-page-title">Pop Maker Studio</h1>
       <p class="project-page-tagline">Local-first ML lyric video editor. C++ from scratch. No cloud.</p>
       <a class="project-page-link" href="https://github.com/verticalrectangle/pop-maker-studio" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
-    <div class="pms-screens">
-      <img src="img/pms-screen-2.png" alt="Pop Maker Studio: lyric animation editor with effects panel" class="pms-screen">
-      <img src="img/pms-screen-3.png" alt="Pop Maker Studio: glitch effect applied to portrait clip" class="pms-screen">
-      <img src="img/pms-screen-1.png" alt="Pop Maker Studio: clip inspector with timeline" class="pms-screen">
-    </div>
-    <div class="pms-outputs">
-      <video class="pms-output" src="img/pms-loop-1.mp4" autoplay loop muted playsinline></video>
-      <video class="pms-output" src="img/pms-demo.mp4" autoplay loop muted playsinline></video>
-      <video class="pms-output" src="img/pms-loop-2.mp4" autoplay loop muted playsinline></video>
+    <div class="pms-gallery">
+      <div class="pms-slide"><img src="img/pms-screen-2.png" alt="Pop Maker Studio: lyric animation editor with effects panel"></div>
+      <div class="pms-slide"><img src="img/pms-screen-3.png" alt="Pop Maker Studio: glitch effect applied to portrait clip"></div>
+      <div class="pms-slide"><img src="img/pms-screen-1.png" alt="Pop Maker Studio: clip inspector with timeline"></div>
+      <div class="pms-nav">
+        <label for="pms-1" class="pms-nav-item"><video src="img/pms-loop-1.mp4" autoplay loop muted playsinline></video></label>
+        <label for="pms-2" class="pms-nav-item"><video src="img/pms-demo.mp4" autoplay loop muted playsinline></video></label>
+        <label for="pms-3" class="pms-nav-item"><video src="img/pms-loop-2.mp4" autoplay loop muted playsinline></video></label>
+      </div>
     </div>
     <p class="project-page-body">A complete music video and lyric video editor written entirely in C++ from scratch — no Electron, no Python runtime, no cloud. Drop your track and Pop Maker Studio separates the vocals, transcribes every word down to the millisecond via whisper.cpp, and lets you animate them against your footage with GPU-accelerated GLSL shaders. All ML inference runs fully on-device via ONNX Runtime: vocal separation with MDX-Net, background removal with u2net, voice conversion without ever touching Python. Eight subtitle animation styles. Pixel-identical preview and export. One binary. Zero dependencies.</p>
     <div class="project-page-specs">
