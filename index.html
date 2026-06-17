@@ -1395,9 +1395,9 @@
       <a class="project-page-link" href="https://github.com/verticalrectangle/pop-maker-studio" target="_blank" rel="noopener">Source · pop-maker-studio ↗</a>
     </div>
 
-    <p class="project-page-body">When you use an AI voice model to sound like someone else, there's one knob you always end up fighting: pitch. If the model was trained on a deep voice and yours is high, you have to guess — "shift down an octave?" — convert, listen, try again. Everyone does it by ear. It's the single most common "why does this sound bad."</p>
+    <p class="project-page-body">When you use an AI voice model to sound like someone else, there's one knob you always end up fighting: pitch. If the model was trained on a deep voice and yours is high, you have to guess. Shift down an octave? Convert, listen, try again. Everyone does it by ear, and it's the single most common "why does this sound bad."</p>
 
-    <p class="research-lead">You don't have to guess. The model already knows its own range — it's sitting in the weights — and you can read it out in a microsecond, without playing a note.</p>
+    <p class="research-lead">You don't have to guess. The model already knows its own range. It's sitting in the weights, and you can read it out in a microsecond, without playing a note.</p>
 
     <h2 class="research-h2">Why the range is in there</h2>
     <p class="project-page-body">These models (RVC) handle pitch with a small lookup table called a <strong>pitch embedding</strong>: 256 slots, one per pitch step from low to high, each holding a learned vector. A slot only changes during training when the training audio actually hits that pitch. If the voice never sang low, the low slots never get touched.</p>
@@ -1410,15 +1410,15 @@
       <li>For each slot, measure how far it moved (the length of that difference).</li>
       <li>Smooth it a touch, then keep the slots that moved more than ~30% of the biggest mover.</li>
     </ol>
-    <p class="project-page-body">That's the range — a 256-slot "trained / not trained" map.</p>
-    <p class="project-page-body">Auto-key is then just arithmetic (<code>vc_onnx.cpp:316-381</code>). The input's pitch over time is already a list of numbers — you measure it once anyway, as a normal first step. Shifting it an octave is multiplying those numbers; checking "unshifted vs. up vs. down" is counting how many of them fall inside the trained map. You pick the shift with the best count; ties stay put. <strong>Nothing is converted or played to decide</strong> — the choice happens on the pitch numbers, before any audio is generated.</p>
-    <p class="project-page-body">The payoff: you sing in your natural pitch and it lands you in the model's range automatically. A high voice into a model trained on a deep one just works — no knob.</p>
+    <p class="project-page-body">That's the range: a 256-slot "trained / not trained" map.</p>
+    <p class="project-page-body">Auto-key is then just arithmetic (<code>vc_onnx.cpp:316-381</code>). The input's pitch over time is already a list of numbers, and you measure it once anyway as a normal first step. Shifting it an octave is multiplying those numbers; checking "unshifted vs. up vs. down" is counting how many of them fall inside the trained map. You pick the shift with the best count, and ties stay put. <strong>Nothing is converted or played to decide.</strong> The choice happens on the pitch numbers, before any audio is generated.</p>
+    <p class="project-page-body">The payoff: you sing in your natural pitch and it lands you in the model's range automatically. A high voice into a model trained on a deep one just works, with no knob.</p>
 
     <h2 class="research-h2">The part that isn't about audio</h2>
-    <p class="project-page-body">Nothing here is specific to voices. Any model with an embedding lookup — the word table in a language model, the class table in a classifier — has the same property: <strong>a row only moves if training touched it.</strong> Diff a fine-tuned model's embedding against its base, and the rows that moved tell you what the fine-tune actually saw. Vocal range is just the case where that map happens to be immediately useful — and where you can turn it into a feature people press a button on.</p>
+    <p class="project-page-body">Nothing here is specific to voices. Any model with an embedding lookup, like the word table in a language model or the class table in a classifier, has the same property: <strong>a row only moves if training touched it.</strong> Diff a fine-tuned model's embedding against its base, and the rows that moved tell you what the fine-tune actually saw. Vocal range is just the case where that map happens to be immediately useful, and where you can turn it into a feature people press a button on.</p>
 
     <h2 class="research-h2">Related work</h2>
-    <p class="project-page-body">Other people read things out of weight differences too, for different goals: some train a model to <em>describe</em> how a fine-tune changed its behavior; others reconstruct training examples from gradients. This is the simple, narrow end of that street — it reads one concrete number (a range) straight off the embedding, with subtraction and a threshold, and uses it to fix a real annoyance.</p>
+    <p class="project-page-body">Other people read things out of weight differences too, for different goals: some train a model to <em>describe</em> how a fine-tune changed its behavior; others reconstruct training examples from gradients. This is the simple, narrow end of that street. It reads one concrete number (a range) straight off the embedding, with subtraction and a threshold, and uses it to fix a real annoyance.</p>
 
     <div class="project-page-specs">
       <div class="spec-item"><div class="spec-label">Domain</div><div class="spec-value">RVC Voice Models</div></div>
