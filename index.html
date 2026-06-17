@@ -70,7 +70,7 @@
       padding: 28px 48px;
     }
 
-    body:not(:has(#development:target)):not(:has(#pop-maker-studio:target)):not(:has(#digital-prayer:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#lyric-video-blender:target)):not(:has(#silvertune-web:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)) nav {
+    body:not(:has(#development:target)):not(:has(#pop-maker-studio:target)):not(:has(#digital-prayer:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#lyric-video-blender:target)):not(:has(#silvertune-web:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#research:target)):not(:has(#voice-range-weights:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)) nav {
       display: none;
     }
 
@@ -163,10 +163,12 @@
     #home { display: flex; }
 
     #development:target,
+    #research:target,
     #connect:target,
     #artists:target { display: block; }
 
     body:has(#development:target) #home,
+    body:has(#research:target) #home,
     body:has(#connect:target) #home,
     body:has(#artists:target) #home { display: none; }
 
@@ -178,6 +180,7 @@
     #lyric-video-blender:target,
     #silvertune-web:target,
     #cei:target,
+    #voice-range-weights:target,
     #epsilver:target,
     #depravity-girlz:target,
     #ekioze:target { display: block; }
@@ -190,6 +193,7 @@
     body:has(#lyric-video-blender:target) #home,
     body:has(#silvertune-web:target) #home,
     body:has(#cei:target) #home,
+    body:has(#voice-range-weights:target) #home,
     body:has(#epsilver:target) #home,
     body:has(#depravity-girlz:target) #home,
     body:has(#ekioze:target) #home { display: none; }
@@ -262,6 +266,7 @@
     /* ── SHARED GRID PAGE ── */
 
     #development,
+    #research,
     #artists {
       padding-top: 64px;
       padding-bottom: 100px;
@@ -472,6 +477,49 @@
       margin-bottom: 64px;
     }
 
+    /* ── RESEARCH ARTICLE ── */
+
+    .research-article .project-page-body { margin-bottom: 26px; }
+
+    .research-lead {
+      font-size: 21px;
+      line-height: 1.65;
+      font-weight: 400;
+      opacity: 0.95;
+      max-width: 680px;
+      margin-bottom: 44px;
+      padding-left: 22px;
+      border-left: 2px solid rgba(255,255,255,0.35);
+    }
+
+    .research-h2 {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      max-width: 680px;
+      margin: 52px 0 18px;
+    }
+
+    .research-article ol {
+      max-width: 680px;
+      font-size: 18px;
+      line-height: 1.75;
+      opacity: 0.8;
+      margin: 0 0 26px;
+      padding-left: 22px;
+    }
+
+    .research-article ol li { margin-bottom: 10px; }
+
+    .research-article code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.85em;
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
     .pms-radio { display: none; }
 
     @keyframes pms-cycle {
@@ -584,7 +632,7 @@
     }
 
     @media (max-width: 600px) {
-      #pop-maker-studio, #digital-prayer, #silvertune, #wickrunner, #silvertune-pedal, #lyric-video-blender, #silvertune-web, #cei { padding-top: 100px; }
+      #pop-maker-studio, #digital-prayer, #silvertune, #wickrunner, #silvertune-pedal, #lyric-video-blender, #silvertune-web, #cei, #voice-range-weights { padding-top: 100px; }
       .project-page-body { font-size: 16px; }
       .project-page-specs { grid-template-columns: repeat(2, 1fr); }
     }
@@ -1085,6 +1133,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="#development">Development</a></li>
+      <li><a href="#research">Research</a></li>
       <li><a href="#artists">Artists</a></li>
       <li><a href="#connect">Connect</a></li>
     </ul>
@@ -1099,6 +1148,7 @@
     <p class="home-tagline">Independent creative technology studio</p>
     <ul class="home-nav">
       <li><a href="#development">Development</a></li>
+      <li><a href="#research">Research</a></li>
       <li><a href="#artists">Artists</a></li>
       <li><a href="#connect">Connect</a></li>
     </ul>
@@ -1292,6 +1342,90 @@
         </div>
       </a>
 
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section id="research" class="page">
+    <p class="work-header">Research</p>
+    <div class="work-grid">
+
+      <a class="project" href="#voice-range-weights">
+        <div class="project-thumbnail project-thumbnail--logo">
+          <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="4" y1="26" x2="8" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="11" y1="18" x2="15" y2="18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="11" y1="26" x2="15" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="10" x2="22" y2="10" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="18" x2="22" y2="18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="26" x2="22" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="25" y1="18" x2="29" y2="18" stroke="#ffb850" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="25" y1="26" x2="29" y2="26" stroke="#ffb850" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span class="tl-name">Vocal Range</span>
+        </div>
+        <div class="project-info">
+          <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="4" y1="26" x2="8" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="11" y1="18" x2="15" y2="18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="11" y1="26" x2="15" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="10" x2="22" y2="10" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="18" x2="22" y2="18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="26" x2="22" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="25" y1="18" x2="29" y2="18" stroke="#ffb850" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="25" y1="26" x2="29" y2="26" stroke="#ffb850" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div class="project-name">Reading Vocal Range from Model Weights</div>
+            <div class="project-desc">A voice model's vocal range is sitting in its pitch embedding. Diff it against the base and read it out in a microsecond — no audio.</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- READING VOCAL RANGE FROM MODEL WEIGHTS -->
+  <section id="voice-range-weights" class="page research-article">
+    <a class="back-link" href="#research">← Back</a>
+    <div class="project-page-header">
+      <div class="project-page-tagline">Research</div>
+      <h1 class="project-page-title">You can read a voice model's vocal range straight off its weights</h1>
+      <a class="project-page-link" href="https://github.com/verticalrectangle/pop-maker-studio" target="_blank" rel="noopener">Source · pop-maker-studio ↗</a>
+    </div>
+
+    <p class="project-page-body">When you use an AI voice model to sound like someone else, there's one knob you always end up fighting: pitch. If the model was trained on a deep voice and yours is high, you have to guess — "shift down an octave?" — convert, listen, try again. Everyone does it by ear. It's the single most common "why does this sound bad."</p>
+
+    <p class="research-lead">You don't have to guess. The model already knows its own range — it's sitting in the weights — and you can read it out in a microsecond, without playing a note.</p>
+
+    <h2 class="research-h2">Why the range is in there</h2>
+    <p class="project-page-body">These models (RVC) handle pitch with a small lookup table called a <strong>pitch embedding</strong>: 256 slots, one per pitch step from low to high, each holding a learned vector. A slot only changes during training when the training audio actually hits that pitch. If the voice never sang low, the low slots never get touched.</p>
+    <p class="project-page-body">And every voice model is <strong>fine-tuned from the same shared starting point</strong> (a "base" model). So line up a finished voice's pitch table against that base, look at which slots <em>moved</em>, and you've got a map of exactly which pitches the voice was trained on. That map <strong>is</strong> its vocal range.</p>
+
+    <h2 class="research-h2">How you read it (it's basically subtraction)</h2>
+    <p class="project-page-body">The code is short. At export time (<code>rvc_onnx.cpp:1359-1410</code>):</p>
+    <ol>
+      <li>Subtract the base pitch table from the voice's, slot by slot.</li>
+      <li>For each slot, measure how far it moved (the length of that difference).</li>
+      <li>Smooth it a touch, then keep the slots that moved more than ~30% of the biggest mover.</li>
+    </ol>
+    <p class="project-page-body">That's the range — a 256-slot "trained / not trained" map.</p>
+    <p class="project-page-body">Auto-key is then just arithmetic (<code>vc_onnx.cpp:316-381</code>). The input's pitch over time is already a list of numbers — you measure it once anyway, as a normal first step. Shifting it an octave is multiplying those numbers; checking "unshifted vs. up vs. down" is counting how many of them fall inside the trained map. You pick the shift with the best count; ties stay put. <strong>Nothing is converted or played to decide</strong> — the choice happens on the pitch numbers, before any audio is generated.</p>
+    <p class="project-page-body">The payoff: you sing in your natural pitch and it lands you in the model's range automatically. A high voice into a model trained on a deep one just works — no knob.</p>
+
+    <h2 class="research-h2">The part that isn't about audio</h2>
+    <p class="project-page-body">Nothing here is specific to voices. Any model with an embedding lookup — the word table in a language model, the class table in a classifier — has the same property: <strong>a row only moves if training touched it.</strong> Diff a fine-tuned model's embedding against its base, and the rows that moved tell you what the fine-tune actually saw. Vocal range is just the case where that map happens to be immediately useful — and where you can turn it into a feature people press a button on.</p>
+
+    <h2 class="research-h2">Related work</h2>
+    <p class="project-page-body">Other people read things out of weight differences too, for different goals: some train a model to <em>describe</em> how a fine-tune changed its behavior; others reconstruct training examples from gradients. This is the simple, narrow end of that street — it reads one concrete number (a range) straight off the embedding, with subtraction and a threshold, and uses it to fix a real annoyance.</p>
+
+    <div class="project-page-specs">
+      <div class="spec-item"><div class="spec-label">Domain</div><div class="spec-value">RVC Voice Models</div></div>
+      <div class="spec-item"><div class="spec-label">Method</div><div class="spec-value">Pitch Embedding Diff</div></div>
+      <div class="spec-item"><div class="spec-label">Cost</div><div class="spec-value">Microseconds · No Audio</div></div>
+      <div class="spec-item"><div class="spec-label">Application</div><div class="spec-value">Auto-Key Selection</div></div>
+      <div class="spec-item"><div class="spec-label">Source</div><div class="spec-value">Pop Maker Studio</div></div>
     </div>
   </section>
 
