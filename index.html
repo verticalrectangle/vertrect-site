@@ -46,9 +46,25 @@
     }
 
     :root {
+      /* VR base — Dark theme is strict black & white (amber → white) */
       --black: #000000;
       --white: #ffffff;
-      --amber: #ffb850;
+      --amber: #ffffff;
+      /* Frutiger Aero atmosphere, monochrome on black */
+      --sun-core: #ffffff;
+      --sun-glow: rgba(255,255,255,0.20);
+      --sun-fade: rgba(255,255,255,0.04);
+      --ray: rgba(255,255,255,0.09);
+      --bubble: rgba(255,255,255,0.92);
+      --flare: #ffffff;
+      /* liquid-glass card tokens + calm tonal background (dark) */
+      --bg-grad: radial-gradient(1100px 760px at 72% -8%, rgba(255,255,255,0.07), transparent 60%);
+      --glass-fill: rgba(255,255,255,0.05);
+      --glass-edge: rgba(255,255,255,0.12);
+      --glass-rim: rgba(255,255,255,0.35);
+      --glass-glow: rgba(255,255,255,0.03);
+      --glass-shadow: rgba(0,0,0,0.6);
+      color-scheme: dark;
     }
 
     html { scroll-behavior: auto; }
@@ -1133,9 +1149,103 @@
       .adp-litany { padding: 32px 20px; font-size: 14px; }
       .adp-bom th, .adp-bom td { padding: 10px 8px; }
     }
+    /* ============================================================
+       Theme toggle (pure CSS, no JS) — light/dark driven by :has()
+       ============================================================ */
+    .theme-toggle {
+      position: fixed; bottom: 22px; right: 24px; z-index: 200;
+      display: inline-flex; align-items: center; gap: 10px; cursor: pointer;
+      padding: 8px 14px; border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.22);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    }
+    .theme-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .theme-track { width: 40px; height: 22px; border-radius: 999px; position: relative;
+      background: rgba(255,255,255,0.15); border: 1px solid var(--white); transition: background .25s ease; }
+    .theme-track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px;
+      border-radius: 50%; background: var(--white); transition: transform .25s ease; }
+    :root:has(#theme-toggle:checked) .theme-track::after { transform: translateX(18px); }
+    .theme-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; }
+
+    /* glossy Aero treatment for VR's bordered link-buttons */
+    .project-page-link, .artist-page-link, .member-link {
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
+      -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    }
+
+    /* ── Light theme: Rosé Pine Dawn — toggle ON (checked) = light ── */
+    :root:has(#theme-toggle:checked) {
+      --black: #faf4ed;
+      --white: #575279;
+      --amber: #ea9d34;
+      --bg-grad: radial-gradient(1100px 760px at 72% -8%, rgba(234,157,52,0.12), transparent 60%);
+      --glass-fill: rgba(255,255,255,0.5);
+      --glass-edge: rgba(255,255,255,0.8);
+      --glass-rim: rgba(255,255,255,0.95);
+      --glass-glow: rgba(255,255,255,0.4);
+      --glass-shadow: rgba(87,82,121,0.16);
+      color-scheme: light;
+    }
+    :root:has(#theme-toggle:checked) .project,
+    :root:has(#theme-toggle:checked) .project-page-image,
+    :root:has(#theme-toggle:checked) .project-page-specs,
+    :root:has(#theme-toggle:checked) .spec-item,
+    :root:has(#theme-toggle:checked) .connect-list,
+    :root:has(#theme-toggle:checked) .connect-item,
+    :root:has(#theme-toggle:checked) .artist-page-art,
+    :root:has(#theme-toggle:checked) .research-article,
+    :root:has(#theme-toggle:checked) .pms-slide,
+    :root:has(#theme-toggle:checked) .adp-fig-frame,
+    :root:has(#theme-toggle:checked) .adp-litany,
+    :root:has(#theme-toggle:checked) .adp-bom,
+    :root:has(#theme-toggle:checked) .adp-rules li {
+      border-color: rgba(87, 82, 121, 0.18) !important;
+    }
+    :root:has(#theme-toggle:checked) .project:hover { border-color: rgba(87, 82, 121, 0.42) !important; }
+    :root:has(#theme-toggle:checked) .project-thumbnail--logo,
+    :root:has(#theme-toggle:checked) .project-page-image--logo { background: #1f1b2e !important; border-radius: 8px; }
+    :root:has(#theme-toggle:checked) .project-page-link,
+    :root:has(#theme-toggle:checked) .artist-page-link,
+    :root:has(#theme-toggle:checked) .member-link {
+      background: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.3));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+    /* theme-compliance: every literal amber (#ffb850 / #f5c518) follows var(--amber),
+       so the Digital Prayer artwork obeys B&W-dark / RPD-gold-light too */
+    [fill="#ffb850"] { fill: var(--amber) !important; }
+    [stroke="#ffb850"] { stroke: var(--amber) !important; }
+    [stroke="#f5c518"] { stroke: var(--amber) !important; }
+    .adp-lbl-a { fill: var(--amber) !important; }
+    .adp-strap { stroke: var(--amber) !important; }
+    .adp-rules li::before { color: var(--amber) !important; }
+    /* ── Liquid-glass cards: Option 2 (gel) + Option 3 (frosted), palette-only ── */
+    body { background-color: var(--black); background-image: var(--bg-grad); background-attachment: fixed; }
+    .project {
+      background-color: var(--glass-fill) !important;
+      background-image: linear-gradient(160deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.03) 20%, transparent 48%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      backdrop-filter: blur(18px) saturate(160%);
+      border-radius: 16px;
+      box-shadow: inset 0 1px 0 var(--glass-rim), inset 0 0 22px var(--glass-glow), 0 18px 40px -18px var(--glass-shadow);
+    }
+    .project-page-specs, .connect-list {
+      background-color: var(--glass-fill) !important;
+      -webkit-backdrop-filter: blur(16px) saturate(155%);
+      backdrop-filter: blur(16px) saturate(155%);
+      border-radius: 14px;
+      box-shadow: inset 0 1px 0 var(--glass-rim), 0 14px 34px -18px var(--glass-shadow);
+    }
   </style>
 </head>
 <body>
+  <!-- Theme toggle (pure CSS, no JS) -->
+  <label class="theme-toggle" title="Toggle light / dark">
+    <span class="theme-label">Light</span>
+    <input type="checkbox" id="theme-toggle" />
+    <span class="theme-track" aria-hidden="true"></span>
+  </label>
 
   <nav>
     <a href="#home" class="nav-logo">
