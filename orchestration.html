@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>oh-my-pi · Orchestration Prompting — vertical rectangle</title>
+  <meta name="description" content="Five config-free ways to orchestrate multiple agents in oh-my-pi — prompting examples with the keywords highlighted.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="orchestration.css">
+  <style>
+    /* prompting-example blocks (page-specific, layered on the base aesthetic) */
+    .ex { margin-top: 18px; }
+    .ex-row {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 16px;
+      padding: 16px 0;
+      border-top: 1px solid var(--glass-edge);
+      align-items: start;
+    }
+    .ex-row:first-of-type { border-top: none; padding-top: 2px; }
+    .ex-label {
+      font-family: var(--font-display);
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--aqua-dim);
+      padding-top: 4px;
+    }
+    .ex-row > p { color: var(--ink-2); font-size: 0.94rem; margin: 0; }
+    .ex-row > p + p { margin-top: 8px; }
+    .ex-row .code { margin: 0; font-size: 0.77rem; }
+    /* keyword highlight */
+    .kw {
+      background: rgba(111, 230, 255, 0.16);
+      color: var(--aqua);
+      padding: 1px 5px;
+      border-radius: 6px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .kw.teal { background: rgba(70, 224, 176, 0.14); color: var(--teal); }
+    .legend {
+      display: flex; flex-wrap: wrap; gap: 10px 22px;
+      margin-top: 16px;
+      font-size: 0.82rem; color: var(--ink-3);
+    }
+    .legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .swatch { width: 12px; height: 12px; border-radius: 4px; display: inline-block; }
+    .swatch.aqua { background: rgba(111,230,255,0.5); }
+    .swatch.teal { background: rgba(70,224,176,0.5); }
+  </style>
+</head>
+<body>
+
+  <!-- ===== ATMOSPHERE ===== -->
+  <div class="sky" aria-hidden="true">
+    <div class="moon"></div>
+    <div class="stars"></div>
+    <div class="water"></div>
+    <div class="bubbles">
+      <span class="bubble" style="left:6%;  width:34px;  height:34px;  animation-duration:19s; animation-delay:-2s;"></span>
+      <span class="bubble" style="left:14%; width:18px;  height:18px;  animation-duration:24s; animation-delay:-9s;"></span>
+      <span class="bubble" style="left:22%; width:54px;  height:54px;  animation-duration:27s; animation-delay:-5s;"></span>
+      <span class="bubble" style="left:31%; width:12px;  height:12px;  animation-duration:16s; animation-delay:-13s;"></span>
+      <span class="bubble" style="left:40%; width:40px;  height:40px;  animation-duration:30s; animation-delay:-1s;"></span>
+      <span class="bubble" style="left:49%; width:22px;  height:22px;  animation-duration:22s; animation-delay:-18s;"></span>
+      <span class="bubble" style="left:58%; width:64px;  height:64px;  animation-duration:33s; animation-delay:-7s;"></span>
+      <span class="bubble" style="left:67%; width:16px;  height:16px;  animation-duration:20s; animation-delay:-11s;"></span>
+      <span class="bubble" style="left:76%; width:46px;  height:46px;  animation-duration:28s; animation-delay:-4s;"></span>
+      <span class="bubble" style="left:84%; width:26px;  height:26px;  animation-duration:25s; animation-delay:-15s;"></span>
+      <span class="bubble" style="left:92%; width:38px;  height:38px;  animation-duration:31s; animation-delay:-6s;"></span>
+      <span class="bubble" style="left:97%; width:14px;  height:14px;  animation-duration:18s; animation-delay:-20s;"></span>
+    </div>
+  </div>
+
+  <!-- ===== NAV ===== -->
+  <nav class="nav glass" aria-label="Section navigation">
+    <a class="brand" href="/">← vertrect</a>
+    <a href="#task">task</a>
+    <a href="#eval">eval</a>
+    <a href="#irc">irc</a>
+    <a href="#job">job</a>
+    <a href="#swarm">swarm</a>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- ===== HERO ===== -->
+    <header class="hero glass">
+      <div class="eyebrow">oh-my-pi · multi-agent</div>
+      <h1>Orchestration prompting, <span class="glow">keywords highlighted</span>.</h1>
+      <p class="thesis">Five config-free ways to run multiple agents in oh-my-pi. For each: what to <b style="color:var(--ink)">say</b>, what the agent <b style="color:var(--ink)">does</b>, and what you <b style="color:var(--ink)">get back</b> — with the load-bearing keywords marked.</p>
+      <div class="legend">
+        <span><i class="swatch aqua"></i>aqua = what you say to trigger it</span>
+        <span><i class="swatch teal"></i>teal = what comes back</span>
+      </div>
+    </header>
+
+    <!-- ===== 01 TASK ===== -->
+    <section id="task">
+      <div class="kicker"><span class="num">01</span><h2>task — declarative fan-out</h2><span class="rule"></span><span class="tag ink">config-free</span></div>
+      <article class="glass card">
+        <span class="tag">Mechanism · task</span>
+        <h3 style="font-family:var(--font-display);font-weight:600;margin:12px 0 2px">Spin up parallel subagents in one batch</h3>
+        <p class="sub">The primary multi-agent tool. One call, many agents, shared context.</p>
+        <div class="ex">
+          <div class="ex-row">
+            <span class="ex-label">You say</span>
+            <p>“Do this in <span class="kw">parallel</span> — spin up three <span class="kw">scouts</span>: read the auth module, the API layer, and the tests, then <span class="kw">merge</span> the findings.”</p>
+          </div>
+          <div class="ex-row">
+            <span class="ex-label">Agent does</span>
+<pre class="code">task({
+  agent: "explore",
+  context,
+  tasks: [
+    { id: "Auth",  role: "explore", assignment: "read src/auth — surface + risks" },
+    { id: "API",   role: "explore", assignment: "read src/api — endpoints" },
+    { id: "Tests", role: "explore", assignment: "read tests — coverage gaps" },
+  ]
+})</pre>
+          </div>
+          <div class="ex-row">
+            <span class="ex-label">You get</span>
+            <p>Three <span class="kw teal">job IDs</span> spawned in one <span class="kw teal">batch</span>, results <span class="kw teal">delivered async</span> as each scout finishes, then a single <span class="kw teal">merged summary</span>. Capped by <code style="font-family:var(--font-mono);color:var(--teal)">task.maxConcurrency</code>.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== 02 EVAL ===== -->
+    <section id="eval">
+      <div class="kicker"><span class="num">02</span><h2>eval — code-level DAGs</h2><span class="rule"></span><span class="tag ink">config-free</span></div>
+      <article class="glass card">
+        <span class="tag violet">Mechanism · eval</span>
+        <h3 style="font-family:var(--font-display);font-weight:600;margin:12px 0 2px">pipeline / parallel / agent from one cell</h3>
+        <p class="sub">When you want programmatic fan-out and dependency wiring, not a declarative batch.</p>
+        <div class="ex">
+          <div class="ex-row">
+            <span class="ex-label">You say</span>
+            <p>“<span class="kw">Pipeline</span> this — <span class="kw">fetch</span> five URLs, <span class="kw">summarize</span> each, then <span class="kw">rank</span> them.”</p>
+          </div>
+          <div class="ex-row">
+            <span class="ex-label">Agent does</span>
+<pre class="code">pipeline(
+  urls,
+  (u)     => agent(`fetch ${u}`,                        { handle: true }),
+  (node)  => agent(`summarize: ${output(node.handle)}`, { handle: true }),
+  (nodes) => agent(`rank: ${nodes.map(n => n.output).join("\n")}`)
+)</pre>
+          </div>
+          <div class="ex-row">
+            <span class="ex-label">You get</span>
+            <p><span class="kw teal">Staged waves</span> with a <span class="kw teal">barrier</span> between stages, each step a <span class="kw teal">DAG node</span> carrying a <span class="kw teal">handle</span> you wire into the next stage, and a final <span class="kw teal">ranked list</span> — all from one eval cell.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== 03 IRC ===== -->
+    <section id="irc">
+      <div class="kicker"><span class="num">03</span><h2>irc — agents that talk to each other</h2><span class="rule"></span><span class="tag ink">config-free</span></div>
+      <article class="glass card">
+        <span class="tag teal">Mechanism · irc</span>
+        <h3 style="font-family:var(--font-display);font-weight:600;margin:12px 0 2px">Ad-hoc peer messaging at runtime</h3>
+        <p class="sub">Peers discovered automatically (Main + each task ID). No pre-declaration.</p>
+        <div class="ex">
+          <div class="ex-row">
+            <span class="ex-label">You say</span>
+            <p>“Spawn two agents and have them <span class="kw">negotiate</span> the shared User type instead of guessing.”</p>
+          </div>
+          <div class="ex-row">
+            <span class="ex-label">Agent does</span>
+<pre class="code">task([{ id: "AuthLoader" }, { id: "APILoader" }])   // both run
+// inside, they talk peer-to-peer:
+irc({ op: "send", to: "APILoader", message: "User = email + role?", await: true })
+irc({ op: "wait",  from: "AuthLoader" })</pre>
+          </div>
+          <div class="ex-row">
+            <span class="ex-label">You get</span>
+            <p>A <span class="kw teal">round-trip</span> — one <span class="kw teal">sends</span>, the other <span class="kw teal">waits</span> / <span class="kw teal">replies</span>; parent messages arrive as <span class="kw teal">steering</span> interrupts. A shared contract emerges without you brokering it.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== 04 JOB ===== -->
+    <section id="job">
+      <div class="kicker"><span class="num">04</span><h2>job — async lifecycle</h2><span class="rule"></span><span class="tag ink">config-free</span></div>
+      <article class="glass card">
+        <span class="tag rose">Mechanism · job</span>
+        <h3 style="font-family:var(--font-display);font-weight:600;margin:12px 0 2px">Manage work that's already running</h3>
+        <p class="sub">Spawn with async; manage (watch / cancel) with job. Results auto-deliver.</p>
+        <div class="ex">
+          <div class="ex-row">
+            <span class="ex-label">You say</span>
+            <p>“Run the long test suite in the <span class="kw">background</span>; tell me when it's done, and <span class="kw">cancel</span> it if I say stop.”</p>
+          </div>
+          <div class="ex-row">
+            <span class="ex-label">Agent does</span>
+<pre class="code">bash("bun test", { async: true })            // returns a job id
+job({ op: "poll",   poll: ["suite"] })       // block only when idle
+job({ op: "cancel", cancel: ["suite"] })     // kill mid-run</pre>
+          </div>
+          <div class="ex-row">
+            <span class="ex-label">You get</span>
+            <p>A <span class="kw teal">job ID</span> immediately, the result <span class="kw teal">auto-delivered</span> on completion; <span class="kw teal">poll</span> to block when you can't do other work, <span class="kw teal">cancel</span> to stop it.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== 05 SWARM ===== -->
+    <section id="swarm">
+      <div class="kicker"><span class="num">05</span><h2>omp-swarm — declared YAML pipelines</h2><span class="rule"></span><span class="tag ink">CLI config-free · TUI needs extension</span></div>
+      <article class="glass card">
+        <span class="tag">Mechanism · omp-swarm</span>
+        <h3 style="font-family:var(--font-display);font-weight:600;margin:12px 0 2px">A repeatable pipeline file</h3>
+        <p class="sub">Agents communicate via the workspace filesystem; state persists under <code style="font-family:var(--font-mono);color:var(--teal)">.swarm_&lt;name&gt;/</code>.</p>
+        <div class="ex">
+          <div class="ex-row">
+            <span class="ex-label">You say</span>
+            <p>“Run the <span class="kw">swarm</span> pipeline — research, then draft, then review.”</p>
+          </div>
+          <div class="ex-row">
+            <span class="ex-label">Agent does</span>
+<pre class="code">omp-swarm run pipeline.yaml     // CLI: config-free
+# /swarm run pipeline.yaml     // TUI: needs the extension loaded</pre>
+          </div>
+          <div class="ex-row">
+            <span class="ex-label">You get</span>
+            <p>The YAML's <span class="kw teal">waits_for</span> / <span class="kw teal">reports_to</span> edges topologically sorted into <span class="kw teal">waves</span>; agents swap state through the <span class="kw teal">workspace filesystem</span>; a declared, <span class="kw teal">repeatable</span> run. The CLI is config-free; the TUI <code style="font-family:var(--font-mono);color:var(--teal)">/swarm</code> needs the <span class="kw teal">extension</span>.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===== COMPOSE ===== -->
+    <section id="compose">
+      <div class="kicker"><span class="num">∞</span><h2>They compose</h2><span class="rule"></span><span class="tag violet">real orchestration</span></div>
+      <div class="glass callout win">
+        <span class="tag teal">The pattern</span>
+        <p style="margin-top:8px"><b style="color:var(--ink)">task</b> fans out → <b style="color:var(--ink)">irc</b> lets peers coordinate mid-flight → <b style="color:var(--ink)">job</b> collects. For explicit dependency graphs, <b style="color:var(--ink)">eval</b> <code style="font-family:var(--font-mono);color:var(--teal)">parallel</code> / <code style="font-family:var(--font-mono);color:var(--teal)">pipeline</code> / <code style="font-family:var(--font-mono);color:var(--teal)">agent</code> builds the DAG in code. <b style="color:var(--ink)">omp-swarm</b> when you want it declared and repeatable. All five are invocation-only — no <code style="font-family:var(--font-mono);color:var(--teal)">.omp/</code>, no <code style="font-family:var(--font-mono);color:var(--teal)">models.yml</code>, no settings.</p>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="foot glass">
+      <div class="big">Five ways. Zero config.</div>
+      <p>Pick the shape that fits the job — declarative, programmatic, conversational, lifecycle, or pipeline.</p>
+    </footer>
+
+  </main>
+</body>
+</html>
