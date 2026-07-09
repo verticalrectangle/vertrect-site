@@ -86,7 +86,7 @@
       padding: 28px 48px;
     }
 
-    body:not(:has(#development:target)):not(:has(#pop-maker-studio:target)):not(:has(#digital-prayer:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#lyric-video-blender:target)):not(:has(#silvertune-web:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#research:target)):not(:has(#voice-range-weights:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)) nav {
+    body:not(:has(#development:target)):not(:has(#pop-maker-studio:target)):not(:has(#digital-prayer:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#lyric-video-blender:target)):not(:has(#silvertune-web:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#research:target)):not(:has(#voice-range-weights:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)):not(:has(#enclave:target)) nav {
       display: none;
     }
 
@@ -196,11 +196,11 @@
     #lyric-video-blender:target,
     #silvertune-web:target,
     #cei:target,
+    #enclave:target,
     #voice-range-weights:target,
     #epsilver:target,
     #depravity-girlz:target,
     #ekioze:target { display: block; }
-
     body:has(#pop-maker-studio:target) #home,
     body:has(#digital-prayer:target) #home,
     body:has(#silvertune:target) #home,
@@ -209,6 +209,7 @@
     body:has(#lyric-video-blender:target) #home,
     body:has(#silvertune-web:target) #home,
     body:has(#cei:target) #home,
+    body:has(#enclave:target) #home,
     body:has(#voice-range-weights:target) #home,
     body:has(#epsilver:target) #home,
     body:has(#depravity-girlz:target) #home,
@@ -434,7 +435,8 @@
     #silvertune-pedal,
     #lyric-video-blender,
     #silvertune-web,
-    #cei {
+    #cei,
+    #enclave {
       padding-top: 64px;
       padding-bottom: 100px;
       max-width: 1000px;
@@ -659,7 +661,7 @@
     }
 
     @media (max-width: 600px) {
-      #pop-maker-studio, #digital-prayer, #silvertune, #wickrunner, #silvertune-pedal, #lyric-video-blender, #silvertune-web, #cei, #voice-range-weights { padding-top: 100px; }
+      #pop-maker-studio, #digital-prayer, #silvertune, #wickrunner, #silvertune-pedal, #lyric-video-blender, #silvertune-web, #cei, #enclave, #voice-range-weights { padding-top: 100px; }
       .project-page-body { font-size: 16px; }
       .project-page-specs { grid-template-columns: repeat(2, 1fr); }
     }
@@ -1463,6 +1465,21 @@
         </div>
       </a>
 
+
+      <a class="project" href="#enclave">
+        <img class="project-thumbnail" src="img/enclave-icon.png" alt="Enclave app icon" />
+        <div class="project-info">
+          <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 4 L30 10 V20 Q30 27 18 32 Q6 27 6 20 V10 Z" stroke="white" stroke-width="2.5" fill="none"/>
+            <path d="M14 18 L17 21 L22 15" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div>
+            <div class="project-name">Enclave</div>
+            <div class="project-desc">Native iOS client for oh-my-pi collaborative AI coding sessions.</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
     </div>
   </section>
 
@@ -2102,6 +2119,25 @@
       <div class="spec-item"><div class="spec-label">Platform</div><div class="spec-value">Blender 3.0+</div></div>
       <div class="spec-item"><div class="spec-label">Status</div><div class="spec-value">Stable</div></div>
       <div class="spec-item"><div class="spec-label">License</div><div class="spec-value">Public Domain</div></div>
+    </div>
+  </section>
+
+  <!-- ENCLAVE -->
+  <section id="enclave" class="page">
+    <a class="back-link" href="#development">← Back</a>
+    <div class="project-page-header">
+      <h1 class="project-page-title">Enclave</h1>
+      <p class="project-page-tagline">Native iOS client for oh-my-pi collaborative AI coding sessions.</p>
+      <a class="project-page-link" href="https://github.com/verticalrectangle/Enclave" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+    <img class="project-page-image" src="img/enclave-icon.png" alt="Enclave app icon" />
+    <p class="project-page-body">Enclave is a native iOS client for oh-my-pi collab sessions. It connects to a host via an encrypted WebSocket relay, streams the live agent transcript, and lets you prompt, steer, abort, and answer host asks from your phone. The relay never sees plaintext — all frames are sealed with AES-256-GCM on-device. Activity view tracks live subagent fan-out, Trust mirrors the host's SessionState, and Live Activities plus Dynamic Island keep the session visible on the lock screen and home screen. Built in SwiftUI with Vertical Rectangle's brutalist-glass design language and native Liquid Glass on iOS 26.</p>
+    <div class="project-page-specs">
+      <div class="spec-item"><div class="spec-label">Format</div><div class="spec-value">iOS App</div></div>
+      <div class="spec-item"><div class="spec-label">Language</div><div class="spec-value">Swift / SwiftUI</div></div>
+      <div class="spec-item"><div class="spec-label">Platform</div><div class="spec-value">iOS 26</div></div>
+      <div class="spec-item"><div class="spec-label">Status</div><div class="spec-value">In Development</div></div>
+      <div class="spec-item"><div class="spec-label">License</div><div class="spec-value">TBD</div></div>
     </div>
   </section>
 
