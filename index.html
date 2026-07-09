@@ -391,6 +391,11 @@
       flex-shrink: 0;
     }
 
+    .tl-icon,
+    .project-icon {
+      color: var(--white);
+    }
+
     .project-name {
       font-size: 20px;
       font-weight: 800;
@@ -1213,8 +1218,7 @@
       border-color: rgba(87, 82, 121, 0.18) !important;
     }
     :root:has(#theme-toggle:checked) .project:hover { border-color: rgba(87, 82, 121, 0.42) !important; }
-    :root:has(#theme-toggle:checked) .project-thumbnail--logo,
-    :root:has(#theme-toggle:checked) .project-page-image--logo { background: #1f1b2e !important; border-radius: 8px; }
+
     :root:has(#theme-toggle:checked) .project-page-link,
     :root:has(#theme-toggle:checked) .artist-page-link,
     :root:has(#theme-toggle:checked) .member-link {
@@ -1292,21 +1296,21 @@
       <a class="project" href="#pop-maker-studio">
         <div class="project-thumbnail project-thumbnail--logo">
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5" y="13" width="26" height="18" rx="1" stroke="white" stroke-width="2.5"/>
-            <rect x="5" y="8" width="26" height="6" rx="1" stroke="white" stroke-width="2.5"/>
-            <line x1="13" y1="8" x2="10" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="20" y1="8" x2="17" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="27" y1="8" x2="24" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <rect x="5" y="13" width="26" height="18" rx="1" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="5" y="8" width="26" height="6" rx="1" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="13" y1="8" x2="10" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="20" y1="8" x2="17" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="27" y1="8" x2="24" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
           <span class="tl-name">Pop Maker Studio</span>
         </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5" y="13" width="26" height="18" rx="1" stroke="white" stroke-width="2.5"/>
-            <rect x="5" y="8" width="26" height="6" rx="1" stroke="white" stroke-width="2.5"/>
-            <line x1="13" y1="8" x2="10" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="20" y1="8" x2="17" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="27" y1="8" x2="24" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <rect x="5" y="13" width="26" height="18" rx="1" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="5" y="8" width="26" height="6" rx="1" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="13" y1="8" x2="10" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="20" y1="8" x2="17" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="27" y1="8" x2="24" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
           <div>
             <div class="project-name">Pop Maker Studio</div>
@@ -1319,16 +1323,16 @@
       <a class="project" href="#digital-prayer">
         <div class="project-thumbnail project-thumbnail--logo">
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="18" y1="4" x2="18" y2="32" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="9" y1="13" x2="27" y2="13" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="4" x2="18" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="9" y1="13" x2="27" y2="13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
             <rect x="15" y="10" width="6" height="9" fill="#ffb850" opacity="0.6"/>
           </svg>
           <span class="tl-name">A Digital Prayer</span>
         </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="18" y1="4" x2="18" y2="32" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="9" y1="13" x2="27" y2="13" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="4" x2="18" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="9" y1="13" x2="27" y2="13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
             <rect x="15" y="10" width="6" height="9" fill="#ffb850" opacity="0.6"/>
           </svg>
           <div>
@@ -1342,17 +1346,17 @@
       <a class="project" href="#silvertune">
         <div class="project-thumbnail project-thumbnail--logo">
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="white" transform="rotate(-15 13 27)"/>
-            <rect x="17.5" y="8" width="2.5" height="20" fill="white"/>
-            <path d="M20 8 C28 10 28 17 23 20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="currentColor" transform="rotate(-15 13 27)"/>
+            <rect x="17.5" y="8" width="2.5" height="20" fill="currentColor"/>
+            <path d="M20 8 C28 10 28 17 23 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
           </svg>
           <span class="tl-name">Silvertune</span>
         </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="white" transform="rotate(-15 13 27)"/>
-            <rect x="17.5" y="8" width="2.5" height="20" fill="white"/>
-            <path d="M20 8 C28 10 28 17 23 20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="currentColor" transform="rotate(-15 13 27)"/>
+            <rect x="17.5" y="8" width="2.5" height="20" fill="currentColor"/>
+            <path d="M20 8 C28 10 28 17 23 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
           </svg>
           <div>
             <div class="project-name">Silvertune</div>
@@ -1365,21 +1369,21 @@
       <a class="project" href="#silvertune-web">
         <div class="project-thumbnail project-thumbnail--logo">
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="white" transform="rotate(-15 13 27)"/>
-            <rect x="17.5" y="8" width="2.5" height="20" fill="white"/>
-            <path d="M20 8 C28 10 28 17 23 20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="27" cy="9" r="5" fill="#080a0e" stroke="white" stroke-width="1.5"/>
-            <path d="M24.5 9 Q27 6.5 29.5 9 Q27 11.5 24.5 9Z" fill="white"/>
+            <ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="currentColor" transform="rotate(-15 13 27)"/>
+            <rect x="17.5" y="8" width="2.5" height="20" fill="currentColor"/>
+            <path d="M20 8 C28 10 28 17 23 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="27" cy="9" r="5" fill="#080a0e" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M24.5 9 Q27 6.5 29.5 9 Q27 11.5 24.5 9Z" fill="currentColor"/>
           </svg>
           <span class="tl-name">Silvertune Web</span>
         </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="white" transform="rotate(-15 13 27)"/>
-            <rect x="17.5" y="8" width="2.5" height="20" fill="white"/>
-            <path d="M20 8 C28 10 28 17 23 20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="27" cy="9" r="5" fill="#080a0e" stroke="white" stroke-width="1.5"/>
-            <path d="M24.5 9 Q27 6.5 29.5 9 Q27 11.5 24.5 9Z" fill="white"/>
+            <ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="currentColor" transform="rotate(-15 13 27)"/>
+            <rect x="17.5" y="8" width="2.5" height="20" fill="currentColor"/>
+            <path d="M20 8 C28 10 28 17 23 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="27" cy="9" r="5" fill="#080a0e" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M24.5 9 Q27 6.5 29.5 9 Q27 11.5 24.5 9Z" fill="currentColor"/>
           </svg>
           <div>
             <div class="project-name">Silvertune Web</div>
@@ -1392,23 +1396,23 @@
       <a class="project" href="#silvertune-pedal">
         <div class="project-thumbnail project-thumbnail--logo">
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="7" y="10" width="22" height="16" rx="2" stroke="white" stroke-width="2.5"/>
-            <circle cx="13" cy="18" r="3" stroke="white" stroke-width="2"/>
-            <line x1="22" y1="14" x2="25" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="22" y1="18" x2="25" y2="18" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="13" y1="26" x2="13" y2="29" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="23" y1="26" x2="23" y2="29" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <rect x="7" y="10" width="22" height="16" rx="2" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="13" cy="18" r="3" stroke="currentColor" stroke-width="2"/>
+            <line x1="22" y1="14" x2="25" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="18" x2="25" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="13" y1="26" x2="13" y2="29" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="26" x2="23" y2="29" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
           <span class="tl-name">Silvertune Pedal</span>
         </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="7" y="10" width="22" height="16" rx="2" stroke="white" stroke-width="2.5"/>
-            <circle cx="13" cy="18" r="3" stroke="white" stroke-width="2"/>
-            <line x1="22" y1="14" x2="25" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="22" y1="18" x2="25" y2="18" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="13" y1="26" x2="13" y2="29" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="23" y1="26" x2="23" y2="29" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <rect x="7" y="10" width="22" height="16" rx="2" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="13" cy="18" r="3" stroke="currentColor" stroke-width="2"/>
+            <line x1="22" y1="14" x2="25" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="22" y1="18" x2="25" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="13" y1="26" x2="13" y2="29" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="23" y1="26" x2="23" y2="29" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
           <div>
             <div class="project-name">Silvertune Pedal</div>
@@ -1421,17 +1425,17 @@
       <a class="project" href="#lyric-video-blender">
         <div class="project-thumbnail project-thumbnail--logo">
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5" y="8" width="26" height="20" rx="2" stroke="white" stroke-width="2.5"/>
-            <line x1="11" y1="15" x2="25" y2="15" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="13" y1="21" x2="23" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <rect x="5" y="8" width="26" height="20" rx="2" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="11" y1="15" x2="25" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="13" y1="21" x2="23" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
           <span class="tl-name">Lyric Video Blender</span>
         </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5" y="8" width="26" height="20" rx="2" stroke="white" stroke-width="2.5"/>
-            <line x1="11" y1="15" x2="25" y2="15" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="13" y1="21" x2="23" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <rect x="5" y="8" width="26" height="20" rx="2" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="11" y1="15" x2="25" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="13" y1="21" x2="23" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
           <div>
             <div class="project-name">Lyric Video Blender</div>
@@ -1444,13 +1448,13 @@
       <a class="project" href="#cei">
         <div class="project-thumbnail project-thumbnail--logo">
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="18,5.4 29.9,14.0 25.5,28.4 10.5,28.4 6.1,14.0" fill="white"/>
+            <polygon points="18,5.4 29.9,14.0 25.5,28.4 10.5,28.4 6.1,14.0" fill="currentColor"/>
           </svg>
           <span class="tl-name">Cultural Extremity Index</span>
         </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="18,5.4 29.9,14.0 25.5,28.4 10.5,28.4 6.1,14.0" fill="white"/>
+            <polygon points="18,5.4 29.9,14.0 25.5,28.4 10.5,28.4 6.1,14.0" fill="currentColor"/>
           </svg>
           <div>
             <div class="project-name">Cultural Extremity Index</div>
@@ -1463,17 +1467,17 @@
       <a class="project" href="#wickrunner">
         <div class="project-thumbnail project-thumbnail--logo">
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="18" y1="7" x2="18" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <rect x="13" y="12" width="10" height="13" stroke="white" stroke-width="2.5"/>
-            <line x1="18" y1="25" x2="18" y2="30" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="7" x2="18" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="13" y="12" width="10" height="13" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="18" y1="25" x2="18" y2="30" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
           </svg>
           <span class="tl-name">Wickrunner</span>
         </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="18" y1="7" x2="18" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <rect x="13" y="12" width="10" height="13" stroke="white" stroke-width="2.5"/>
-            <line x1="18" y1="25" x2="18" y2="30" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="7" x2="18" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <rect x="13" y="12" width="10" height="13" stroke="currentColor" stroke-width="2.5"/>
+            <line x1="18" y1="25" x2="18" y2="30" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
           </svg>
           <div>
             <div class="project-name">Wickrunner</div>
@@ -1487,15 +1491,15 @@
       <a class="project" href="#enclave">
         <div class="project-thumbnail project-thumbnail--logo">
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="18" cy="18" r="15" stroke="white" stroke-width="2.5"/>
-            <path d="M18 11.4 C15.3 15 15.3 21 18 24.6 C20.7 21 20.7 15 18 11.4 Z M16.35 18 L19.65 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="18" cy="18" r="15" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M18 11.4 C15.3 15 15.3 21 18 24.6 C20.7 21 20.7 15 18 11.4 Z M16.35 18 L19.65 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <span class="tl-name">Enclave</span>
         </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="18" cy="18" r="15" stroke="white" stroke-width="2.5"/>
-            <path d="M18 11.4 C15.3 15 15.3 21 18 24.6 C20.7 21 20.7 15 18 11.4 Z M16.35 18 L19.65 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="18" cy="18" r="15" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M18 11.4 C15.3 15 15.3 21 18 24.6 C20.7 21 20.7 15 18 11.4 Z M16.35 18 L19.65 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <div>
             <div class="project-name">Enclave</div>
@@ -1515,12 +1519,12 @@
       <a class="project" href="#voice-range-weights">
         <div class="project-thumbnail project-thumbnail--logo">
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="4" y1="26" x2="8" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="11" y1="18" x2="15" y2="18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="11" y1="26" x2="15" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="18" y1="10" x2="22" y2="10" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="18" y1="18" x2="22" y2="18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="18" y1="26" x2="22" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="4" y1="26" x2="8" y2="26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="11" y1="18" x2="15" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="11" y1="26" x2="15" y2="26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="18" x2="22" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="26" x2="22" y2="26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
             <line x1="25" y1="18" x2="29" y2="18" stroke="#ffb850" stroke-width="2.5" stroke-linecap="round"/>
             <line x1="25" y1="26" x2="29" y2="26" stroke="#ffb850" stroke-width="2.5" stroke-linecap="round"/>
           </svg>
@@ -1528,12 +1532,12 @@
         </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="4" y1="26" x2="8" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="11" y1="18" x2="15" y2="18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="11" y1="26" x2="15" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="18" y1="10" x2="22" y2="10" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="18" y1="18" x2="22" y2="18" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            <line x1="18" y1="26" x2="22" y2="26" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="4" y1="26" x2="8" y2="26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="11" y1="18" x2="15" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="11" y1="26" x2="15" y2="26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="10" x2="22" y2="10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="18" x2="22" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="26" x2="22" y2="26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
             <line x1="25" y1="18" x2="29" y2="18" stroke="#ffb850" stroke-width="2.5" stroke-linecap="round"/>
             <line x1="25" y1="26" x2="29" y2="26" stroke="#ffb850" stroke-width="2.5" stroke-linecap="round"/>
           </svg>
@@ -2005,9 +2009,9 @@
     </div>
     <div class="project-page-image project-page-image--logo">
       <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="white" transform="rotate(-15 13 27)"/>
-        <rect x="17.5" y="8" width="2.5" height="20" fill="white"/>
-        <path d="M20 8 C28 10 28 17 23 20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        <ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="currentColor" transform="rotate(-15 13 27)"/>
+        <rect x="17.5" y="8" width="2.5" height="20" fill="currentColor"/>
+        <path d="M20 8 C28 10 28 17 23 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
       </svg>
       <span class="tl-name">Silvertune</span>
     </div>
@@ -2032,11 +2036,11 @@
     </div>
     <div class="project-page-image project-page-image--logo">
       <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="white" transform="rotate(-15 13 27)"/>
-        <rect x="17.5" y="8" width="2.5" height="20" fill="white"/>
-        <path d="M20 8 C28 10 28 17 23 20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="27" cy="9" r="5" fill="#000" stroke="white" stroke-width="1.5"/>
-        <path d="M24.5 9 Q27 6.5 29.5 9 Q27 11.5 24.5 9Z" fill="white"/>
+        <ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="currentColor" transform="rotate(-15 13 27)"/>
+        <rect x="17.5" y="8" width="2.5" height="20" fill="currentColor"/>
+        <path d="M20 8 C28 10 28 17 23 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="27" cy="9" r="5" fill="#000" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M24.5 9 Q27 6.5 29.5 9 Q27 11.5 24.5 9Z" fill="currentColor"/>
       </svg>
       <span class="tl-name">Silvertune Web</span>
     </div>
@@ -2097,12 +2101,12 @@
     </div>
     <div class="project-page-image project-page-image--logo">
       <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="7" y="10" width="22" height="16" rx="2" stroke="white" stroke-width="2.5"/>
-        <circle cx="13" cy="18" r="3" stroke="white" stroke-width="2"/>
-        <line x1="22" y1="14" x2="25" y2="14" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        <line x1="22" y1="18" x2="25" y2="18" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        <line x1="13" y1="26" x2="13" y2="29" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        <line x1="23" y1="26" x2="23" y2="29" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <rect x="7" y="10" width="22" height="16" rx="2" stroke="currentColor" stroke-width="2.5"/>
+        <circle cx="13" cy="18" r="3" stroke="currentColor" stroke-width="2"/>
+        <line x1="22" y1="14" x2="25" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="22" y1="18" x2="25" y2="18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="13" y1="26" x2="13" y2="29" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="23" y1="26" x2="23" y2="29" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
       <span class="tl-name">Silvertune Pedal</span>
     </div>
@@ -2127,9 +2131,9 @@
     </div>
     <div class="project-page-image project-page-image--logo">
       <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="5" y="8" width="26" height="20" rx="2" stroke="white" stroke-width="2.5"/>
-        <line x1="11" y1="15" x2="25" y2="15" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        <line x1="13" y1="21" x2="23" y2="21" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <rect x="5" y="8" width="26" height="20" rx="2" stroke="currentColor" stroke-width="2.5"/>
+        <line x1="11" y1="15" x2="25" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <line x1="13" y1="21" x2="23" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
       <span class="tl-name">Lyric Video Blender</span>
     </div>
@@ -2196,15 +2200,15 @@
         <div class="project-thumbnail project-thumbnail--logo">
           <!-- e in circle -->
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="18" cy="18" r="15" stroke="white" stroke-width="2"/>
-            <text x="18" y="25" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="white">e</text>
+            <circle cx="18" cy="18" r="15" stroke="currentColor" stroke-width="2"/>
+            <text x="18" y="25" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="currentColor">e</text>
           </svg>
           <span class="tl-name">Epsilver</span>
         </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="18" cy="18" r="15" stroke="white" stroke-width="2"/>
-            <text x="18" y="25" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="white">e</text>
+            <circle cx="18" cy="18" r="15" stroke="currentColor" stroke-width="2"/>
+            <text x="18" y="25" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="25" font-weight="700" fill="currentColor">e</text>
           </svg>
           <div>
             <div class="project-name">Epsilver</div>
@@ -2217,19 +2221,19 @@
       <a class="project" href="#ekioze">
         <div class="project-thumbnail project-thumbnail--logo">
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="18" cy="18" r="15" stroke="white" stroke-width="2"/>
-            <line x1="18" y1="9" x2="18" y2="27" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="10" y1="13.5" x2="26" y2="22.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="10" y1="22.5" x2="26" y2="13.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="18" cy="18" r="15" stroke="currentColor" stroke-width="2"/>
+            <line x1="18" y1="9" x2="18" y2="27" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="10" y1="13.5" x2="26" y2="22.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="10" y1="22.5" x2="26" y2="13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
           <span class="tl-name">Ekioze</span>
         </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="18" cy="18" r="15" stroke="white" stroke-width="2"/>
-            <line x1="18" y1="9" x2="18" y2="27" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="10" y1="13.5" x2="26" y2="22.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="10" y1="22.5" x2="26" y2="13.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="18" cy="18" r="15" stroke="currentColor" stroke-width="2"/>
+            <line x1="18" y1="9" x2="18" y2="27" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="10" y1="13.5" x2="26" y2="22.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="10" y1="22.5" x2="26" y2="13.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
           <div>
             <div class="project-name">Ekioze</div>
@@ -2242,17 +2246,17 @@
       <a class="project" href="#depravity-girlz">
         <div class="project-thumbnail project-thumbnail--logo">
           <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="18" cy="14" r="8" stroke="white" stroke-width="2"/>
-            <line x1="18" y1="22" x2="18" y2="32" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="13" y1="27" x2="23" y2="27" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="18" cy="14" r="8" stroke="currentColor" stroke-width="2"/>
+            <line x1="18" y1="22" x2="18" y2="32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="13" y1="27" x2="23" y2="27" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
           <span class="tl-name">Depravity Girlz</span>
         </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="18" cy="14" r="8" stroke="white" stroke-width="2"/>
-            <line x1="18" y1="22" x2="18" y2="32" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            <line x1="13" y1="27" x2="23" y2="27" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="18" cy="14" r="8" stroke="currentColor" stroke-width="2"/>
+            <line x1="18" y1="22" x2="18" y2="32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <line x1="13" y1="27" x2="23" y2="27" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
           <div>
             <div class="project-name">Depravity Girlz</div>
