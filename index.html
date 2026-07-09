@@ -22,13 +22,14 @@
   <meta name="twitter:title" content="Vertical Rectangle · AI-Assisted, MCP-First Development" />
   <meta name="twitter:description" content="Independent creative technology studio building music tools, AI installations, and web apps. AI-assisted, MCP-first development from scratch." />
   <meta name="twitter:image" content="/og-image.png" />
+  <link rel="preload" as="font" href="fonts/InterVariable.woff2" type="font/woff2" crossorigin>
   <style>
     @font-face {
       font-family: 'Inter';
       src: url('fonts/InterVariable.woff2') format('woff2-variations');
       font-weight: 100 900;
       font-style: normal;
-      font-display: block;
+      font-display: swap;
     }
 
     @font-face {
@@ -36,7 +37,7 @@
       src: url('data:font/woff2;base64,d09GMgABAAAAABpUAA4AAAAAwJAAABn7AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGigbHhyEWAZgAIRkEQgKgt9ogpQEC4NUAAE2AiQDhxQEIAWDMAeFORvkl7OierTQkYFg44D8Br48ijKxSrP/QwI9xDJPsV1kGEewHZHdaEZDW0vovnTgTesJ6y6hT6byUn9rJv+1GZUb+4yM74yReC7Pf7/f69rnBskCaRQKFaHQMS6l8dW+HZ+4/vrYd3/+nfPPTVJV8AXzVHAvYsGkYkA7CBNzeWafbzz8/2Xet71wE1yqtjq8JTyU4sHWuCPGPOdDgLo2c3ia6aWYpXkTR8yXmWUiwC+3cmc6HhS4Is+RbX+VTfWXCEcU5z6FA0kVOeHCDOPvVCsrn1fWBSGTmdp7fntXe6g32TkbxObEBrF3YgXfOYEmTfhi0CK+g3pR7SCmvzThS1SKyZq1VlUnu3ekPaFOAj6xMSA8W51MlvN/lIfGuAAI+H9rv68zb3CNtgkN9ZFoiQznLu++ZVDPIraDb0S8ERohikhy/RqKhvjPD7H85H7f0pLu9qUEqTPgRuzetqT/FEZ1Ue0oOekd2mdAp7pq5kbVo7hZckwEGWC0a7Rid8wWTjP6rVAUCvugRCzPqFYzu76sJPtbIYzYjxI/1y/zhm39uxA6JYTMmhzufo2l/7OJbd+RtDMT5k/SyyZeHKIiIiIQIYn/vYUCzAFQCIThkBFGwYw2BnLcEwgCZvjyhbYFhlrgIgC9gwAz1gUNmGHr0/JOphfE3NirpnwSTJvsWhIaNtVBA8Muu4mErGzioc+6pTzcRfWGQ0LVSWxiSolFRCERhOQSTkDmg+GTlhaEJ4zWyCnq+0MYIthXhKncbu2EHT4uYzdsYmvYMraAzfI7BQicYQwxggFjMU5tNp4zdiTFvTIo+ZW5MHLsnVN5tBpjbPydixAsXbV2C10qXLDA741TEuMaBdNsJEy1ETAVEKTi/TDRMGp8CGEe3HoTYcTY5g74nIqPX4nccSYIAv9eLAjaCxsowfhwiBISqzhQFkJqqXeMkgzgC39304yI35mHBequGgBc0fzZg9YfAIzXxaEn/VRedvXlcA7sjHGyX4Oxnj9I6B2Ql6KALThQQAPW4BCwhijcAzhGIsiBeXGSjfEjmtRgp+pKvahXW0rSm/QnA8lQMoXMW2aWdwUEBsoDVT8OYB6JkmJdaFLN91GQnqRvSMnvQdIXcAfoO2AIHtaH+aEAHx8AH+ejIl3JO+nbPW6POwcB7AOXHoA8QXJuvtrD/7hmmTVWOOm6m9baZrv5zlpil5XWW2ydyy66ZJUbCEIiEjJqHjx58TcIKUCgYNFixaFoaCVKkixFmi0W2OqRDT5Ll69AkRIVKlWp1qhJsxat2lnZOTj16NWPMWCI4TZ5YLOrjlnuuNNOOOOh2z65Y7Q9rtntri/uu2KGmd574paFPphujL3mmmOe1bhY2Pg4eATEVOQUlPx48+FLKki4EKEihTkvQgIdvXipYnTLliFTriw58hQqV8qgTINadWjF2hh16GTW5QKTPi5ugw1lM0wUi512OOiQAxCUukWAESB/IFcAJ//gfAqQHCA9AICCp24siPggZQ0RLAV2qeMoaWdIEdpawZF0qJ1A0IA389YDdwNQ+0cxUei9TY/AVQtSvQsTwwAaLaHtiQzgD+zMWQThCmGFvzLQWiVT3Ahx4Aet5I2CkziWU866tKKHNjYeBm3FlbM1Za3k88/Sf0vV2DLkcjoZnaMzlBl8fp6bbn1+zyv6Td0ySeugzNGw3VLtZmiOSpfnOGjdImhO/Fk+Qz7l6//MQ3mYz8s85IsVILFNMekd4fAg35NgO132Lq6wLGkByk9dJvZUXNlrSq8Jm8WLJjkb123HVc77k7aUDJIAbrv9u/8oH+FRYnxffLhA20Apks3h0XocvVnICrGpUV6v24irSxV3G/tuQwPsC6VsBMquMjYDEuXR72S/Yrdbr5NmkwXeZ7ON07veN++F2K/Lc825QECxqGnaiyYmv+LT+deUJJOanKSM62jMpqiursb30ywrSGmayOO0BmfrxSN8/qkD2MEXniJuY2ivQAya207GAkIereBJKYft6NiiOE4XbQPcFwJGAZlaZlqGlDA1//TH2cDROjQogZ/GFyrySodq+msKvmXKl70NXeB0MEQg7GgntcRhRfGCJXgFkv6y7n8gXdEWh637CJmgy9kXPyNsEuzL7HNAixqY6Gjdbk6MjsFkDJGk6cjabsDfg0hFlkbv7k9FQcDS0OoZ2QAk7bOdi0GKg91RpecKtN0RsXt3sRiOAcm3AqlQBVqQvyR2TB1QVcedXQygRXs1pSQsesup7bT9gvQQMDCJDWrnyfErsM1AfK9z2ETLUebytexXx1TB5wLddHDv6+lV7KuvRwZQOhQ0Va8Hymcpe4Mv8UJaGaQWxVIN9JBmjniNXkHY4mbvc7/wHGV3s0SlnoNb7fKbcIs645Gv+oo9dtGOh06kTeBCk/jPa1FOb+eu6pzu2Nx8h4TiDPst6j4RM2uwxdIL00nzSSlzuzsuYHcggM4xxIGz090CzgobulOaO4snMNbzWS45aGagRtQiAIj5i/QUMXXr5ptRBF72dp1wvdsrK2I3UGyomH9ro3T53NmqxxnaKtg0hmd35ajtgmTd7F0ANQ2Lw1e3qngrN8mUYakyPq1kkR4SnkhMp7RRdC/Vmset3HEAq6TOa5bXpMasK5qr8+IKZnAtoH5pA93ltnyJyjPkHqG/lvACx6A56ysuPmKWBK4nC0G5qeSJeQxhQlcXIlyutMf8PN82OcLDF0NanI27zsqsDTBvY6KJ2HH1CmXEFepnDV4qUxVagjk61q0AhCixdlH9ij1JoFi8Z5ytA97rQedJLivPaT4wilNHv9pHk7y0jk67Qhe2fMrlKr0z8nbY7w6oZuwKjNhFb4BOuUHb8hnrdvlBGDzizoYYrHaU2XfboMh4ZwEpl1sUzMAyig/XaDq9uF1LQiIuO0zlM7UdQO0a8Ruu+h1FKoIAVwFg70mwwlxGlmpmnan72xPm6NoydOJ6rCUlK7/9Ap3K9gmjEWEJDxxsEREU3gx1gDX/jF9QEc2T7oqowqHYvR1GmmUp84XMsd6qi4eC0+i/1+mFwE9CWIaHlblV8WZKNlux4/NBL355BoWLDZajXDxlS88ftCmyf6FkzYvoqqAyF5YlVhrJz5R/rcWxPDicmCpqIy45cEb9OxhhxJTIuh1MKGSu992N8RMc2t56d0SA3YvLf72sWYPTXFVmJxJDyOtDzscwIO7YhPlKIOw2cHo82CcxU9TwG7kyDp3MiWCvOomyBky624y37k23MMkVoO7N1ZNcBrZXV1PzaKTVistym4RMLxTa03xzGJoQC6SIIrTz4ngJZGbRxtrlvRntEInvu2ZpLET1JU3JDShqgE6+wv2ofvd9dCPgd0PS1BLGyqRIdv681pjMix1OByezC+w01fgjLMBJgo/Oys27KMoypjnPKTGKPBvVIevOCsXY6968lWm11zXO8J17n+XK51re93pvD/4bxkCT1W4aHiw8SYNpNgUT+Gxmnq1u9+Iix8XpteEcFX/6gfDGYPT/POdSDXaXfy1cuV2lZdtXJs/F2ZtVceErqUo5PZSQeXUqN7Buc2NyanHR1LiavOICACtqXoQbwjhad0t+2kbvtE7nmWsNd5tH9QJa8UicHz8tN5Fpg5GLELSsQ2oYWgk/q3F7t8/LTivg7oQwdsNW8KGAYy1fPr1iz9Wuiisg3Gsh8Jk5hOMW+PavSGQ+pI0/Ubr0mpWdprHqKMrpPGdiHxLfjI1xIjNtWH+CPufij5SGSB392dJqND6tAsWtVBtcaS8T/onOWKIOIa1rjYX+tp/HkoWKXaSlU+aWVJnVZmgxfBOulRJigPIqc8ksAvkfiuaPdjOchrXKncOwALVUg0+wSCb+/Ty/yxhYeQZmWr2JGLFGy3xPpg3XHU6TuBOzYAz2LodySJv7DZUb+h/g/JlgQ1TYF6Auo3xVo+ZO1sJeTmcS1baThqTx1goMmmlRDGISLd7UNQZ/rOfJM19UeoH5sKF8gtrrQhlODausHG3Bvv0Tj1SikmfvOLxTpXt9lL7Xu0woYn7mhfGXqfbHnqVGo2147bw2UGxWOwz/+qANgzkklCEwRHIOHf2Fp/r06AyiTx1VoGMgopvml8G4xxw38AsJXpPqMNQR0GHwekw6Zu3CDbokTluSvHkQ+SVG/PW4MoOxAxkqR+PY10QnBUWwwhaIKlZrbgbbJznAqHX4GhyFrKE4Esktbavkz0or6Y6hPuo+o+4jGGiLk69axDDylOGLndQr586pITgsDVQ7qPeVALBU2jEHI5YgqceAWGXhSzFq10RMAj2xD54XYQntmtRFFZp8gmGDUR6fwbMAVBZ+hc7N8UktlwpYGgTLKJ+T9blTW1/K4Q9dcH4zdXUtqRFOIImfHUGybEgSqxLuHLKDUqFOsFM6xrB9pUjBS4fVISKXdwZISTGkTnBRU88DrPAjiBtaLLXFnxEMlNlEf5yD2ctklia6J9oA4sjh0cCZ4p0QD1P6g5WDrwG3fBC4bWSX026SbXN1fHupTsudLMIj8YJdhsqmDbjC5O7LmRCi4jc0awgAP5HOZ1ObYVDWEzmEu/KixoPbKsmDxpO7WKDx6LbKAhuMcbo5IwCkYR8Z2x/S94c3o6n/R02zwceTjfocdNAj/3lSsBK8z6mCDnEBK764u9z7PIo/jp8Gp7eu4ujTe6B9iw2z2lXoVKdIAUuQNLKZXEPppH0TNj/OFsczMVQROM/zUOJzB/KX2X0YCAYuU553hW3fxfQjF5xxnnuL4Lqu7fvAJNoMWX/FwAmCL8cCQLDrcololMBdudatvi6sMazbs66B5vUCgeZ1iw6AV6IoZYxEZ1yjMkM+mwsFJWbYIiGkk8I0SBVrM9HiumV7bqzqxMKNg8SVQTNiDbaZI8kbI21TzCPaG9n4BKQY2wYD4erYFOc1I/HSdvQWrd6pvoHku9Mw7YTIUef3COEAThKbfwzNjf/s3MSJa8mN4I1Nn7vF68Jx4/Ly4cAIMxlz9/Cxs0HrV5Fzfu4E5CSJubKRzi9P6LSOhLB93wyTjJuvH83E0NK3eDABeJTAw/hXS2qni5oVjzjkWl3kOugK1U5366Z0uNhx0g2v8Cr4vHE4kdiJKi/RfcdENLO7U9Sk31punPmpeZODMbNIb2Z7u/DcuYZq72MN4Q2shMzGmXBcq05soMOX7KdN8wtBcpEWndjpHEKO0ToMEKZ6OrNJugrkLo0B0n4bLyvLMLO3ipq7YASTVO6SQyaH/tyWMGb65wvgyW5Qan2ZGwLRvLh+fWdQQHkFg142PXnqntkyHhRTtNte0p83XF5VociQJilbDDCc6en58oY7O5Q09gbOL9g3UFLKSdlIobFZX1UslvwNzyHDkmI2FmmFRPVq6rizr7Bno9Sx4Jj47Uwif8bAIZ1NuERe1vJr6agN8XuFC3OpchYaf+Z8gca5uVw18H4gd08MYpgNt05EaSCTBBDH9WmAqGsFXCshpiLvDnW+vJ4JuMjT8kMsbzFK0HPB2Z9KeVqlspDNSkUT84Lkjef1EObFItckkjtnikZxVAmsL4l7CdPQuyYG+sFuzVcULP3qHtAJxxtsbuc8mDjRevFuMp/YccQXOewjKJTS6/WwBnLklYKCEgnMcQ/nL2C9RqmX6ijBEa4+u9G8isK4vaK9a2ryNHdZd4Js7l7RSj9wjI4K99QX4Z2uUNuXGM6pKcI39TBc45lapUGaFG8KQ1zIKb4ljgQR4SSNzOLd5o+KPJp5fFs6+hoLf3HgeTpEuVmQPYRLXjoRb2uSqEzH76XpuNtY38zUq0jSVBss0tX4Uuoed/GFIIJiZd0wlixeybRdcBo6NKUql/oILi0N9+Qb/dlfMgc+zPuHZ73KAxxE2Qp3cwxNgN8lbh04wXE0oMwM/aoxHCcZHw6rT5sbaPUybrY9P31oy0NSL2oIUU3xd8dyPAduTZcwkwBirYHWOm25CYavoKQ6ESi3bJNJwpvDZZ+I/nBkNE+nlnjeu9lZ6qg5vAO7tRWskW/x/pMJNk4sV62ZpsIPQuby70PrgC7r1Yuq+7PSZJSTdSV28ZxyEse+24BgheIykmOC8Sj2EvQcDtKVjbDjVzh8/eB16WT+s4efWKhQLv0hIaeaeR9fvYLUAiQRkY2jB3IJfmN4m12HG0x+ayBEJogosmQUCzCCkPmgmYXIRGKp09BcuRtOGgay5M2gpcg0OO2rdYzBpOvnd4q+pd8GpjNBsMOh3vlOmV1vliiSasdvifU5xk5hihyd+B7X+Qed8fRn0XsAXPbU2g2qsARvEbFwoS7QMZ5V+OQuTWg4z+UKcS0zR+BEelgYQTuLwhCiMEHAgDyDuHRVr5tcD9G+yDpGQptliM5DVxAIYlyAiKue8k/fEr79OjgIx6LCKs/ESYtjWAMDfaiG8CQZXeL4CTcR472yNO7pn0GI6g6+bfUoKdOruDViFnph4LTBb1i0OKkOTZisznJNW8GstbB93kHrxMC//SUR+CbSeqXQK8G3B0cMz1nnDPxGnNvlvsiFz758gNxZXRvgEKLbAMGX3gQFcDmlsMkULQWeVQDSM4UO5LoqKvimUCXLAJXa+ET4tA+NBHLHb5AZcp5rxDhXFOMhJmNYjmIyw+73EPbM3wMf+ngjyuUYsCSWIP94iyT+ewQOUwL+EZJJTwKc9qKBJIXl1vEoh9NMAdcaOO6/Fa14bI95UY8WIN6wxuZqhymxovk5NIqCG1iOOIrBDv3WcNCM8aMPxXwQDq5qH7MorIWH9doMtP//AgdfuDp6NGN3DNE5oenpb2XgMLFth6KGvXC3bRejjr1mEJY9Erlv9DeaOSVXN+LcEk9LMfyUeLwzthKSbEqGXSbFW8xbm8JWGrz14aK0hFjLa7rU1HyliBw5zxlGSyAY1i5EHIiJNYFRA+wMjZWk7IFenOYZhvxI3ViiEIpr0YmgrsAVgWuM+bmoGlfKT8ACPMAVSSCxJrshFLB4yTgAsu2JO+JIM9nq8mAjBD7Wwsaeg5EYil+rb9cezhC6q1DXQvBf6B8Dh4xT3wxI9q4A3wt0lNU4fDPoRB2cCvXH4PQhqpSR1eH8xieP3tQxFiuGDJCRoWLmyMiLy7tVzas0xyiVJKVKM5X6mTBnrsyKi3YNvtF0rX2XCNTRFS/pZ6Npqack3JZG/PRGw0OQfODZ0hnDt7on/oFNiNwyW2YuiTx/ZIIzuBBCB4DTBI3UpBgy1EThRP4WRmw+CEurhkY0p2dOxyRS8gE01DA7rGwYTYlHoJ+DtebPvfI7pwxTakD0KoDoheJMNlEc1LWS8j7ECdQyW+mlcWQcpKBnFNbSbyw1sxxS7xscZ+RRnq5O1KmQ1eF9vOCV9ED+j+B/0eZmhiugkBL/RxhZ+RYKZdOCx3Q8TgDjfXAzYlmvOp2N5rKoTtVb4czhqIjmv7XQIdy5kO9arC4oo7CHgm/LrpIfkgAZqQpiHk7q8+CxhrhfVlPc+QI6v1fsg/WmnMSPNgwNZuGmLgv62goLd/9u7ITPrOjZnkE4SXVmPNiYiSwFxkyX4o/jQe8skoRT9YQcegtFEpUo7pcCjXgj7F2uVcFoQdpM9eNEyYUh/CRtBJROfBc+dQQKdElaMoyM3Yiy3QhgBwFMehnzrJMd6L8yfU1Fjs1bClqZjdYL2kDEBeuREPpams4bzEH/lelrbYGMmBIbtimuxoFKmT7TtiKunYWEevNeH1B26V4YfGKQ0zytTJ+TNygb3V1anUmlcpKLjqZYdQHjAIwBeL8G9kBynKQe7qFF0p4YxUC3pTTIgtMZssXGxd0jcJWG5gFcYhVH6TqEqTv8gQ6TBaviXXxRf0HS4QKvQ5piNABcGBkK7R/Z5HBPMNDDIaDA//GpgPb5tK+p1v4B/vzOdgL+zme++f+xS7NtTApMwgACbmAmIS8G8g1IiPnnBneEIaN4r4PfgQEq60BG66wOu20JpsuS5MYwdFqC+VzLBoe8lWCT0chy5GRJaNlluirL6XbHZIzadew2O1VM0u6CjFHZAnRXKZj4pqJVU/BAu9Myxm/CdRiBMld2I8croDZsImkXZVWk3czypsQq5pFpir4FwynQ5yrTTzFXsphFel6XFa9VFqAfkGFAC4aAkefYruDClGg2E/hsq+EQMMUCh0rTwDc3dBLCd07CiB2QcJQJEsGbjbJMyynbVP/2iumBNwyGW4o4cfoZ9bFzY/SL1c+uWyyXPlZxKhQwoNXS0dKJUc3MakC3Tn1oZn0W3+rSi6QVi0Kh3kMg1eZPNVWdUvXKpboXB2pO5VwubsOlR1lXCXwHp2hoRCMjptQsiFAqqbKLg5mR2zjbAIaNawUak8K5mTErlBXL5rFxtywuds7iB4xl5NIjAgag/6IFIn7uEUgBBhfsuqu67Ga0xzwhQpmE+S6c2TU33BQhUpRot9x2x10xt1N0PxZa99xn9dB8e+2j8yu9eAkSJXnkMZsnkqVIleZn6fKkKt0B7V1pnXwFXAr9pIh7NT+ewYqVKGXwFGOIoYEbUKZchUpVhqk23EijjLDeaPvV+E2tOrTp6jUYY5zxxt7E0cF+cUJrEM45b7U1FJRUt4oEt1n0KxOsTGQyU075B/6F/0Ak00VT+ZHYibARm0ygDVj4/MnlBE+bDhmyCAgddIA0+Lbb4YyzLjvksCOOuhQCk5zGiTmTLSH2uz/gGFKAQRbqtAlXEJ5ppphphlmmavdNdoiykMUsRRZ5FFFGFXU84mm2N56ZI9cLrz0vldcZDDx7bPeLsbu2uhS3tFs4A712isqJVKZena9ISyXq1bfuFWO8ZjP4X3Zudu1fUrLzlOgmbisf+DlaTby9TK46Kql3Iu8pymjNL/SlkNdpHGCaSH2MlibJnmLs3aZfE32iNhHhnMScHAA=') format('woff2');
       font-weight: 400;
       font-style: normal;
-      font-display: block;
+      font-display: swap;
     }
 
     *, *::before, *::after {
@@ -822,6 +823,12 @@
       animation: carousel-fade 17.5s infinite;
       animation-fill-mode: backwards;
     }
+    picture.carousel-slide, picture.member-carousel-slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0;
+    }
+    picture.carousel-slide img, picture.member-carousel-slide img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
 
     .artist-page-body {
       font-size: 18px;
@@ -1251,7 +1258,7 @@
 
   <nav>
     <a href="#home" class="nav-logo">
-      <img src="logo.png" alt="Vertical Rectangle" />
+      <img src="logo.png" alt="Vertical Rectangle" width="192" height="192" />
       <span class="nav-wordmark">Vertical Rectangle</span>
     </a>
     <ul class="nav-links">
@@ -1265,7 +1272,7 @@
   <!-- HOME -->
   <section id="home" class="page">
     <div class="home-logo">
-      <img src="logo.png" alt="Vertical Rectangle" />
+      <img src="logo.png" alt="Vertical Rectangle" fetchpriority="high" width="192" height="192" />
     </div>
     <h1 class="home-title">Vertical<br>Rectangle</h1>
     <p class="home-tagline">Independent creative technology studio</p>
@@ -1435,7 +1442,7 @@
       </a>
 
       <a class="project" href="#cei">
-        <img class="project-thumbnail" src="img/cei-og.png" alt="Cultural Extremity Index preview" />
+        <picture><source srcset="img/cei-og.webp" type="image/webp"><img class="project-thumbnail" src="img/cei-og.png" alt="Cultural Extremity Index preview" loading="lazy" decoding="async" width="1200" height="630" /></picture>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="50" fill="white"/>
@@ -1450,7 +1457,7 @@
       </a>
 
       <a class="project" href="#wickrunner">
-        <img class="project-thumbnail" src="img/wickrunner-og.png" alt="Wickrunner preview" />
+        <picture><source srcset="img/wickrunner-og.webp" type="image/webp"><img class="project-thumbnail" src="img/wickrunner-og.png" alt="Wickrunner preview" loading="lazy" decoding="async" width="1200" height="630" /></picture>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line x1="18" y1="7" x2="18" y2="12" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
@@ -1467,11 +1474,17 @@
 
 
       <a class="project" href="#enclave">
-        <img class="project-thumbnail" src="img/enclave-icon.png" alt="Enclave app icon" />
+        <div class="project-thumbnail project-thumbnail--logo">
+          <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18" cy="18" r="15" stroke="white" stroke-width="2.5"/>
+            <path d="M18 11.4 C15.3 15 15.3 21 18 24.6 C20.7 21 20.7 15 18 11.4 Z M16.35 18 L19.65 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="tl-name">Enclave</span>
+        </div>
         <div class="project-info">
           <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 4 L30 10 V20 Q30 27 18 32 Q6 27 6 20 V10 Z" stroke="white" stroke-width="2.5" fill="none"/>
-            <path d="M14 18 L17 21 L22 15" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="18" cy="18" r="15" stroke="white" stroke-width="2.5"/>
+            <path d="M18 11.4 C15.3 15 15.3 21 18 24.6 C20.7 21 20.7 15 18 11.4 Z M16.35 18 L19.65 18" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <div>
             <div class="project-name">Enclave</div>
@@ -1580,9 +1593,9 @@
       <a class="project-page-link" href="https://github.com/verticalrectangle/pop-maker-studio" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
     <div class="pms-carousel">
-      <div class="pms-slide"><img src="img/pms-screen-2.png" alt="Pop Maker Studio: lyric animation editor with effects panel"></div>
-      <div class="pms-slide"><img src="img/pms-screen-3.png" alt="Pop Maker Studio: glitch effect applied to portrait clip"></div>
-      <div class="pms-slide"><img src="img/pms-screen-1.png" alt="Pop Maker Studio: clip inspector with timeline"></div>
+      <div class="pms-slide"><picture><source srcset="img/pms-screen-2.webp" type="image/webp"><img src="img/pms-screen-2.png" alt="Pop Maker Studio: lyric animation editor with effects panel" loading="lazy" decoding="async" width="1237" height="1180"></picture></div>
+      <div class="pms-slide"><picture><source srcset="img/pms-screen-3.webp" type="image/webp"><img src="img/pms-screen-3.png" alt="Pop Maker Studio: glitch effect applied to portrait clip" loading="lazy" decoding="async" width="1237" height="1180"></picture></div>
+      <div class="pms-slide"><picture><source srcset="img/pms-screen-1.webp" type="image/webp"><img src="img/pms-screen-1.png" alt="Pop Maker Studio: clip inspector with timeline" loading="lazy" decoding="async" width="1237" height="1180"></picture></div>
       <div class="pms-arrow pms-arrow-prev">
         <label for="pms-3" class="pms-from-1">‹</label>
         <label for="pms-1" class="pms-from-2">‹</label>
@@ -1597,10 +1610,10 @@
     <p class="project-page-body">A complete video editor written entirely in C++ from scratch — no Electron, no Python runtime, no cloud. Cut and composite footage, animate text and subtitles with GPU-accelerated GLSL shaders, apply effects, and export with pixel-identical preview. All ML inference runs fully on-device via ONNX Runtime: vocal separation with MDX-Net, background removal with u2net, whisper.cpp transcription down to the millisecond. Controllable via MCP server: Claude and Codex can drive the timeline directly. One binary. Zero dependencies.</p>
     <div class="pms-examples">
       <div class="pms-examples-left">
-        <video src="img/pms-loop-1.mp4" autoplay loop muted playsinline></video>
-        <video src="img/pms-loop-2.mp4" autoplay loop muted playsinline></video>
+        <video src="img/pms-loop-1.mp4" loop muted playsinline preload="none" controls></video>
+        <video src="img/pms-loop-2.mp4" loop muted playsinline preload="none" controls></video>
       </div>
-      <video src="img/pms-demo.mp4" autoplay loop muted playsinline controls></video>
+      <video src="img/pms-demo.mp4" loop muted playsinline preload="none" controls></video>
     </div>
     <div class="project-page-specs">
       <div class="spec-item"><div class="spec-label">Format</div><div class="spec-value">Desktop App · MCP Server</div></div>
@@ -1631,7 +1644,7 @@
 
     <!-- MOCKUP -->
     <div class="adp-figure adp-figure--portrait">
-      <img src="img/cross-render.png" alt="A Digital Prayer: freestanding cross with portrait screen displaying MERCY in amber, PCB panels and ribbon cables across the frame, prayer projected on gallery wall behind" class="adp-mockup-img">
+      <picture><source srcset="img/cross-render.webp" type="image/webp"><img src="img/cross-render.png" alt="A Digital Prayer: freestanding cross with portrait screen displaying MERCY in amber, PCB panels and ribbon cables across the frame, prayer projected on gallery wall behind" class="adp-mockup-img" loading="lazy" decoding="async" width="941" height="1672"></picture>
       <p class="adp-figcaption">Full install view · prayer projected on gallery wall</p>
     </div>
 
@@ -2035,7 +2048,7 @@
       <a class="project-page-link" href="https://culturalextremityindex.com" target="_blank" rel="noopener">culturalextremityindex.com ↗</a>
       <a class="project-page-link" href="https://github.com/epsilver/epsilver-cei" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
-    <img class="project-page-image" src="img/cei-og.png" alt="Cultural Extremity Index preview" />
+    <picture><source srcset="img/cei-og.webp" type="image/webp"><img class="project-page-image" src="img/cei-og.png" alt="Cultural Extremity Index preview" loading="lazy" decoding="async" width="1200" height="630" /></picture>
     <p class="project-page-body">A tool for measuring how far outside the mainstream you are. Built to answer the question nobody asks but everyone wonders.</p>
     <div class="project-page-specs">
       <div class="spec-item"><div class="spec-label">Format</div><div class="spec-value">Web App</div></div>
@@ -2054,7 +2067,7 @@
       <p class="project-page-tagline">A competitive stock trading game.</p>
       <a class="project-page-link" href="https://wickrunner.com" target="_blank" rel="noopener">Visit ↗</a>
     </div>
-    <img class="project-page-image" src="img/wickrunner-og.png" alt="Wickrunner preview" />
+    <picture><source srcset="img/wickrunner-og.webp" type="image/webp"><img class="project-page-image" src="img/wickrunner-og.png" alt="Wickrunner preview" loading="lazy" decoding="async" width="1200" height="630" /></picture>
     <p class="project-page-body">Wickrunner is a dystopian stock trading game set in a world governed by six massive corporations that maintain an endless conflict known as the Forever War. These entities form a closed ecosystem where NEON provides military AI, AURA develops psionic super soldiers, and BYTE launders profits through untraceable cryptocurrency, while other firms manage space expansion, public distraction, and soldier memories. Players act as opportunistic investors within this grim reality, trading stocks in these megacorporations to profit from the same military contracts and societal control that keep the world in a state of profitable chaos. Powered by our lightChart Charting engine"</p>
     <div class="project-page-specs">
       <div class="spec-item"><div class="spec-label">Format</div><div class="spec-value">Game</div></div>
@@ -2111,7 +2124,7 @@
       </svg>
       <span class="tl-name">Lyric Video Blender</span>
     </div>
-    <video class="project-page-image" src="img/lyric-video-demo.mp4" autoplay muted loop playsinline style="object-fit:cover;"></video>
+    <video class="project-page-image" src="img/lyric-video-demo.mp4" muted loop playsinline preload="none" controls style="object-fit:cover;"></video>
     <p class="project-page-body">A Blender addon that turns any audio or video file into a fully animated lyric video. It runs Demucs to separate the vocals, then WhisperX for word-level forced-alignment transcription, giving you precise per-word timestamps automatically. The lyric list populates inside Blender, ready to animate with 20+ built-in styles including Glitch, Typewriter, Corrupt, and more.</p>
     <div class="project-page-specs">
       <div class="spec-item"><div class="spec-label">Format</div><div class="spec-value">Blender Addon</div></div>
@@ -2130,7 +2143,6 @@
       <p class="project-page-tagline">Native iOS client for oh-my-pi collaborative AI coding sessions.</p>
       <a class="project-page-link" href="https://github.com/verticalrectangle/Enclave" target="_blank" rel="noopener">GitHub ↗</a>
     </div>
-    <img class="project-page-image" src="img/enclave-icon.png" alt="Enclave app icon" />
     <p class="project-page-body">Enclave is a native iOS client for oh-my-pi collab sessions. It connects to a host via an encrypted WebSocket relay, streams the live agent transcript, and lets you prompt, steer, abort, and answer host asks from your phone. The relay never sees plaintext — all frames are sealed with AES-256-GCM on-device. Activity view tracks live subagent fan-out, Trust mirrors the host's SessionState, and Live Activities plus Dynamic Island keep the session visible on the lock screen and home screen. Built in SwiftUI with Vertical Rectangle's brutalist-glass design language and native Liquid Glass on iOS 26.</p>
     <div class="project-page-specs">
       <div class="spec-item"><div class="spec-label">Format</div><div class="spec-value">iOS App</div></div>
@@ -2265,11 +2277,11 @@
     </div>
 
     <div class="artist-page-art-carousel">
-      <img class="carousel-slide" style="animation-delay:0s"    src="img/epsilver-art-llunatic.png" alt="" />
-      <img class="carousel-slide" style="animation-delay:3.5s"  src="img/epsilver-art-numa-numa.png" alt="" />
-      <img class="carousel-slide" style="animation-delay:7s"    src="img/epsilver-art-say-to-me.png" alt="" />
-      <img class="carousel-slide" style="animation-delay:10.5s" src="img/epsilver-art-sister-golden-hair.jpeg" alt="" />
-      <img class="carousel-slide" style="animation-delay:14s"   src="img/epsilver-art-slit.png" alt="" />
+      <picture class="carousel-slide" style="animation-delay:0s"><source srcset="img/epsilver-art-llunatic.webp" type="image/webp"><img src="img/epsilver-art-llunatic.png" alt="" loading="lazy" decoding="async" width="1687" height="1687" /></picture>
+      <picture class="carousel-slide" style="animation-delay:3.5s"><source srcset="img/epsilver-art-numa-numa.webp" type="image/webp"><img src="img/epsilver-art-numa-numa.png" alt="" loading="lazy" decoding="async" width="1000" height="1000" /></picture>
+      <picture class="carousel-slide" style="animation-delay:7s"><source srcset="img/epsilver-art-say-to-me.webp" type="image/webp"><img src="img/epsilver-art-say-to-me.png" alt="" loading="lazy" decoding="async" width="1600" height="1600" /></picture>
+      <picture class="carousel-slide" style="animation-delay:10.5s"><source srcset="img/epsilver-art-sister-golden-hair.webp" type="image/webp"><img src="img/epsilver-art-sister-golden-hair.jpeg" alt="" loading="lazy" decoding="async" width="1080" height="1080" /></picture>
+      <picture class="carousel-slide" style="animation-delay:14s"><source srcset="img/epsilver-art-slit.webp" type="image/webp"><img src="img/epsilver-art-slit.png" alt="" loading="lazy" decoding="async" width="2000" height="2000" /></picture>
     </div>
 
     <p class="artist-page-body">Digital art, music, and writing made under the name epsilver. Glitch, collage, and motion. Also publishes a blog.</p>
@@ -2291,9 +2303,9 @@
       <div class="member-grid">
       <div class="member-entry">
         <div class="member-carousel">
-          <img class="member-carousel-slide" style="animation-delay:0s"   src="img/C8B9C76C-0F2D-4D3C-96E1-57B2CC1F1929.jpg" alt="" />
-          <img class="member-carousel-slide" style="animation-delay:3.5s" src="img/37596606-D369-4ECC-8970-A6D105C12754.jpg" alt="" />
-          <img class="member-carousel-slide" style="animation-delay:7s"   src="img/5F5EAFDE-F09E-4C02-87EC-194BC4E920D8.jpg" alt="" />
+          <img class="member-carousel-slide" style="animation-delay:0s" src="img/C8B9C76C-0F2D-4D3C-96E1-57B2CC1F1929.jpg" alt="" loading="lazy" decoding="async" width="609" height="609" />
+          <img class="member-carousel-slide" style="animation-delay:3.5s" src="img/37596606-D369-4ECC-8970-A6D105C12754.jpg" alt="" loading="lazy" decoding="async" width="609" height="609" />
+          <img class="member-carousel-slide" style="animation-delay:7s" src="img/5F5EAFDE-F09E-4C02-87EC-194BC4E920D8.jpg" alt="" loading="lazy" decoding="async" width="609" height="609" />
         </div>
         <div class="member-name">Elise</div>
         <div class="member-role">queen of the internet (currently in exile)</div>
@@ -2305,8 +2317,8 @@
 
       <div class="member-entry">
         <div class="member-carousel">
-          <img class="member-carousel-slide" style="animation:carousel-fade-2 7s infinite;animation-delay:0s;animation-fill-mode:backwards"   src="img/nick-death-grips.jpeg" alt="" />
-          <img class="member-carousel-slide" style="animation:carousel-fade-2 7s infinite;animation-delay:3.5s;animation-fill-mode:backwards" src="img/777F4C24-98B9-4A72-8CD0-0CE1DB9229F2.jpg" alt="" />
+          <img class="member-carousel-slide" style="animation:carousel-fade-2 7s infinite;animation-delay:0s;animation-fill-mode:backwards" src="img/nick-death-grips.jpeg" alt="" loading="lazy" decoding="async" width="609" height="609" />
+          <img class="member-carousel-slide" style="animation:carousel-fade-2 7s infinite;animation-delay:3.5s;animation-fill-mode:backwards" src="img/777F4C24-98B9-4A72-8CD0-0CE1DB9229F2.jpg" alt="" loading="lazy" decoding="async" width="609" height="609" />
         </div>
         <div class="member-name">Nick</div>
         <div class="member-role">a really funny guy so that's why we let him be the only male member.</div>
@@ -2318,9 +2330,9 @@
 
       <div class="member-entry">
         <div class="member-carousel">
-          <img class="member-carousel-slide" style="animation-delay:0s"   src="img/e-3.jpg" alt="" />
-          <img class="member-carousel-slide" style="animation-delay:3.5s" src="img/e-2.jpg" alt="" />
-          <img class="member-carousel-slide" style="animation-delay:7s"   src="img/e-1.jpg" alt="" />
+          <img class="member-carousel-slide" style="animation-delay:0s" src="img/e-3.jpg" alt="" loading="lazy" decoding="async" width="609" height="609" />
+          <img class="member-carousel-slide" style="animation-delay:3.5s" src="img/e-2.jpg" alt="" loading="lazy" decoding="async" width="609" height="609" />
+          <img class="member-carousel-slide" style="animation-delay:7s" src="img/e-1.jpg" alt="" loading="lazy" decoding="async" width="609" height="609" />
         </div>
         <div class="member-name">Eleleth</div>
         <div class="member-role">posthuman cybergnostic radfem word salad enthusiast</div>
@@ -2332,9 +2344,9 @@
 
       <div class="member-entry">
         <div class="member-carousel">
-          <img class="member-carousel-slide" style="animation-delay:0s"   src="img/GuUePw9WMAAezY6.jpg" alt="" />
-          <img class="member-carousel-slide" style="animation-delay:3.5s" src="img/GxI7PBYWAAARb18.jpg" alt="" />
-          <img class="member-carousel-slide" style="animation-delay:7s"   src="img/HFqRlp6XsAAKVor.jpg" alt="" />
+          <img class="member-carousel-slide" style="animation-delay:0s" src="img/GuUePw9WMAAezY6.jpg" alt="" loading="lazy" decoding="async" width="609" height="609" />
+          <img class="member-carousel-slide" style="animation-delay:3.5s" src="img/GxI7PBYWAAARb18.jpg" alt="" loading="lazy" decoding="async" width="609" height="609" />
+          <img class="member-carousel-slide" style="animation-delay:7s" src="img/HFqRlp6XsAAKVor.jpg" alt="" loading="lazy" decoding="async" width="609" height="609" />
         </div>
         <div class="member-name">Alexis</div>
         <div class="member-role">Clout sourcer and freelance psyop</div>
