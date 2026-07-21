@@ -87,7 +87,7 @@
       padding: 28px 48px;
     }
 
-    body:not(:has(#development:target)):not(:has(#pop-maker-studio:target)):not(:has(#digital-prayer:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#lyric-video-blender:target)):not(:has(#silvertune-web:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#research:target)):not(:has(#voice-range-weights:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)):not(:has(#enclave:target)) nav {
+    body:not(:has(#development:target)):not(:has(#pop-maker-studio:target)):not(:has(#digital-prayer:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#lyric-video-blender:target)):not(:has(#silvertune-web:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#research:target)):not(:has(#voice-range-weights:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)):not(:has(#enclave:target)):not(:has(#nulltorch:target)) nav {
       display: none;
     }
 
@@ -197,6 +197,7 @@
     #lyric-video-blender:target,
     #silvertune-web:target,
     #cei:target,
+    #nulltorch:target,
     #enclave:target,
     #voice-range-weights:target,
     #epsilver:target,
@@ -209,7 +210,7 @@
     body:has(#silvertune-pedal:target) #home,
     body:has(#lyric-video-blender:target) #home,
     body:has(#silvertune-web:target) #home,
-    body:has(#cei:target) #home,
+    body:has(#nulltorch:target) #home,
     body:has(#enclave:target) #home,
     body:has(#voice-range-weights:target) #home,
     body:has(#epsilver:target) #home,
@@ -1508,6 +1509,27 @@
           <span class="project-arrow">↗</span>
         </div>
       </a>
+
+      <a class="project" href="#nulltorch">
+        <div class="project-thumbnail project-thumbnail--logo">
+          <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 4 C14 10 12 14 12 20 C12 26 15 30 18 30 C21 30 24 26 24 20 C24 14 22 10 18 4 Z" stroke="currentColor" stroke-width="2.5" fill="none"/>
+            <path d="M18 12 C16 16 15 18 15 22 C15 25 16 27 18 27 C20 27 21 25 21 22 C21 18 20 16 18 12 Z" fill="currentColor" opacity="0.5"/>
+          </svg>
+          <span class="tl-name">NullTorch</span>
+        </div>
+        <div class="project-info">
+          <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 4 C14 10 12 14 12 20 C12 26 15 30 18 30 C21 30 24 26 24 20 C24 14 22 10 18 4 Z" stroke="currentColor" stroke-width="2.5" fill="none"/>
+            <path d="M18 12 C16 16 15 18 15 22 C15 25 16 27 18 27 C20 27 21 25 21 22 C21 18 20 16 18 12 Z" fill="currentColor" opacity="0.5"/>
+          </svg>
+          <div>
+            <div class="project-name">NullTorch</div>
+            <div class="project-desc">A hostile-file benchmark for AI coding models. Six models write a pure-C++ PyTorch .pt reader from scratch.</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
     </div>
   </section>
 
@@ -2163,6 +2185,31 @@
       <div class="spec-item"><div class="spec-label">Platform</div><div class="spec-value">iOS 26</div></div>
       <div class="spec-item"><div class="spec-label">Status</div><div class="spec-value">In Development</div></div>
       <div class="spec-item"><div class="spec-label">License</div><div class="spec-value">TBD</div></div>
+    </div>
+  </section>
+
+  <!-- NULLTORCH -->
+  <section id="nulltorch" class="page">
+    <a class="back-link" href="#development">← Back</a>
+    <div class="project-page-header">
+      <h1 class="project-page-title">NullTorch</h1>
+      <p class="project-page-tagline">A hostile-file benchmark for AI coding models.</p>
+      <a class="project-page-link" href="https://nulltorch.com" target="_blank" rel="noopener">Visit ↗</a>
+    </div>
+    <div class="project-page-image project-page-image--logo">
+      <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 4 C14 10 12 14 12 20 C12 26 15 30 18 30 C21 30 24 26 24 20 C24 14 22 10 18 4 Z" stroke="currentColor" stroke-width="2.5" fill="none"/>
+        <path d="M18 12 C16 16 15 18 15 22 C15 25 16 27 18 27 C20 27 21 25 21 22 C21 18 20 16 18 12 Z" fill="currentColor" opacity="0.5"/>
+      </svg>
+      <span class="tl-name">NullTorch</span>
+    </div>
+    <p class="project-page-body">Six AI coding models got the same homework: write a pure-C++ PyTorch .pt reader — no PyTorch, no Python, no libraries. Then their programs were fed files that get meaner and meaner. Tiers 1–5 test correctness: plain files, nested files, weird-but-honest files. Tier 6 tests robustness: booby-trapped pickles that try to trick the program into running hidden code. Fall for it once and you're disqualified. Every model was then handed the same score sheet and told to build a dashboard. The result is a comparative gallery — ranked by overall score (60% code, 40% elegance) — so you can judge not just who passed, but who explained it best.</p>
+    <div class="project-page-specs">
+      <div class="spec-item"><div class="spec-label">Format</div><div class="spec-value">Benchmark</div></div>
+      <div class="spec-item"><div class="spec-label">Language</div><div class="spec-value">C++17 / Python</div></div>
+      <div class="spec-item"><div class="spec-label">Platform</div><div class="spec-value">Web</div></div>
+      <div class="spec-item"><div class="spec-label">Status</div><div class="spec-value">Live</div></div>
+      <div class="spec-item"><div class="spec-label">License</div><div class="spec-value">MIT</div></div>
     </div>
   </section>
 
