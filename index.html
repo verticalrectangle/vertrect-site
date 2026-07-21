@@ -210,6 +210,7 @@
     body:has(#silvertune-pedal:target) #home,
     body:has(#lyric-video-blender:target) #home,
     body:has(#silvertune-web:target) #home,
+    body:has(#cei:target) #home,
     body:has(#nulltorch:target) #home,
     body:has(#enclave:target) #home,
     body:has(#voice-range-weights:target) #home,
@@ -443,7 +444,8 @@
     #lyric-video-blender,
     #silvertune-web,
     #cei,
-    #enclave {
+    #enclave,
+    #nulltorch {
       padding-top: 64px;
       padding-bottom: 100px;
       max-width: 1000px;
@@ -668,7 +670,7 @@
     }
 
     @media (max-width: 600px) {
-      #pop-maker-studio, #digital-prayer, #silvertune, #wickrunner, #silvertune-pedal, #lyric-video-blender, #silvertune-web, #cei, #enclave, #voice-range-weights { padding-top: 100px; }
+      #pop-maker-studio, #digital-prayer, #silvertune, #wickrunner, #silvertune-pedal, #lyric-video-blender, #silvertune-web, #cei, #enclave, #nulltorch, #voice-range-weights { padding-top: 100px; }
       .project-page-body { font-size: 16px; }
       .project-page-specs { grid-template-columns: repeat(2, 1fr); }
     }
