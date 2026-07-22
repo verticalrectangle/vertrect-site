@@ -572,10 +572,12 @@
       max-width: 75%;
       margin: 0 auto 48px;
       aspect-ratio: 1120 / 1050;
+      overflow: hidden;
     }
     .pms-slide {
       position: absolute;
-      top: 0; left: 0; width: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       opacity: 0;
     }
     .pms-slide:nth-child(1) { animation: pms-cycle 9s infinite 0s; }
@@ -591,7 +593,8 @@
     #pms-3:checked ~ .pms-carousel .pms-slide:nth-child(3) { opacity: 1; }
 
     .pms-slide img {
-      width: 100%;
+      width: 100%; height: 100%;
+      object-fit: cover;
       display: block;
       border: 1px solid rgba(255,255,255,0.15);
     }
@@ -1035,12 +1038,11 @@
       letter-spacing: 0.16em;
       text-transform: uppercase;
       opacity: 0.6;
-      margin-top: 18px;
     }
 
     .adp-figure { margin: 56px 0; }
     .adp-figure--portrait { display: flex; flex-direction: column; align-items: center; }
-    .adp-mockup-img { width: 100%; max-width: 480px; display: block; }
+    .adp-mockup-img { width: 100%; max-width: 480px; height: auto; display: block; }
 
     .adp-fig-frame {
       width: 100%;
