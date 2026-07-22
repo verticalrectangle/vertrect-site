@@ -1238,6 +1238,14 @@
     .adp-lbl-a { fill: var(--amber) !important; }
     .adp-strap { stroke: var(--amber) !important; }
     .adp-rules li::before { color: var(--amber) !important; }
+    /* ADP diagrams: low-opacity strokes/fills wash out on light backgrounds, boost them */
+    :root:has(#theme-toggle:checked) .adp-s1 { opacity: 0.95; }
+    :root:has(#theme-toggle:checked) .adp-s05 { opacity: 0.85; }
+    :root:has(#theme-toggle:checked) .adp-s03 { opacity: 0.8; }
+    :root:has(#theme-toggle:checked) .adp-sd { opacity: 0.85; }
+    :root:has(#theme-toggle:checked) .adp-lbl { opacity: 1; }
+    :root:has(#theme-toggle:checked) .adp-lbl-d { opacity: 0.9; }
+
     /* ── Liquid-glass cards: Option 2 (gel) + Option 3 (frosted), palette-only ── */
     body { background-color: var(--black); background-image: var(--bg-grad); background-attachment: fixed; }
     .project {
