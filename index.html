@@ -1239,12 +1239,12 @@
     .adp-strap { stroke: var(--amber) !important; }
     .adp-rules li::before { color: var(--amber) !important; }
     /* ADP diagrams: low-opacity strokes/fills wash out on light backgrounds, make them fully opaque */
-    :root:has(#theme-toggle:checked) .adp-s1,
-    :root:has(#theme-toggle:checked) .adp-s05,
-    :root:has(#theme-toggle:checked) .adp-s03,
-    :root:has(#theme-toggle:checked) .adp-sd,
-    :root:has(#theme-toggle:checked) .adp-lbl,
-    :root:has(#theme-toggle:checked) .adp-lbl-d { opacity: 1; }
+    :root:has(#theme-toggle:checked) svg .adp-s1,
+    :root:has(#theme-toggle:checked) svg .adp-s05,
+    :root:has(#theme-toggle:checked) svg .adp-s03,
+    :root:has(#theme-toggle:checked) svg .adp-sd,
+    :root:has(#theme-toggle:checked) svg .adp-lbl,
+    :root:has(#theme-toggle:checked) svg .adp-lbl-d { opacity: 1; }
 
     /* ── Liquid-glass cards: Option 2 (gel) + Option 3 (frosted), palette-only ── */
     body { background-color: var(--black); background-image: var(--bg-grad); background-attachment: fixed; }
