@@ -87,7 +87,7 @@
       padding: 28px 48px;
     }
 
-    body:not(:has(#development:target)):not(:has(#pop-maker-studio:target)):not(:has(#digital-prayer:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#lyric-video-blender:target)):not(:has(#silvertune-web:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#research:target)):not(:has(#voice-range-weights:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)):not(:has(#enclave:target)):not(:has(#nulltorch:target)) nav {
+    body:not(:has(#development:target)):not(:has(#demos:target)):not(:has(#pop-maker-studio:target)):not(:has(#digital-prayer:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#lyric-video-blender:target)):not(:has(#silvertune-web:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#research:target)):not(:has(#voice-range-weights:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)):not(:has(#enclave:target)):not(:has(#nulltorch:target)) nav {
       display: none;
     }
 
@@ -180,11 +180,13 @@
     #home { display: flex; }
 
     #development:target,
+    #demos:target,
     #research:target,
     #connect:target,
     #artists:target { display: block; }
 
     body:has(#development:target) #home,
+    body:has(#demos:target) #home,
     body:has(#research:target) #home,
     body:has(#connect:target) #home,
     body:has(#artists:target) #home { display: none; }
@@ -1280,6 +1282,7 @@
     </a>
     <ul class="nav-links">
       <li><a href="#development">Development</a></li>
+      <li><a href="#demos">Demos</a></li>
       <li><a href="#research">Research</a></li>
       <li><a href="#artists">Artists</a></li>
       <li><a href="#connect">Connect</a></li>
@@ -1295,6 +1298,7 @@
     <p class="home-tagline">Independent creative technology studio</p>
     <ul class="home-nav">
       <li><a href="#development">Development</a></li>
+      <li><a href="#demos">Demos</a></li>
       <li><a href="#research">Research</a></li>
       <li><a href="#artists">Artists</a></li>
       <li><a href="#connect">Connect</a></li>
@@ -1542,6 +1546,37 @@
           <span class="project-arrow">↗</span>
         </div>
       </a>
+    </div>
+  </section>
+
+  <!-- DEMOS -->
+  <section id="demos" class="page">
+    <p class="work-header">Demos</p>
+    <div class="work-grid">
+
+      <a class="project" href="demos/cyber-crucifix/index.html">
+        <div class="project-thumbnail project-thumbnail--logo">
+          <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="14.5" y="5" width="7" height="26" rx="1.5" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="6" y="13" width="24" height="7" rx="1.5" stroke="currentColor" stroke-width="2.5"/>
+            <circle cx="18" cy="8.5" r="6" stroke="currentColor" stroke-width="2" opacity="0.65"/>
+            <circle cx="18" cy="8.5" r="3.2" stroke="currentColor" stroke-width="2" opacity="0.35"/>
+          </svg>
+          <span class="tl-name">Cyber Crucifix</span>
+        </div>
+        <div class="project-info">
+          <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="14.5" y="5" width="7" height="26" rx="1.5" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="6" y="13" width="24" height="7" rx="1.5" stroke="currentColor" stroke-width="2.5"/>
+          </svg>
+          <div>
+            <div class="project-name">Cyber Crucifix</div>
+            <div class="project-desc">Psychedelic 3D WebGL scene — chroma melt, chroma frame, RGB splits, random strobe, grass field. DeepSeek v4 Flash 0731's trial.</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
+
     </div>
   </section>
 
