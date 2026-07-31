@@ -25,7 +25,6 @@
     errors.push('WebGL unavailable: ' + e.message); showErr(); return;
   }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
-  renderer.setSize(window.innerWidth, window.innerHeight);
   document.getElementById('app').appendChild(renderer.domElement);
 
   var scene = new THREE.Scene();
@@ -815,16 +814,19 @@
     composer.render();
   }
 
-  // ---- resize ----------------------------------------------------------------
-  window.addEventListener('resize', function () {
-    var w = window.innerWidth, h = window.innerHeight;
+  // ---- resize (sized to the page's #scene-wrap container) ----------------
+  var wrap = document.getElementById('scene-wrap');
+  function updateSize() {
+    var w = Math.max(wrap.clientWidth, 1), h = Math.max(wrap.clientHeight, 1);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
     composer.setSize(w, h);
     bloom.setSize(w, h);
     psyPass.uniforms.uResolution.value.set(w, h);
-  });
+  }
+  window.addEventListener('resize', updateSize);
+  updateSize();
 
   // ---- boot -------------------------------------------------------------------
   window.__dbg = { renderer: renderer, scene: scene, camera: camera, composer: composer, grass: grass };
