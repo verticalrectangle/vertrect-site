@@ -87,7 +87,7 @@
       padding: 28px 48px;
     }
 
-    body:not(:has(#development:target)):not(:has(#demos:target)):not(:has(#pop-maker-studio:target)):not(:has(#digital-prayer:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#lyric-video-blender:target)):not(:has(#silvertune-web:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#research:target)):not(:has(#voice-range-weights:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)):not(:has(#enclave:target)):not(:has(#nulltorch:target)) nav {
+    body:not(:has(#development:target)):not(:has(#demos:target)):not(:has(#pop-maker-studio:target)):not(:has(#digital-prayer:target)):not(:has(#silvertune:target)):not(:has(#wickrunner:target)):not(:has(#silvertune-pedal:target)):not(:has(#lyric-video-blender:target)):not(:has(#silvertune-web:target)):not(:has(#cei:target)):not(:has(#connect:target)):not(:has(#artists:target)):not(:has(#research:target)):not(:has(#voice-range-weights:target)):not(:has(#local-llm-on-12gb:target)):not(:has(#epsilver:target)):not(:has(#depravity-girlz:target)):not(:has(#ekioze:target)):not(:has(#enclave:target)):not(:has(#nulltorch:target)) nav {
       display: none;
     }
 
@@ -202,6 +202,7 @@
     #nulltorch:target,
     #enclave:target,
     #voice-range-weights:target,
+    #local-llm-on-12gb:target,
     #epsilver:target,
     #depravity-girlz:target,
     #ekioze:target { display: block; }
@@ -216,6 +217,7 @@
     body:has(#nulltorch:target) #home,
     body:has(#enclave:target) #home,
     body:has(#voice-range-weights:target) #home,
+    body:has(#local-llm-on-12gb:target) #home,
     body:has(#epsilver:target) #home,
     body:has(#depravity-girlz:target) #home,
     body:has(#ekioze:target) #home { display: none; }
@@ -508,7 +510,8 @@
 
     /* ── RESEARCH ARTICLE ── */
 
-    #voice-range-weights {
+    #voice-range-weights,
+    #local-llm-on-12gb {
       max-width: 760px;
       margin: 0 auto;
       padding-top: 64px;
@@ -675,7 +678,7 @@
     }
 
     @media (max-width: 600px) {
-      #pop-maker-studio, #digital-prayer, #silvertune, #wickrunner, #silvertune-pedal, #lyric-video-blender, #silvertune-web, #cei, #enclave, #nulltorch, #voice-range-weights { padding-top: 100px; }
+      #pop-maker-studio, #digital-prayer, #silvertune, #wickrunner, #silvertune-pedal, #lyric-video-blender, #silvertune-web, #cei, #enclave, #nulltorch, #voice-range-weights, #local-llm-on-12gb { padding-top: 100px; }
       .project-page-body { font-size: 16px; }
       .project-page-specs { grid-template-columns: repeat(2, 1fr); }
     }
@@ -1618,6 +1621,52 @@
         </div>
       </a>
 
+
+      <a class="project" href="#local-llm-on-12gb">
+        <div class="project-thumbnail project-thumbnail--logo">
+          <svg class="tl-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="8" width="20" height="20" rx="3" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="14" y="14" width="8" height="8" rx="1.5" stroke="#ffb850" stroke-width="2"/>
+            <line x1="8" y1="13" x2="4" y2="13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="8" y1="18" x2="4" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="8" y1="23" x2="4" y2="23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="28" y1="13" x2="32" y2="13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="28" y1="18" x2="32" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="28" y1="23" x2="32" y2="23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="13" y1="8" x2="13" y2="4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="8" x2="18" y2="4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="23" y1="8" x2="23" y2="4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="13" y1="28" x2="13" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="28" x2="18" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="23" y1="28" x2="23" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <span class="tl-name">12GB Lab</span>
+        </div>
+        <div class="project-info">
+          <svg class="project-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8" y="8" width="20" height="20" rx="3" stroke="currentColor" stroke-width="2.5"/>
+            <rect x="14" y="14" width="8" height="8" rx="1.5" stroke="#ffb850" stroke-width="2"/>
+            <line x1="8" y1="13" x2="4" y2="13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="8" y1="18" x2="4" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="8" y1="23" x2="4" y2="23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="28" y1="13" x2="32" y2="13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="28" y1="18" x2="32" y2="18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="28" y1="23" x2="32" y2="23" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="13" y1="8" x2="13" y2="4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="8" x2="18" y2="4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="23" y1="8" x2="23" y2="4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="13" y1="28" x2="13" y2="28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="18" y1="28" x2="18" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="23" y1="28" x2="23" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <div class="project-name">Training and Serving LLMs Inside 12 GB of VRAM</div>
+            <div class="project-desc">A from-scratch 256k-context trainer at 41k tok/s and 1M-context steps, plus what it actually takes to serve a 35B uncensored MoE on a mid-range card.</div>
+          </div>
+          <span class="project-arrow">↗</span>
+        </div>
+      </a>
+
     </div>
   </section>
 
@@ -1661,6 +1710,40 @@
       <div class="spec-item"><div class="spec-label">Cost</div><div class="spec-value">Microseconds · No Audio</div></div>
       <div class="spec-item"><div class="spec-label">Application</div><div class="spec-value">Auto-Key Selection</div></div>
       <div class="spec-item"><div class="spec-label">Source</div><div class="spec-value">Pop Maker Studio</div></div>
+    </div>
+  </section>
+
+
+  <!-- TRAINING AND SERVING LLMS INSIDE 12 GB OF VRAM -->
+  <section id="local-llm-on-12gb" class="page research-article">
+    <a class="back-link" href="#research">← Back</a>
+    <div class="project-page-header">
+      <div class="project-page-tagline">Research</div>
+      <h1 class="project-page-title">Training and serving real LLMs inside 12 GB of VRAM</h1>
+    </div>
+
+    <p class="project-page-body">One RX 7700 XT (12.87 GB VRAM), 32 GB of DDR4, and a wall-clock obsession. Everything below was measured on that machine — training runs, serving tiers, and the crashes in between — with two questions: how far can you train your own model, and what is the biggest uncensored model you can actually live with?</p>
+
+    <p class="research-lead">256k-context training from scratch at 41k tok/s, a 1M-token training step that fits, and a 35B-parameter MoE serving uncensored — all inside a card that costs less than a game.</p>
+
+    <h2 class="research-h2">Training from scratch: the 256k trainer</h2>
+    <p class="project-page-body">The trainer is fully from-scratch PyTorch on ROCm (torch 2.9, HSA override 11.0.0). At 84.5M parameters it sustains <strong>41,830 tok/s at 32k context with a 6.9 GB peak</strong>, and the full <strong>256k window trains at 41 s/step</strong>. The machinery that unlocks long context on a small card: query-chunked flex attention with per-chunk backward (no full-block graph), a shared global mask cache, FP8 e4m3 CPU-offloaded boundary tensors, a kv pre-pass with a single detached backward, norm offload, CPU-parked chunk assembly, Muon per-head plus AdamW, QK-norm, and chunked cross-entropy. The 1M-token training step works too — 183 s/step at 5.7k tok/s with a 9.8 GB peak — via boundary quantize-offload and careful host/device placement.</p>
+
+    <h2 class="research-h2">The shape law nobody told us</h2>
+    <p class="project-page-body">At this scale, wide and shallow beats deep — and the quality guard (40-step validation on real traces) caught it before any speed claim could hide it. At 84.5M, 4 layers × d768 × d_ff3072 beat both 3L and 6L at the 100-step horizon (val 2.628). At 306M, 6 layers × d1536 with d_ff = 4×d (6144) beat the deeper 8L shape at every horizon and ran 20% faster (8,733 tok/s, 5.3 GB peak, val 2.9079 at 40 steps). The rule of thumb that fell out: layers ≈ d/256 at ~350M scale, ≈ d/192 at ~85M. Learning rate must be re-swept per scale — 1e-3 at 84.5M, 4.5e-4 at 306M. Everything is bit-identical reproducible (fixed seeds, synthetic data, deterministic harness).</p>
+
+    <h2 class="research-h2">Serving: the 100 tok/s physics problem</h2>
+    <p class="project-page-body">Getting 100 tok/s decode with a Qwen3.6-35B-A3B on 12 GB is a VRAM-budget problem, and the budget wins. Measured tiers: the 2B Q4 hits 140 tok/s short-context; the 35B at IQ2 hits 73 tok/s at 64k with KV on GPU; the same model serves <strong>262k context at 29 tok/s</strong> only by offloading KV to RAM (the whole-KV-per-token readback is what costs the speed); MTP speculative decoding recovers ~82 tok/s at short context; and the uncensored HauhauCS IQ2_M variant runs the whole stack. The pattern across every crash we survived: a compositor needs ~1 GB of VRAM, and below ~0.6 GB of headroom the amdgpu driver wedges hard — Xorg and KDE both died with core dumps before we found the working envelope (CPU-parked experts, KV in RAM, software-GL terminals).</p>
+
+    <h2 class="research-h2">The 2027 MoE landscape, from inside 12 GB</h2>
+    <p class="project-page-body">Surveying what actually competes: Qwen3.6-35B-A3B is the class leader on coding and speed; Gemma 4 26B A4B leads general knowledge (57.1 vs 50.5 public score) and fits the same envelope at Q3; Qwen3.6-27B is dense (better quality, 4× slower, won't fit at usable quant); PrismML's Bonsai ternary is the only 12GB path to the 27B and remains unproven. Uncensored options are real: TrevorJS's Gemma 4 abliterations (0/100 refusals) and the HauhauCS Qwen3.6 variant both run here. The honest summary: on 12 GB you pick speed + coding (Qwen 35B) or general quality + writing (Gemma 26B), and Sonnet 4.5 keeps the coding crown only if you're willing to pay per token and accept its alignment.</p>
+
+    <div class="project-page-specs">
+      <div class="spec-item"><div class="spec-label">Domain</div><div class="spec-value">LLM training & serving</div></div>
+      <div class="spec-item"><div class="spec-label">Hardware</div><div class="spec-value">RX 7700 XT · 12.87 GB</div></div>
+      <div class="spec-item"><div class="spec-label">Training</div><div class="spec-value">256k ctx · 41.8k tok/s · 1M step OK</div></div>
+      <div class="spec-item"><div class="spec-label">Serving</div><div class="spec-value">35B MoE @ 262k ctx</div></div>
+      <div class="spec-item"><div class="spec-label">Source</div><div class="spec-value">Local lab · measured</div></div>
     </div>
   </section>
 
