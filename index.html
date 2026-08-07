@@ -1352,29 +1352,16 @@ body {
   color: var(--rp-text);
 }
 
-/* nav → slim gradient titlebar (logo transparent, no box) */
-nav {
-  background: linear-gradient(90deg, var(--rp-rose), var(--rp-iris)) !important;
-  border: 2px outset var(--rp-hl2) !important;
-  box-shadow: 3px 3px 0 var(--rp-shadow) !important;
-  padding: 6px 14px !important;
-}
-.nav-links { flex-direction: row !important; gap: 12px; }
-.nav-links a {
-  color: var(--rp-surface) !important;
-  font-family: 'VT323', monospace; font-size: 14px !important;
-  letter-spacing: 1px; opacity: .95 !important;
-  text-shadow: 1px 1px 0 var(--rp-shadow);
-}
-.nav-links a::after { display: none; }
-.nav-links a:hover { color: var(--rp-gold) !important; }
+/* nav → original stacked layout, wordmark matches home title */
+.nav-links { flex-direction: column !important; }
 .nav-wordmark {
-  color: var(--rp-surface) !important;
-  font-family: 'VT323', monospace; font-size: 16px !important; letter-spacing: 1px;
-  text-shadow: 1px 1px 0 var(--rp-shadow);
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  font-weight: 900 !important;
+  text-transform: uppercase; letter-spacing: -0.01em;
+  color: #575279 !important;
 }
-.nav-logo img { width: 26px; height: 26px; background: none !important; border: none !important; padding: 0 !important; }
-.theme-label { color: var(--rp-surface) !important; }
+:root:not(:has(#theme-toggle:checked)) .nav-wordmark { color: #ffffff !important; }
+.nav-logo img { background: none !important; border: none !important; padding: 0 !important; }
 
 /* home hero */
 .home-title {
