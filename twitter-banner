@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+"""
+Generate a 1500x500 Twitter banner for Vertical Rectangle.
+
+- Text: VERTICAL RECTANGLE
+- Font: Inter Black (weight 900) from fonts/InterVariable.woff2
+- Background: black (#000000)
+- Text color: white (#FFFFFF)
+- Position: bottom-right, with the right margin expressed in average
+  uppercase letter widths of the wordmark.
+
+Usage:
+    ./twitter-banner [output.png]
+"""
+
+import sys
+from pathlib import Path
+from PIL import Image, ImageDraw, ImageFont
+
+WIDTH = 1500
+HEIGHT = 500
+TEXT = "VERTICAL RECTANGLE"
+FONT_SIZE = 80
+FONT_NAME = "Black"         # Inter Black / weight 900
+FONT_PATH = Path(__file__).parent / "fonts" / "InterVariable.woff2"
+MARGIN_LETTER_COUNT = 3.0   # average uppercase letter widths from the right edge
+BOTTOM_MARGIN = 33
+
+
+def main():
+    out = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("twitter-banner.png")
+
+    font = ImageFont.truetype(str(FONT_PATH), FONT_SIZE)
+    font.set_variation_by_name(FONT_NAME)
+
+    img = Image.new("RGB", (WIDTH, HEIGHT), color="black")
+    draw = ImageDraw.Draw(img)
+
+    text_bbox = draw.textbbox((0, 0), TEXT, font=font)
+    text_width = text_bbox[2] - text_bbox[0]
+
+    letters = TEXT.replace(" ", "")
+    avg_letter_width = text_width / len(letters)
+    right_margin = round(avg_letter_width * MARGIN_LETTER_COUNT)
+
+    x = WIDTH - right_margin - text_width
+    y = HEIGHT - BOTTOM_MARGIN
+
+    draw.text((x, y), TEXT, font=font, fill="white", anchor="lb")
+    img.save(out)
+
+    print(f"Saved {out.resolve()} ({WIDTH}x{HEIGHT})")
+
+
+if __name__ == "__main__":
+    main()
