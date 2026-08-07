@@ -1269,8 +1269,266 @@
       box-shadow: inset 0 1px 0 var(--glass-rim), 0 14px 34px -18px var(--glass-shadow);
     }
   </style>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   Y2K RETROFUTURIST SKIN — appended override layer
+   One design, two palettes:
+     dark  (default)          = Rosé Pine
+     light (toggle:checked)   = Rosé Pine Dawn
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── per-mode palettes ── */
+:root {
+  /* Rosé Pine (dark) */
+  --rp-base:#191724; --rp-surface:#1f1d2e; --rp-overlay:#26233a;
+  --rp-muted:#6e6a86; --rp-subtle:#908caa; --rp-text:#e0def4;
+  --rp-love:#eb6f92; --rp-gold:#f6c177; --rp-rose:#ebbcba;
+  --rp-pine:#31748f; --rp-foam:#9ccfd8; --rp-iris:#c4a7e7;
+  --rp-hl:#2a283e; --rp-hl2:#44415a;
+  --rp-shadow:rgba(0,0,0,.45);
+}
+:root:has(#theme-toggle:checked) {
+  /* Rosé Pine Dawn (light) */
+  --rp-base:#faf4ed; --rp-surface:#fffaf3; --rp-overlay:#f2e9e1;
+  --rp-muted:#9893a5; --rp-subtle:#797593; --rp-text:#575279;
+  --rp-love:#b4637a; --rp-gold:#ea9d34; --rp-rose:#d7827e;
+  --rp-pine:#286983; --rp-foam:#56949f; --rp-iris:#907aa9;
+  --rp-hl:#f4ede8; --rp-hl2:#dfdad9;
+  --rp-shadow:rgba(87,82,121,.15);
+}
+
+/* ── repaint the original tokens so the base layout follows suit ── */
+:root {
+  --black: var(--rp-base);
+  --white: var(--rp-text);
+  --amber: var(--rp-gold);
+  --sun-core: var(--rp-foam);
+  --sun-glow: rgba(156,207,216,.20);
+  --sun-fade: rgba(156,207,216,.04);
+  --ray: rgba(224,222,244,.09);
+  --bubble: rgba(224,222,244,.92);
+  --flare: var(--rp-foam);
+  --bg-grad: radial-gradient(1100px 760px at 72% -8%, rgba(196,167,231,.08), transparent 60%);
+  --glass-fill: rgba(38,35,58,.6);
+  --glass-edge: var(--rp-hl2);
+  --glass-rim: rgba(224,222,244,.25);
+  --glass-glow: rgba(156,207,216,.05);
+  --glass-shadow: var(--rp-shadow);
+}
+:root:has(#theme-toggle:checked) {
+  --black: var(--rp-base);
+  --white: var(--rp-text);
+  --amber: var(--rp-gold);
+  --sun-core: var(--rp-gold);
+  --sun-glow: rgba(234,157,52,.20);
+  --sun-fade: rgba(234,157,52,.04);
+  --ray: rgba(87,82,121,.09);
+  --bubble: rgba(87,82,121,.92);
+  --flare: var(--rp-gold);
+  --bg-grad: radial-gradient(1100px 760px at 72% -8%, rgba(144,122,169,.10), transparent 60%);
+  --glass-fill: rgba(255,250,243,.7);
+  --glass-edge: var(--rp-hl2);
+  --glass-rim: rgba(255,255,255,.9);
+  --glass-glow: rgba(86,148,159,.06);
+  --glass-shadow: var(--rp-shadow);
+}
+
+/* ── shared Y2K chrome (both modes, palette via --rp-*) ── */
+@keyframes y2k-blink { 50% { opacity: 0; } }
+@keyframes y2k-twinkle { 50% { opacity: .15; transform: scale(.7); } }
+
+#y2k-stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+#y2k-stars span {
+  position: absolute; font-size: 10px; color: var(--rp-gold); opacity: .5;
+  animation: y2k-twinkle 2.6s ease-in-out infinite;
+}
+
+body {
+  background-color: var(--rp-base) !important;
+  background-image:
+    radial-gradient(circle at 20% 10%, color-mix(in srgb, var(--rp-rose) 8%, transparent), transparent 40%),
+    radial-gradient(circle at 85% 30%, color-mix(in srgb, var(--rp-iris) 8%, transparent), transparent 40%),
+    radial-gradient(circle at 50% 90%, color-mix(in srgb, var(--rp-foam) 8%, transparent), transparent 40%) !important;
+  color: var(--rp-text);
+}
+
+/* nav → slim gradient titlebar (logo transparent, no box) */
+nav {
+  background: linear-gradient(90deg, var(--rp-rose), var(--rp-iris)) !important;
+  border: 2px outset var(--rp-hl2) !important;
+  box-shadow: 3px 3px 0 var(--rp-shadow) !important;
+  padding: 6px 14px !important;
+}
+.nav-links { flex-direction: row !important; gap: 12px; }
+.nav-links a {
+  color: var(--rp-surface) !important;
+  font-family: 'VT323', monospace; font-size: 14px !important;
+  letter-spacing: 1px; opacity: .95 !important;
+  text-shadow: 1px 1px 0 var(--rp-shadow);
+}
+.nav-links a::after { display: none; }
+.nav-links a:hover { color: var(--rp-gold) !important; }
+.nav-wordmark {
+  color: var(--rp-surface) !important;
+  font-family: 'VT323', monospace; font-size: 16px !important; letter-spacing: 1px;
+  text-shadow: 1px 1px 0 var(--rp-shadow);
+}
+.nav-logo img { width: 26px; height: 26px; background: none !important; border: none !important; padding: 0 !important; }
+.theme-label { color: var(--rp-surface) !important; }
+
+/* home hero */
+.home-title {
+  font-family: 'VT323', monospace;
+  background: linear-gradient(90deg, var(--rp-love), var(--rp-iris), var(--rp-pine), var(--rp-foam));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.home-tagline { color: var(--rp-subtle) !important; }
+.home-logo img { border: none !important; background: none !important; box-shadow: none !important; }
+.home-nav a {
+  border: 2px outset var(--rp-hl2) !important;
+  background: var(--rp-surface) !important;
+  color: var(--rp-pine) !important;
+  font-family: 'VT323', monospace; font-size: 17px; letter-spacing: 1px;
+  box-shadow: 2px 2px 0 var(--rp-shadow);
+}
+:root:has(#theme-toggle:checked) .home-nav a { color: var(--rp-pine) !important; }
+.home-nav a:hover {
+  background: var(--rp-overlay) !important; color: var(--rp-love) !important;
+  transform: translate(1px,1px); box-shadow: 1px 1px 0 var(--rp-shadow);
+}
+
+/* section headers → gradient titlebars */
+.work-header, .connect-header, .member-section-header {
+  font-family: 'VT323', monospace; font-size: 20px; letter-spacing: 2px;
+  color: var(--rp-surface) !important;
+  background: linear-gradient(90deg, var(--rp-foam), var(--rp-pine)) !important;
+  border: 2px outset var(--rp-hl2);
+  padding: 4px 12px !important;
+  box-shadow: 3px 3px 0 var(--rp-shadow);
+}
+.work-header::before { content: "▸ "; }
+
+/* project cards → beveled windows */
+.project {
+  background: var(--rp-surface) !important;
+  border: 2px outset var(--rp-hl2) !important;
+  box-shadow: 4px 4px 0 var(--rp-shadow) !important;
+  border-radius: 0 !important;
+  backdrop-filter: none !important;
+}
+.project:hover {
+  border-color: var(--rp-rose) !important;
+  box-shadow: 4px 4px 0 color-mix(in srgb, var(--rp-love) 35%, transparent) !important;
+}
+.project-name {
+  color: var(--rp-pine) !important; font-family: 'VT323', monospace;
+  font-size: 19px; letter-spacing: .5px;
+}
+:root:not(:has(#theme-toggle:checked)) .project-name { color: var(--rp-foam) !important; }
+.project-desc { color: var(--rp-subtle) !important; }
+.project-arrow { color: var(--rp-love) !important; }
+.project-thumbnail {
+  border: 1px solid var(--rp-hl2) !important; background: var(--rp-hl) !important;
+  border-radius: 0 !important;
+}
+.tl-name { color: var(--rp-pine) !important; }
+:root:not(:has(#theme-toggle:checked)) .tl-name { color: var(--rp-foam) !important; }
+
+/* detail pages */
+.project-page-title, .artist-page-title {
+  font-family: 'VT323', monospace; color: var(--rp-love); letter-spacing: 1px;
+}
+.project-page-tagline, .artist-page-tagline { color: var(--rp-subtle) !important; }
+.project-page-body, .artist-page-body { color: var(--rp-text); }
+.research-h2 { color: var(--rp-pine) !important; font-family: 'VT323', monospace; font-size: 22px; letter-spacing: 1px; }
+:root:not(:has(#theme-toggle:checked)) .research-h2 { color: var(--rp-foam) !important; }
+.project-page-body a, .artist-page-body a {
+  color: var(--rp-pine); border-bottom: 1px dotted var(--rp-pine);
+}
+:root:not(:has(#theme-toggle:checked)) .project-page-body a,
+:root:not(:has(#theme-toggle:checked)) .artist-page-body a { color: var(--rp-foam); border-bottom-color: var(--rp-foam); }
+.project-page-body a:hover, .artist-page-body a:hover { color: var(--rp-love); border-bottom-color: var(--rp-love); }
+
+/* spec grids → beveled cells */
+.project-page-specs, .spec-item, .connect-list,
+.project-page-image, .artist-page-art {
+  background: var(--rp-surface) !important;
+  border: 2px outset var(--rp-hl2) !important;
+  border-radius: 0 !important;
+  backdrop-filter: none !important;
+}
+.spec-item { border-width: 1px !important; background: var(--rp-hl) !important; }
+.spec-label {
+  color: var(--rp-iris) !important; font-family: 'VT323', monospace;
+  font-size: 13px; letter-spacing: 1px;
+}
+.spec-value { color: var(--rp-pine) !important; }
+:root:not(:has(#theme-toggle:checked)) .spec-value { color: var(--rp-foam) !important; }
+
+/* buttons / links */
+.project-page-link, .artist-page-link, .member-link, .back-link {
+  border: 2px outset var(--rp-hl2) !important;
+  background: var(--rp-surface) !important;
+  color: var(--rp-pine) !important;
+  font-family: 'VT323', monospace; font-size: 15px; letter-spacing: 1px;
+  box-shadow: 2px 2px 0 var(--rp-shadow);
+  border-radius: 0 !important;
+}
+:root:not(:has(#theme-toggle:checked)) .project-page-link,
+:root:not(:has(#theme-toggle:checked)) .artist-page-link,
+:root:not(:has(#theme-toggle:checked)) .member-link,
+:root:not(:has(#theme-toggle:checked)) .back-link { color: var(--rp-foam) !important; }
+.project-page-link:hover, .artist-page-link:hover, .member-link:hover, .back-link:hover {
+  background: var(--rp-overlay) !important; color: var(--rp-love) !important;
+  border-color: var(--rp-rose) !important;
+  transform: translate(1px,1px); box-shadow: 1px 1px 0 var(--rp-shadow);
+}
+
+/* connect list rows */
+.connect-item { border-bottom: 1px dashed var(--rp-hl2) !important; }
+.connect-item-label { color: var(--rp-iris) !important; font-family: 'VT323', monospace; font-size: 15px; }
+.connect-item-value { color: var(--rp-text) !important; }
+.connect-item-arrow { color: var(--rp-love) !important; }
+
+/* members grid */
+.member-name { color: var(--rp-pine) !important; font-family: 'VT323', monospace; font-size: 18px; }
+:root:not(:has(#theme-toggle:checked)) .member-name { color: var(--rp-foam) !important; }
+.member-role { color: var(--rp-muted) !important; }
+
+
+
+/* roomier home nav buttons */
+.home-nav a {
+  font-size: 24px !important;
+  padding: 10px 34px !important;
+  letter-spacing: 2px;
+}
+.home-nav { gap: 14px !important; margin-top: 28px !important; }
+
+:root:not(:has(#theme-toggle:checked)) .home-nav a { color: var(--rp-foam) !important; }
+
+/* home title: Inter 900, single solid color (per original design) */
+.home-title {
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+  font-weight: 900 !important;
+  background: none !important;
+  -webkit-background-clip: initial !important; background-clip: initial !important;
+  color: #575279 !important; -webkit-text-fill-color: #575279 !important;
+}
+:root:not(:has(#theme-toggle:checked)) .home-title {
+  color: #ffffff !important; -webkit-text-fill-color: #ffffff !important;
+}
+
+/* adp SVG labels follow palette */
+.adp-lbl { fill: var(--rp-subtle); }
+.adp-lbl-d { fill: var(--rp-muted); }
+
+</style>
+
 </head>
 <body>
+  <div id="y2k-stars" aria-hidden="true"></div>
+
   <!-- Theme toggle (pure CSS, no JS) -->
   <label class="theme-toggle" title="Toggle light / dark">
     <span class="theme-label">Light</span>
@@ -2566,5 +2824,18 @@
     <p class="artist-page-body">Creative writing, character concept art, and digital art.</p>
   </section>
 
+<script>
+(function(){
+  var s=document.getElementById('y2k-stars');
+  for(var i=0;i<18;i++){
+    var sp=document.createElement('span');
+    sp.textContent=Math.random()>.5?'\u2726':'\u2727';
+    sp.style.left=(Math.random()*100)+'%';
+    sp.style.top=(Math.random()*100)+'%';
+    sp.style.animationDelay=(Math.random()*2.6)+'s';
+    s.appendChild(sp);
+  }
+})();
+</script>
 </body>
 </html>
