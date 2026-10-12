@@ -1,0 +1,116 @@
+{
+ "generator": "mk export web",
+ "mk": "0.1.0",
+ "project": "hello_brooklyn",
+ "outputs": [
+  "9x16"
+ ],
+ "videos": [
+  "9x16"
+ ],
+ "bytes": 16271578,
+ "scene_bytes": 9782868,
+ "files": [
+  {
+   "path": "CREDITS.md",
+   "bytes": 378
+  },
+  {
+   "path": "app/export.css",
+   "bytes": 1769
+  },
+  {
+   "path": "app/js/api.js",
+   "bytes": 3493
+  },
+  {
+   "path": "app/js/export.js",
+   "bytes": 2072
+  },
+  {
+   "path": "app/js/music.js",
+   "bytes": 23938
+  },
+  {
+   "path": "app/js/scene/draft.js",
+   "bytes": 3201
+  },
+  {
+   "path": "app/js/scene/draw.js",
+   "bytes": 15062
+  },
+  {
+   "path": "app/js/scene/scene.js",
+   "bytes": 11199
+  },
+  {
+   "path": "app/js/scene/shotcam.js",
+   "bytes": 1543
+  },
+  {
+   "path": "app/js/ui.js",
+   "bytes": 6911
+  },
+  {
+   "path": "app/js/viewer/camera.js",
+   "bytes": 2861
+  },
+  {
+   "path": "app/js/viewer/glb.js",
+   "bytes": 10951
+  },
+  {
+   "path": "app/js/viewer/math.js",
+   "bytes": 4942
+  },
+  {
+   "path": "app/site.css",
+   "bytes": 20094
+  },
+  {
+   "path": "data/9x16.mp4",
+   "bytes": 5923838
+  },
+  {
+   "path": "data/audio.m4a",
+   "bytes": 253431
+  },
+  {
+   "path": "data/bake.json",
+   "bytes": 176053
+  },
+  {
+   "path": "data/bake.mkz",
+   "bytes": 5515499
+  },
+  {
+   "path": "data/draft_9x16.json",
+   "bytes": 11647
+  },
+  {
+   "path": "data/music.json",
+   "bytes": 8976
+  },
+  {
+   "path": "data/scene.glb.gz",
+   "bytes": 4267369
+  },
+  {
+   "path": "data/scene.json",
+   "bytes": 157
+  },
+  {
+   "path": "index.html",
+   "bytes": 398
+  },
+  {
+   "path": "licences/sour_len/ReadMe.txt",
+   "bytes": 2912
+  },
+  {
+   "path": "licences/sour_rin/ReadMe.txt",
+   "bytes": 2884
+  }
+ ],
+ "notes": []
+}
