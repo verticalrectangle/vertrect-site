@@ -4,6 +4,9 @@ var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
 // Old addresses: the collective's page was #depravity-girlz.
 if (location.hash === '#depravity-girlz') history.replaceState(null, '', '#depravity');
 
+// Reduced motion: the feature spine's video holds its first frame.
+if (still) document.querySelectorAll('.spine-video').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
+
 // Spines: open one at a time; Escape closes.
 (function () {
   var spines = Array.prototype.slice.call(document.querySelectorAll('.spine'));
