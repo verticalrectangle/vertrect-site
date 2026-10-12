@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vertical Rectangle · Prototype B</title>
+<meta name="color-scheme" content="light dark">
+<script src="../shared/theme.js"></script>
+<link rel="stylesheet" href="../shared/base.css">
+<style>
+/* ════════════════════════════════════════════════════════════════════
+   PROTOTYPE B · COFFEEHOUSE
+   Global Village Coffeehouse (Starbucks cups, Borders, Encarta 97,
+   Putumayo covers) sharpened by a neo-brutalist frame.
+   Light  = Rosé Pine Dawn, paper-cut layers on warm grain.
+   Dark   = strict 1-bit linocut: white line on black, hatched tones.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* ── roles: every colour below resolves through base.css tokens ── */
+:root {
+  --theme-wipe: pour;              /* theme.js: dark mode pours down from the top */
+  --card: var(--surface);
+  --board: var(--pine);            /* chalkboard slate */
+  --on-board: var(--on-accent);    /* chalk */
+  --on-fill: var(--ink);           /* large/bold text on gold only (3.2:1) */
+  --stamp: var(--pine);
+  --k-a: var(--gold);
+  --k-b: var(--rose);
+  --rcpt: var(--surface);
+  --rcpt-ink: var(--ink);
+
+  /* paper-cut scene fills */
+  --s-sky: var(--foam);
+  --s-star: var(--bg);
+  --s-ray-a: var(--rose);
+  --s-ray-b: var(--surface);
+  --s-cloud: var(--surface);
+  --s-h1: var(--iris);
+  --s-h2: var(--pine);
+  --s-h3: var(--rose);
+  --s-h4: var(--love);
+  --s-foot: var(--overlay);
+  --s-sea: var(--foam);
+  --s-land-a: var(--gold);
+  --s-land-b: var(--rose);
+  --s-bar-on: var(--pine);
+  --s-bar-off: var(--hl-med);
+
+  --stain: var(--gold);
+  --stain-op: .6;
+  --ring-w: 7;
+
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .341  0 0 0 0 .322  0 0 0 0 .475  .17 0 0 0 -.045'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23g)'/%3E%3C/svg%3E");
+  --worn: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='w' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.5' numOctaves='2' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -9 0 0 0 7.1'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23w)'/%3E%3C/svg%3E");
+  --cork: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='c' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.05 .06' numOctaves='4' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .341  0 0 0 0 .322  0 0 0 0 .475  0 0 1.5 0 -.62'/%3E%3C/filter%3E%3Cfilter id='d' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .341  0 0 0 0 .322  0 0 0 0 .475  0 0 0 2.2 -1.38'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23c)'/%3E%3Crect width='300' height='300' filter='url(%23d)'/%3E%3C/svg%3E");
+  --zig-top: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M-10 12 L0 2 L10 12 L20 2 L30 12 L30 14 L-10 14 Z' fill='%23fffaf3'/%3E%3Cpath d='M-10 12 L0 2 L10 12 L20 2 L30 12' fill='none' stroke='%23575279' stroke-width='3'/%3E%3C/svg%3E");
+  --zig-bot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M-10 -2 L-10 0 L0 10 L10 0 L20 10 L30 0 L30 -2 Z' fill='%23fffaf3'/%3E%3Cpath d='M-10 0 L0 10 L10 0 L20 10 L30 0' fill='none' stroke='%23575279' stroke-width='3'/%3E%3C/svg%3E");
+  --barcode: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='201' height='40' viewBox='0 0 201 40' fill='%23575279'%3E%3Crect x='0' y='0' width='2' height='40'/%3E%3Crect x='5' y='0' width='2' height='40'/%3E%3Crect x='9' y='0' width='1' height='40'/%3E%3Crect x='13' y='0' width='4' height='40'/%3E%3Crect x='19' y='0' width='1' height='40'/%3E%3Crect x='23' y='0' width='2' height='40'/%3E%3Crect x='27' y='0' width='1' height='40'/%3E%3Crect x='29' y='0' width='3' height='40'/%3E%3Crect x='35' y='0' width='2' height='40'/%3E%3Crect x='39' y='0' width='3' height='40'/%3E%3Crect x='43' y='0' width='3' height='40'/%3E%3Crect x='47' y='0' width='1' height='40'/%3E%3Crect x='49' y='0' width='1' height='40'/%3E%3Crect x='52' y='0' width='3' height='40'/%3E%3Crect x='56' y='0' width='2' height='40'/%3E%3Crect x='60' y='0' width='2' height='40'/%3E%3Crect x='64' y='0' width='3' height='40'/%3E%3Crect x='69' y='0' width='4' height='40'/%3E%3Crect x='75' y='0' width='2' height='40'/%3E%3Crect x='78' y='0' width='4' height='40'/%3E%3Crect x='83' y='0' width='2' height='40'/%3E%3Crect x='87' y='0' width='2' height='40'/%3E%3Crect x='90' y='0' width='4' height='40'/%3E%3Crect x='96' y='0' width='2' height='40'/%3E%3Crect x='100' y='0' width='3' height='40'/%3E%3Crect x='105' y='0' width='1' height='40'/%3E%3Crect x='107' y='0' width='3' height='40'/%3E%3Crect x='111' y='0' width='2' height='40'/%3E%3Crect x='114' y='0' width='2' height='40'/%3E%3Crect x='119' y='0' width='1' height='40'/%3E%3Crect x='121' y='0' width='4' height='40'/%3E%3Crect x='126' y='0' width='1' height='40'/%3E%3Crect x='129' y='0' width='1' height='40'/%3E%3Crect x='133' y='0' width='2' height='40'/%3E%3Crect x='138' y='0' width='2' height='40'/%3E%3Crect x='141' y='0' width='3' height='40'/%3E%3Crect x='146' y='0' width='4' height='40'/%3E%3Crect x='152' y='0' width='2' height='40'/%3E%3Crect x='155' y='0' width='2' height='40'/%3E%3Crect x='159' y='0' width='1' height='40'/%3E%3Crect x='163' y='0' width='1' height='40'/%3E%3Crect x='166' y='0' width='1' height='40'/%3E%3Crect x='168' y='0' width='1' height='40'/%3E%3Crect x='170' y='0' width='2' height='40'/%3E%3Crect x='175' y='0' width='1' height='40'/%3E%3Crect x='178' y='0' width='2' height='40'/%3E%3Crect x='182' y='0' width='4' height='40'/%3E%3Crect x='188' y='0' width='2' height='40'/%3E%3Crect x='193' y='0' width='1' height='40'/%3E%3Crect x='197' y='0' width='2' height='40'/%3E%3C/svg%3E");
+
+  --wrap: 1180px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:root[data-theme='dark'] {
+  --on-fill: #000;
+  --board: #000;
+  --on-board: #fff;
+  --stamp: #fff;
+  --k-a: #000;
+  --k-b: #fff;
+  --rcpt: #fff;
+  --rcpt-ink: #000;
+
+  --s-sky: #000;
+  --s-star: #fff;
+  --s-ray-a: #fff;
+  --s-ray-b: #000;
+  --s-cloud: #000;
+  --s-h1: #000;
+  --s-h2: #000;
+  --s-h3: #000;
+  --s-h4: #fff;
+  --s-foot: #000;
+  --s-sea: #000;
+  --s-land-a: #000;
+  --s-land-b: #000;
+  --s-bar-on: #fff;
+  --s-bar-off: #000;
+
+  --stain: #fff;
+  --stain-op: 1;
+  --ring-w: 2.6;
+
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='s' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='2' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='discrete' tableValues='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23s)'/%3E%3C/svg%3E");
+  --cork: none;
+  --zig-top: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M-10 12 L0 2 L10 12 L20 2 L30 12 L30 14 L-10 14 Z' fill='%23ffffff'/%3E%3Cpath d='M-10 12 L0 2 L10 12 L20 2 L30 12' fill='none' stroke='%23ffffff' stroke-width='3'/%3E%3C/svg%3E");
+  --zig-bot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='12' viewBox='0 0 20 12'%3E%3Cpath d='M-10 -2 L-10 0 L0 10 L10 0 L20 10 L30 0 L30 -2 Z' fill='%23ffffff'/%3E%3Cpath d='M-10 0 L0 10 L10 0 L20 10 L30 0' fill='none' stroke='%23ffffff' stroke-width='3'/%3E%3C/svg%3E");
+  --barcode: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='201' height='40' viewBox='0 0 201 40' fill='%23000000'%3E%3Crect x='0' y='0' width='2' height='40'/%3E%3Crect x='5' y='0' width='2' height='40'/%3E%3Crect x='9' y='0' width='1' height='40'/%3E%3Crect x='13' y='0' width='4' height='40'/%3E%3Crect x='19' y='0' width='1' height='40'/%3E%3Crect x='23' y='0' width='2' height='40'/%3E%3Crect x='27' y='0' width='1' height='40'/%3E%3Crect x='29' y='0' width='3' height='40'/%3E%3Crect x='35' y='0' width='2' height='40'/%3E%3Crect x='39' y='0' width='3' height='40'/%3E%3Crect x='43' y='0' width='3' height='40'/%3E%3Crect x='47' y='0' width='1' height='40'/%3E%3Crect x='49' y='0' width='1' height='40'/%3E%3Crect x='52' y='0' width='3' height='40'/%3E%3Crect x='56' y='0' width='2' height='40'/%3E%3Crect x='60' y='0' width='2' height='40'/%3E%3Crect x='64' y='0' width='3' height='40'/%3E%3Crect x='69' y='0' width='4' height='40'/%3E%3Crect x='75' y='0' width='2' height='40'/%3E%3Crect x='78' y='0' width='4' height='40'/%3E%3Crect x='83' y='0' width='2' height='40'/%3E%3Crect x='87' y='0' width='2' height='40'/%3E%3Crect x='90' y='0' width='4' height='40'/%3E%3Crect x='96' y='0' width='2' height='40'/%3E%3Crect x='100' y='0' width='3' height='40'/%3E%3Crect x='105' y='0' width='1' height='40'/%3E%3Crect x='107' y='0' width='3' height='40'/%3E%3Crect x='111' y='0' width='2' height='40'/%3E%3Crect x='114' y='0' width='2' height='40'/%3E%3Crect x='119' y='0' width='1' height='40'/%3E%3Crect x='121' y='0' width='4' height='40'/%3E%3Crect x='126' y='0' width='1' height='40'/%3E%3Crect x='129' y='0' width='1' height='40'/%3E%3Crect x='133' y='0' width='2' height='40'/%3E%3Crect x='138' y='0' width='2' height='40'/%3E%3Crect x='141' y='0' width='3' height='40'/%3E%3Crect x='146' y='0' width='4' height='40'/%3E%3Crect x='152' y='0' width='2' height='40'/%3E%3Crect x='155' y='0' width='2' height='40'/%3E%3Crect x='159' y='0' width='1' height='40'/%3E%3Crect x='163' y='0' width='1' height='40'/%3E%3Crect x='166' y='0' width='1' height='40'/%3E%3Crect x='168' y='0' width='1' height='40'/%3E%3Crect x='170' y='0' width='2' height='40'/%3E%3Crect x='175' y='0' width='1' height='40'/%3E%3Crect x='178' y='0' width='2' height='40'/%3E%3Crect x='182' y='0' width='4' height='40'/%3E%3Crect x='188' y='0' width='2' height='40'/%3E%3Crect x='193' y='0' width='1' height='40'/%3E%3Crect x='197' y='0' width='2' height='40'/%3E%3C/svg%3E");
+}
+
+/* ── page furniture ── */
+/* outlines stay a true 3px at any scale (neo-brutalist borders on paper-cut art) */
+svg :is(path, ellipse, circle, rect, polygon, line) { vector-effect: non-scaling-stroke; }
+html { scrollbar-color: var(--ink) var(--bg); overflow-x: clip; }
+body { overflow-x: clip; font-size: 16px; line-height: 1.5; }
+::selection { background: var(--ink); color: var(--bg); }
+
+/* Paper grain (light) / sparse speckle (dark), laid over everything except media. */
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 90; pointer-events: none;
+  background: var(--grain) 0 0 / 240px 240px;
+}
+img, video { position: relative; z-index: 95; }
+
+.wrap { width: min(var(--wrap), 100% - 2 * var(--gutter)); margin-inline: auto; }
+.page { padding-block: 0; scroll-margin-top: 110px; min-height: 60vh; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.eyebrow { font: 600 12px/1.2 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--pine); }
+.h-display { font-weight: 900; text-transform: uppercase; letter-spacing: .05em; line-height: .98; }
+
+/* ── press interaction: one mechanism, every interactive box ── */
+.press, .btn, .nav a, .toggle, .card, .ticket, .home-menu a, .thumb {
+  --d: 6px;
+  box-shadow: var(--d) var(--d) 0 var(--ink);
+  transition: transform .09s steps(2), box-shadow .09s steps(2);
+}
+.press:hover, .btn:hover, .nav a:hover, .toggle:hover, .card:hover, .ticket:hover, .home-menu a:hover, .thumb:hover {
+  transform: translate(calc(var(--d) / 2), calc(var(--d) / 2));
+  box-shadow: calc(var(--d) / 2) calc(var(--d) / 2) 0 var(--ink);
+}
+.press:active, .btn:active, .nav a:active, .toggle:active, .card:active, .ticket:active, .home-menu a:active, .thumb:active {
+  transform: translate(var(--d), var(--d));
+  box-shadow: 0 0 0 var(--ink);
+}
+
+.btn {
+  --d: 4px;
+  display: inline-flex; align-items: center; gap: .55em; padding: 12px 18px;
+  border: 3px solid var(--ink); background: var(--card); color: var(--ink);
+  font: 800 13px/1 'Inter', sans-serif; letter-spacing: .09em; text-transform: uppercase; text-decoration: none;
+}
+.btn--pine { background: var(--pine); color: var(--on-accent); }
+.btn--sm { --d: 3px; padding: 9px 12px; font-size: 12px; }
+
+/* rubber stamps: mono caps, double border, a few degrees off true, slightly worn */
+.stamp {
+  display: inline-block; padding: 8px 12px 7px; background: var(--card);
+  border: 5px double var(--stamp); color: var(--stamp);
+  font: 600 12px/1.15 var(--mono); letter-spacing: .16em; text-transform: uppercase; white-space: nowrap;
+  transform: rotate(var(--rot, -4deg));
+  -webkit-mask-image: var(--worn); mask-image: var(--worn); -webkit-mask-size: 180px 180px; mask-size: 180px 180px;
+  cursor: pointer; user-select: none;
+}
+.stamp.slam { animation: slam .55s cubic-bezier(.2,.9,.3,1); }
+@keyframes slam {
+  0% { transform: scale(2.3) rotate(-18deg); }
+  50% { transform: scale(.94) rotate(var(--rot, -4deg)); }
+  62% { transform: rotate(var(--rot, -4deg)) translateX(-3px); }
+  76% { transform: rotate(var(--rot, -4deg)) translateX(3px); }
+  100% { transform: rotate(var(--rot, -4deg)); }
+}
+/* the ink a re-slammed stamp leaves behind */
+.stamp-ghost { position: absolute; z-index: 0; pointer-events: none; opacity: .26; animation: none; }
+:root[data-theme='dark'] .stamp-ghost { opacity: 1; color: transparent; border-style: dotted; background: transparent; }
+
+/* die-cut sticker: paper margin + hard shadow, for Rect and seals */
+.sticker {
+  filter: drop-shadow(3px 0 0 var(--bg)) drop-shadow(-3px 0 0 var(--bg)) drop-shadow(0 3px 0 var(--bg)) drop-shadow(0 -3px 0 var(--bg)) drop-shadow(6px 6px 0 var(--ink));
+}
+
+/* ═════════ HEADER ═════════ */
+.site-header { position: sticky; top: 0; z-index: 150; background: var(--card); border-bottom: 4px solid var(--ink); }
+.head-bar { display: flex; align-items: center; gap: 22px; padding-block: 12px; }
+.brand { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; flex: none; }
+.brand .logo { width: 50px; height: 50px; flex: none; }
+.brand .wordmark { font-size: 20px; }
+.nav { display: flex; gap: 10px; margin-left: auto; }
+.nav a {
+  --d: 3px;
+  display: inline-flex; align-items: center; padding: 10px 14px; background: var(--card); color: var(--ink);
+  border: 3px solid var(--ink); font: 800 12.5px/1 'Inter', sans-serif; letter-spacing: .1em; text-transform: uppercase; text-decoration: none; white-space: nowrap;
+}
+body:not(:has(.page:target)) .nav a[href='#home'],
+body:has(#home:target) .nav a[href='#home'],
+body:has(#development:target) .nav a[href='#development'],
+body:has(#pop-maker-studio:target) .nav a[href='#pop-maker-studio'],
+body:has(#voice-range-weights:target) .nav a[href='#voice-range-weights'] {
+  background: var(--pine); color: var(--on-accent); transform: translate(3px, 3px); box-shadow: 0 0 0 var(--ink);
+}
+.toggle {
+  --d: 3px;
+  display: inline-flex; align-items: center; gap: 9px; padding: 8px 13px 8px 10px; flex: none;
+  background: var(--card); color: var(--ink); border: 3px solid var(--ink);
+  font: 800 12.5px/1 'Inter', sans-serif; letter-spacing: .1em; text-transform: uppercase;
+}
+.bean { width: 24px; height: 24px; flex: none; overflow: visible; }
+.bean ellipse { fill: var(--gold); stroke: var(--ink); stroke-width: 2; }
+.bean path { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: square; }
+:root[data-theme='dark'] .bean ellipse { fill: #000; }
+
+.kilim {
+  height: 16px; border-top: 3px solid var(--ink);
+  background:
+    linear-gradient(135deg, var(--k-b) 25%, transparent 25%) -8px 0 / 16px 16px,
+    linear-gradient(225deg, var(--k-b) 25%, transparent 25%) -8px 0 / 16px 16px,
+    linear-gradient(315deg, var(--k-b) 25%, transparent 25%) 0 0 / 16px 16px,
+    linear-gradient(45deg, var(--k-b) 25%, transparent 25%) 0 0 / 16px 16px var(--k-a);
+}
+
+/* ═════════ HOME ═════════ */
+.hero {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 590px); align-items: center;
+  padding-block: clamp(34px, 4.4vw, 56px) clamp(44px, 5vw, 68px);
+}
+.sign {
+  position: relative; z-index: 3; margin-right: -76px; padding: 46px 40px 40px;
+  background: var(--card); border: 4px solid var(--ink); box-shadow: 10px 10px 0 var(--ink);
+}
+.sign .stamp--a { position: absolute; top: -22px; left: 26px; --rot: -3deg; }
+.sign .stamp--b { position: absolute; top: -17px; right: 100px; --rot: 3deg; }
+.hero-title { font-size: clamp(46px, 6.4vw, 84px); color: var(--ink); }
+.tagline {
+  display: inline-block; margin-top: 20px; padding: 8px 14px 9px;
+  background: var(--pine); color: var(--on-accent); border: 3px solid var(--ink);
+  font: 700 clamp(15px, 1.5vw, 18px)/1.2 'Inter', sans-serif; transform: rotate(-1deg);
+}
+.menu-label { margin: 26px 0 12px; display: flex; align-items: center; gap: 12px; }
+.menu-label::after { content: ''; flex: 1; border-top: 3px dotted var(--ink); }
+.home-menu { list-style: none; display: grid; gap: 11px; }
+.home-menu a, .home-menu .off {
+  --d: 4px;
+  display: flex; align-items: baseline; gap: 10px; padding: 11px 14px 10px;
+  border: 3px solid var(--ink); background: var(--bg); color: var(--ink); text-decoration: none;
+  font: 800 16px/1.1 'Inter', sans-serif; letter-spacing: .08em; text-transform: uppercase;
+}
+.home-menu .mn { font: 600 12px var(--mono); letter-spacing: .06em; color: var(--pine); }
+.home-menu .leader, .leader { flex: 1 1 24px; min-width: 24px; border-bottom: 3px dotted currentColor; transform: translateY(-4px); }
+/* hover pours the dotted leader left → right, one dot at a time */
+.home-menu a:hover .leader, .home-menu a:focus-visible .leader, .ticket:hover .leader, .ticket:focus-visible .leader { animation: pour .6s steps(10, end) both; }
+@keyframes pour { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+.home-menu .go, .home-menu .soon { font: 600 12px var(--mono); letter-spacing: .08em; }
+.home-menu .off { border-style: dashed; background: transparent; box-shadow: none; cursor: default; }
+
+.poster { position: relative; }
+.poster-frame {
+  position: relative; overflow: hidden; aspect-ratio: 1; background: var(--s-sky);
+  border: 4px solid var(--ink); box-shadow: 10px 10px 0 var(--ink);
+}
+.scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.rect-hero { position: absolute; width: 54%; height: auto; left: 42%; bottom: 3.2%; --r-body: var(--surface); --r-a3: var(--surface); }
+.seal { position: absolute; top: -40px; right: -34px; width: 142px; height: 142px; z-index: 4; }
+.seal svg { width: 100%; height: 100%; display: block; overflow: visible; filter: drop-shadow(5px 5px 0 var(--ink)); }
+.seal .ring-text { transform-origin: 100px 100px; transform: rotate(calc(var(--scroll, 0) * .3deg)); }
+
+/* scene shapes */
+.sky { fill: var(--s-sky); }
+.star { fill: var(--s-star); stroke: none; }
+.orbit { fill: none; stroke: var(--s-star); stroke-width: 2.4; stroke-dasharray: 1 11; stroke-linecap: round; }
+.ray-l { fill: var(--s-ray-a); }
+.ray-s { fill: var(--s-ray-b); }
+.ray-l, .ray-s { stroke: var(--ink); stroke-width: var(--sw, 3); stroke-linejoin: miter; }
+.cloud { fill: var(--s-cloud); stroke: var(--ink); stroke-width: var(--sw, 3); }
+.hill { fill: var(--hf); stroke: var(--ink); stroke-width: 3; }
+.hill-line { fill: none; stroke: var(--ink); stroke-width: 3; }
+.gouge { display: none; fill: none; stroke: var(--ink); stroke-width: 2; }
+.gl-dot { stroke-width: 3.2; stroke-dasharray: 0 9; stroke-linecap: round; }
+:root[data-theme='dark'] .gouge { display: inline; }
+.sky-gouge { stroke-width: 1.8; }
+.g-sea { fill: var(--s-sea); stroke: none; }
+.g-land-a { fill: var(--s-land-a); }
+.g-land-b { fill: var(--s-land-b); }
+.g-land { stroke: var(--ink); stroke-width: 2; }
+.g-grid { fill: none; stroke: var(--ink); stroke-width: 1.8; }
+.g-rim { fill: none; stroke: var(--ink); stroke-width: var(--sw, 3); }
+.emblem { --logo-ring: var(--ink); --logo-disc: var(--gold); --logo-rect: var(--ink); }
+:root[data-theme='dark'] .emblem { --logo-ring: #fff; --logo-disc: #000; --logo-rect: #fff; }
+
+/* featured */
+.specials { padding-block: clamp(48px, 6vw, 84px) clamp(44px, 6vw, 76px); }
+.sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px 32px; flex-wrap: wrap; margin-bottom: 34px; }
+.sec-head h2 { font-size: clamp(30px, 4.4vw, 52px); }
+.sec-head p { font: 500 16px/1.5 'Inter', sans-serif; max-width: 34ch; color: var(--ink); }
+.spec-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 30px; }
+.spec { --d: 8px; display: flex; flex-direction: column; background: var(--card); border: 3px solid var(--ink); color: var(--ink); text-decoration: none; }
+.spec-art { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 3px solid var(--ink); display: grid; place-items: center; }
+.spec-art--gold { background: var(--gold); }
+.spec-art--pine { background: var(--pine); }
+.spec-art--rose { background: var(--rose); }
+.spec-art--shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.spec-art .rect { height: 112%; width: auto; margin-top: 12%; }
+.spec-art .slot { width: 88%; height: auto; }
+.spec-art .tape { top: 10px; left: 10px; --r: -6deg; }
+.spec-art .tape + .tape { left: auto; right: 10px; top: 14px; --r: 5deg; }
+.spec-body { display: flex; flex-direction: column; gap: 10px; flex: 1; padding: 18px 20px 22px; }
+.spec-body h3 { font: 900 21px/1.1 'Inter', sans-serif; letter-spacing: .035em; text-transform: uppercase; }
+.spec-body p { font-size: 15px; line-height: 1.55; }
+.spec-body .go { margin-top: auto; padding-top: 6px; font: 800 12px/1 'Inter', sans-serif; letter-spacing: .1em; text-transform: uppercase; color: var(--pine); }
+
+/* tape + pins */
+.tape {
+  position: absolute; z-index: 96; width: 84px; height: 24px; border: 2px solid var(--ink);
+  background: repeating-linear-gradient(135deg, var(--gold) 0 9px, var(--card) 9px 18px);
+  transform: rotate(var(--r, -5deg)); box-shadow: 2px 2px 0 var(--ink);
+}
+.pin { position: absolute; z-index: 97; width: 26px; height: 26px; filter: drop-shadow(2px 3px 0 var(--ink)); }
+.pin .pin-head { fill: var(--love); stroke: var(--ink); stroke-width: 2; }
+.pin .pin-hi { fill: var(--surface); stroke: none; }
+:root[data-theme='dark'] .pin .pin-head { fill: #000; }
+:root[data-theme='dark'] .pin .pin-hi { fill: #fff; }
+
+/* ═════════ DEVELOPMENT · MENU BOARD ═════════ */
+.dev { padding-block: clamp(30px, 4vw, 52px) clamp(56px, 6vw, 88px); }
+.board {
+  position: relative; background: var(--board); color: var(--on-board);
+  border: 4px solid var(--ink); box-shadow: 10px 10px 0 var(--ink); padding: clamp(24px, 3.6vw, 46px);
+}
+.board::before { content: ''; position: absolute; inset: 7px; border: 2px solid var(--on-board); pointer-events: none; }
+.board :focus-visible { outline-color: var(--on-board); }
+.board-head { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 36px; align-items: center; margin-bottom: clamp(28px, 4vw, 44px); }
+.board-head .eyebrow { color: var(--on-board); }
+.chalk-title { font-size: clamp(40px, 8.4vw, 98px); margin-top: 12px; filter: url(#chalk); }
+.board-sub { margin-top: 16px; font: 500 clamp(16px, 1.7vw, 20px)/1.45 'Inter', sans-serif; max-width: 40ch; }
+.board-art { position: relative; width: clamp(120px, 17vw, 210px); }
+.board-art .globe { display: block; width: 100%; height: auto; overflow: visible; }
+.board-art .stamp { position: absolute; left: -18px; bottom: -14px; --rot: -5deg; background: var(--card); color: var(--stamp); }
+:root[data-theme='dark'] .board-art .stamp { background: #000; }
+
+.cat + .cat { margin-top: clamp(34px, 4.4vw, 52px); }
+.cat-head { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
+.cat-title {
+  position: relative; padding: 9px 20px 8px; background: var(--gold); color: var(--on-fill);
+  border: 3px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); transform: rotate(-1.2deg);
+  font: 900 clamp(18px, 2.2vw, 24px)/1 'Inter', sans-serif; letter-spacing: .13em; text-transform: uppercase; white-space: nowrap;
+}
+.cat-rule { flex: 1 1 40px; min-width: 40px; border-top: 3px dotted var(--on-board); }
+.cat-sub { font: 600 12px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+.menu-grid { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 28px; }
+.cat--house { --tile: var(--gold); --tile-ink: var(--on-fill); }
+.cat--single { --tile: var(--surface); --tile-ink: var(--ink); }
+.cat--special { --tile: var(--pine); --tile-ink: var(--on-accent); }
+
+.ticket {
+  --d: 5px;
+  display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 4px 16px; align-items: start; height: 100%;
+  padding: 16px 16px 15px; background: var(--card); color: var(--ink); border: 3px solid var(--ink); text-decoration: none;
+}
+.ticket .tile { grid-row: 1 / span 2; width: 56px; height: 56px; display: grid; place-items: center; border: 3px solid var(--ink); background: var(--tile); color: var(--tile-ink); }
+.ticket .tile svg { width: 34px; height: 34px; }
+.ticket .line { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.ticket .name { font: 800 17px/1.15 'Inter', sans-serif; letter-spacing: .05em; text-transform: uppercase; }
+.ticket .tag { font: 600 11.5px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; color: var(--pine); }
+.ticket .go { font: 800 14px/1 'Inter', sans-serif; margin-left: 2px; }
+.ticket p { font-size: 15px; line-height: 1.5; margin-top: 4px; }
+
+.cameo { align-self: end; display: flex; align-items: flex-end; justify-content: center; gap: 4px; min-height: 140px; }
+.cameo .rect { width: 128px; height: auto; flex: none; --r-body: var(--surface); --r-ink: var(--on-board); }
+
+/* ═════════ POP MAKER STUDIO ═════════ */
+.pms { padding-block: 28px clamp(56px, 6vw, 88px); }
+.pms-head { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 40px; align-items: end; margin-top: 26px; }
+.pms-title { font-size: clamp(38px, 7.2vw, 88px); margin-top: 14px; }
+.pms-tagline { margin-top: 18px; max-width: 46ch; font: 500 clamp(17px, 1.9vw, 21px)/1.5 'Inter', sans-serif; }
+.pms-links { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
+.pms-head .rect { width: clamp(110px, 15vw, 190px); height: auto; margin-bottom: -6px; --r-body: var(--surface); }
+
+.cork {
+  position: relative; margin-top: 44px; display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); gap: clamp(22px, 3.4vw, 44px); align-items: start;
+  padding: clamp(24px, 3.6vw, 44px); border: 4px solid var(--ink); box-shadow: 10px 10px 0 var(--ink);
+  background: var(--cork) 0 0 / 300px 300px, var(--gold);
+}
+.cork-main { position: relative; }
+.photo {
+  position: relative; z-index: 95; background: var(--card); border: 3px solid var(--ink);
+  padding: 12px 12px 14px; box-shadow: 6px 6px 0 var(--ink); transform: rotate(var(--r, 0deg));
+  transition: transform .2s cubic-bezier(.3,1.4,.5,1), box-shadow .2s;
+}
+.cork-main .photo:hover { transform: rotate(0deg) translate(-4px, -4px); box-shadow: 12px 12px 0 var(--ink); }
+.cork-main .photo img { cursor: zoom-in; }
+.photo img { width: 100%; height: auto; aspect-ratio: 1237 / 1180; object-fit: cover; border: 3px solid var(--ink); }
+.photo figcaption { padding-top: 11px; font: 600 11px/1.35 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
+.cork-main .photo { display: none; --r: -1.2deg; }
+#pms-a:checked ~ .cork-main .photo:nth-child(1),
+#pms-b:checked ~ .cork-main .photo:nth-child(2),
+#pms-c:checked ~ .cork-main .photo:nth-child(3) { display: block; }
+.cork-main .tape { top: -14px; left: 34px; --r: -7deg; }
+.cork-main .tape + .tape { left: auto; right: 34px; --r: 6deg; }
+.cork-thumbs { display: grid; gap: clamp(18px, 2.4vw, 30px); padding-top: 6px; }
+.thumb {
+  --d: 4px; position: relative; z-index: 95; display: block; cursor: pointer; background: var(--card);
+  border: 3px solid var(--ink); padding: 8px 8px 6px; transform: rotate(var(--r, 0deg));
+}
+.thumb:nth-of-type(1) { --r: 2deg; }
+.thumb:nth-of-type(2) { --r: -2.2deg; }
+.thumb:nth-of-type(3) { --r: 1.4deg; }
+.thumb img { width: 100%; height: auto; aspect-ratio: 1237 / 1180; object-fit: cover; border: 2px solid var(--ink); }
+.thumb span { display: block; padding-top: 6px; font: 700 10.5px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.thumb .pin { top: -13px; left: 50%; margin-left: -13px; }
+#pms-a:checked ~ .cork-thumbs label[for='pms-a'],
+#pms-b:checked ~ .cork-thumbs label[for='pms-b'],
+#pms-c:checked ~ .cork-thumbs label[for='pms-c'] { background: var(--pine); color: var(--on-accent); transform: rotate(var(--r, 0deg)) translate(4px, 4px); box-shadow: 0 0 0 var(--ink); }
+.cork:has(#pms-a:focus-visible) label[for='pms-a'],
+.cork:has(#pms-b:focus-visible) label[for='pms-b'],
+.cork:has(#pms-c:focus-visible) label[for='pms-c'] { outline: 3px solid var(--ink); outline-offset: 4px; }
+input[type='radio'].sr { appearance: none; border: 0; background: transparent; color: var(--ink); }
+
+.pms-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: clamp(32px, 4.4vw, 60px); align-items: start; margin-top: clamp(44px, 5vw, 68px); }
+.menu-card { position: relative; background: var(--card); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); padding: 30px clamp(20px, 3vw, 34px) 28px; }
+.menu-card .stamp { position: absolute; top: -20px; right: 22px; --rot: 3deg; }
+.menu-card .project-page-body { font-size: clamp(16px, 1.45vw, 18px); line-height: 1.75; }
+.reel { display: grid; grid-template-columns: 9fr 7fr; gap: 24px 22px; margin-top: 44px; align-items: start; }
+.film { position: relative; background: var(--card); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); padding: 8px 8px 0; }
+.film video { width: 100%; height: auto; border: 2px solid var(--ink); background: #000; }
+.film figcaption { display: flex; justify-content: space-between; padding: 8px 2px 9px; font: 700 10.5px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+.film--demo { grid-row: 1 / span 2; }
+.film--demo video { aspect-ratio: 9 / 16; object-fit: cover; }
+.film--loop video { aspect-ratio: 1; object-fit: cover; }
+.film .tape { top: -13px; left: 18px; width: 64px; height: 20px; --r: -6deg; }
+.rec { display: inline-flex; align-items: center; gap: 6px; }
+.rec::before { content: ''; width: 9px; height: 9px; background: var(--love); border: 2px solid var(--ink); }
+:root[data-theme='dark'] .rec::before { background: #fff; }
+
+.receipt-col { position: sticky; top: 110px; }
+.receipt-wrap { filter: drop-shadow(6px 6px 0 var(--ink)); transform: rotate(1.2deg); max-width: 400px; margin-inline: auto; }
+/* thermal printer: the spec sheet prints line by line when it scrolls into view */
+.printer { position: relative; z-index: 2; max-width: 430px; height: 26px; margin: 0 auto -8px; background: var(--ink); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); cursor: pointer; }
+.printer::after { content: ''; position: absolute; left: 14px; right: 14px; top: 9px; height: 5px; background: var(--card); }
+.receipt-wrap.will-print .receipt { clip-path: inset(-14px -10px 100% -10px); }
+.receipt-wrap.printing .receipt { animation: print 1.9s steps(18, end) both; }
+@keyframes print {
+  from { clip-path: inset(-14px -10px 100% -10px); transform: translateY(-26px); }
+  to { clip-path: inset(-14px -10px -14px -10px); transform: none; }
+}
+.receipt { position: relative; margin: 12px 0; background: var(--rcpt); color: var(--rcpt-ink); border-inline: 3px solid var(--ink); padding: 14px 24px 8px; font: 500 14px/1.5 var(--mono); }
+.receipt::before, .receipt::after { content: ''; position: absolute; left: -3px; right: -3px; height: 12px; background-repeat: repeat-x; background-size: 20px 12px; }
+.receipt::before { top: -11px; background-image: var(--zig-top); }
+.receipt::after { bottom: -11px; background-image: var(--zig-bot); }
+.rc-head { text-align: center; padding: 10px 0 12px; border-bottom: 3px dotted currentColor; }
+.rc-head b { display: block; font: 900 22px/1.05 'Inter', sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+.rc-head span { display: block; margin-top: 6px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; }
+.rc-meta { display: flex; justify-content: space-between; padding: 10px 0; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; border-bottom: 3px dotted currentColor; }
+.spec-list { list-style: none; padding: 12px 0; }
+.spec-list li { display: flex; align-items: baseline; gap: 8px; padding: 5px 0; }
+.spec-list .k { font: 600 11.5px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.spec-list .dots { flex: 1 1 14px; min-width: 14px; border-bottom: 3px dotted currentColor; transform: translateY(-4px); }
+.spec-list .v { font: 800 14px/1.25 'Inter', sans-serif; text-align: right; }
+.rc-total { display: flex; justify-content: space-between; padding: 10px 0 12px; border-top: 3px solid currentColor; font: 800 13px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.rc-foot { text-align: center; padding: 6px 0 10px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; border-top: 3px dotted currentColor; }
+.rc-bars { height: 40px; margin: 8px auto 4px; width: 200px; background: var(--barcode) center / 200px 40px no-repeat; }
+.pms-note { margin-top: 38px; display: flex; justify-content: center; }
+.pms-note .stamp { --rot: -3deg; }
+
+/* ═════════ ARTICLE ═════════ */
+.article-wrap { position: relative; padding-block: 28px clamp(64px, 7vw, 100px); }
+.art-col { max-width: 68ch; margin-inline: auto; font-size: 18px; position: relative; }
+.art-head { margin-top: 28px; }
+.art-head .stamp { --rot: -2.5deg; font-size: 13px; }
+.art-title { margin: 22px 0 22px; font: 900 clamp(32px, 4.8vw, 54px)/1.05 'Inter', sans-serif; letter-spacing: -.015em; }
+.art-fig { margin: 30px 0 12px; padding: 16px 18px 12px; background: var(--card); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+.art-fig svg { display: block; width: 100%; height: auto; overflow: visible; }
+.art-fig figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 16px; margin-top: 10px; font: 600 11px/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.sb { stroke: var(--ink); }
+.sb.on { fill: var(--s-bar-on); stroke-width: 2; }
+.sb.off { fill: var(--s-bar-off); stroke-width: 1.5; }
+
+.prose { margin-top: 42px; }
+.prose .project-page-body { font-size: 18px; line-height: 1.75; margin-bottom: 1.3em; color: var(--ink); }
+.prose strong { font-weight: 800; }
+.prose .research-lead { position: relative; margin: 1.7em 0 1.5em; font-size: 22px; line-height: 1.55; font-weight: 500; color: var(--ink); }
+.prose .research-h2 { position: relative; margin: 2.2em 0 .75em; font: 900 26px/1.15 'Inter', sans-serif; letter-spacing: -.005em; color: var(--ink); }
+.prose ol { list-style: none; counter-reset: s; margin: 0 0 1.4em; }
+.prose ol li { counter-increment: s; position: relative; padding: 3px 0 3px 54px; margin-bottom: 14px; font-size: 18px; line-height: 1.7; }
+.prose ol li::before {
+  content: counter(s); position: absolute; left: 0; top: 4px; width: 36px; height: 36px; display: grid; place-items: center;
+  background: var(--pine); color: var(--on-accent); border: 3px solid var(--ink); font: 800 16px/1 'Inter', sans-serif;
+}
+.prose code { font: 500 .86em var(--mono); padding: 2px 7px; border: 2px solid var(--ink); background: var(--overlay); white-space: nowrap; }
+
+.notes { margin-top: 64px; background: var(--card); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--ink); }
+.notes-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 20px; background: var(--pine); color: var(--on-accent); border-bottom: 3px solid var(--ink); font: 900 16px/1 'Inter', sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+.notes-head span { font: 600 11px var(--mono); letter-spacing: .16em; }
+.notes .spec-list { padding: 14px 20px 16px; }
+.notes .spec-list li { padding: 7px 0; }
+.notes .spec-list .v { font-size: 16px; }
+.art-back { margin-top: 44px; }
+
+.art-deco { position: absolute; pointer-events: none; z-index: 1; }
+.deco-ring { width: 300px; left: -96px; top: 700px; }
+.deco-ring svg { display: block; width: 100%; height: auto; overflow: visible; }
+.deco-ring .r { fill: none; stroke: var(--stain); stroke-linecap: round; opacity: var(--stain-op); }
+.deco-ring .r1 { stroke-width: var(--ring-w); }
+.deco-ring .r2 { stroke-width: calc(var(--ring-w) * .38); }
+.deco-ring .r3 { stroke-width: calc(var(--ring-w) * .7); }
+.deco-ring .sp { fill: var(--stain); stroke: none; opacity: var(--stain-op); }
+.deco-rect { width: 196px; right: -6px; top: 96px; --r-body: var(--surface); }
+.deco-rect svg { display: block; width: 100%; height: auto; }
+/* coffee rings: clicking the article margins sets a cup down */
+.deco-ring.ring-drop { width: 150px; top: auto; right: auto; z-index: 0; transform: translate(-50%, -50%) rotate(var(--rr, 0deg)); animation: splat .32s cubic-bezier(.3,1.6,.5,1); }
+@keyframes splat { from { transform: translate(-50%, -50%) rotate(var(--rr, 0deg)) scale(1.35); } }
+.ring-drop.lift { animation: lift .5s ease forwards; }
+@keyframes lift { to { opacity: 0; } }
+.article-wrap { cursor: copy; }
+.article-wrap .art-col { cursor: auto; }
+
+/* ═════════ FOOTER · CONNECT ═════════ */
+.site-footer { position: relative; background: var(--s-foot); }
+.hills { display: block; width: 100%; height: clamp(84px, 11vw, 150px); }
+.foot-body { background: var(--overlay); border-top: 0; }
+.foot-grid { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 20px 40px; align-items: center; padding-block: 18px 54px; }
+.foot-cameo { position: relative; display: flex; justify-content: center; }
+.foot-cameo .rect { width: 150px; height: auto; }
+.foot-top { display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap; margin-bottom: 22px; }
+.foot-top h2 { font-size: clamp(30px, 4vw, 46px); }
+.foot-top p { font: 500 16px 'Inter', sans-serif; }
+.connect-list { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.connect { --d: 6px; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 20px; background: var(--card); border: 3px solid var(--ink); color: var(--ink); text-decoration: none; }
+.connect .lbl { font: 600 11.5px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--pine); }
+.connect .val { margin-top: 8px; font: 800 clamp(16px, 1.7vw, 20px)/1.2 'Inter', sans-serif; letter-spacing: .01em; overflow-wrap: anywhere; }
+.connect .arrow { font: 800 24px/1 'Inter', sans-serif; flex: none; }
+.fine { padding: 14px var(--gutter) 18px; text-align: center; font: 600 11px/1.5 var(--mono); letter-spacing: .14em; text-transform: uppercase; background: var(--overlay); }
+.fine .wordmark { letter-spacing: -.01em; }
+.kilim--foot { border-top: 3px solid var(--ink); border-bottom: 0; }
+
+/* ═════════ DARK · LINOCUT OVERRIDES ═════════ */
+:root[data-theme='dark'] .cork {
+  background: radial-gradient(#fff 1.3px, transparent 1.7px) 0 0 / 11px 11px, radial-gradient(#fff .9px, transparent 1.3px) 4px 5px / 7px 7px, #000;
+}
+:root[data-theme='dark'] .spec-art--gold,
+:root[data-theme='dark'] .spec-art--rose { background: #000; }
+:root[data-theme='dark'] .spec-art--pine { background: #000; }
+:root[data-theme='dark'] .spec-art--halftone { background-image: radial-gradient(#fff 1.4px, transparent 1.8px); background-size: 8px 8px; }
+:root[data-theme='dark'] .photo, :root[data-theme='dark'] .thumb { background: #000; }
+:root[data-theme='dark'] .menu-card .stamp, :root[data-theme='dark'] .sign .stamp { background: #000; }
+:root[data-theme='dark'] .tape { background: repeating-linear-gradient(135deg, #fff 0 9px, #000 9px 18px); }
+
+/* ═════════ RESPONSIVE ═════════ */
+@media (max-width: 1239px) {
+  .deco-rect { display: none; }
+  .deco-ring { left: auto; right: -140px; top: -30px; width: 240px; }
+}
+@media (max-width: 1099px) {
+  .hero { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
+  .poster { order: -1; width: min(100%, 560px); margin: 0 auto -44px; }
+  .sign { margin-right: 0; }
+  .spec-grid { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
+  .pms-grid { grid-template-columns: 1fr; }
+  .receipt-col { position: static; }
+  .foot-grid { grid-template-columns: 1fr; }
+  .foot-cameo { justify-content: flex-start; }
+}
+@media (max-width: 899px) {
+  .site-header { position: static; }
+  .head-bar { flex-wrap: wrap; gap: 12px 14px; padding-block: 12px 14px; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .wordmark { font-size: 17px; }
+  .toggle { margin-left: auto; }
+  .nav { order: 3; width: 100%; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-left: 0; }
+  .nav a { justify-content: center; padding: 11px 8px; white-space: normal; text-align: center; }
+  .page { scroll-margin-top: 100vh; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .cameo { display: none; }
+  .cork { grid-template-columns: 1fr; }
+  .cork-thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-top: 4px; }
+  .reel { grid-template-columns: 1fr 1fr; }
+  .film--demo { grid-row: auto; grid-column: 1 / -1; max-width: 300px; margin-inline: auto; width: 100%; }
+  .board-head { grid-template-columns: 1fr; }
+  .board-art { width: 150px; justify-self: start; }
+  .pms-head { grid-template-columns: 1fr; }
+  .pms-head .rect { display: none; }
+  .connect-list { grid-template-columns: 1fr; }
+}
+@media (max-width: 599px) {
+  .sign { padding: 40px 20px 28px; }
+  .sign .stamp--b { right: 14px; top: auto; bottom: -16px; }
+  .sign .stamp--a { left: 14px; }
+  .stamp { font-size: 11px; letter-spacing: .12em; }
+  .ticket { grid-template-columns: 46px minmax(0, 1fr); padding: 14px 12px; gap: 4px 12px; }
+  .ticket .tile { width: 46px; height: 46px; }
+  .ticket .tile svg { width: 28px; height: 28px; }
+  .ticket .line { flex-wrap: wrap; row-gap: 4px; }
+  .ticket .name { flex: 1 1 100%; }
+  .ticket .leader { flex: 1 1 20px; }
+  .seal { width: 108px; height: 108px; top: -34px; right: -8px; }
+  .cat-sub { flex: 1 1 100%; }
+  .cat-rule { display: none; }
+  .film--demo { max-width: 100%; }
+  .prose .research-h2 { font-size: 24px; }
+}
+@media (min-width: 900px) {
+  .prose .research-lead::before { content: ''; position: absolute; left: -30px; top: .25em; bottom: .25em; width: 8px; background: var(--pine); }
+  .prose .research-h2::before { content: ''; position: absolute; left: -44px; top: .12em; width: 20px; height: 20px; background: var(--gold); border: 3px solid var(--ink); transform: rotate(45deg); }
+}
+
+.seal-outer { fill: var(--pine); stroke: var(--ink); stroke-width: 4; }
+.seal-inner { fill: var(--surface); stroke: var(--ink); stroke-width: 3; }
+.seal text { font: 600 12px var(--mono); fill: var(--on-accent); }
+
+.art-sun { position: absolute; width: 64%; left: 18%; top: 14%; }
+.art-sun circle { fill: var(--gold); stroke: var(--ink); stroke-width: 3; }
+:root[data-theme='dark'] .art-sun circle { fill: #000; }
+.spec-art .rect { position: relative; z-index: 1; --r-body: var(--surface); }
+
+.lg { display: inline-block; width: 12px; height: 12px; border: 2px solid var(--ink); vertical-align: -1px; margin-right: 4px; }
+.lg-on { background: var(--s-bar-on); }
+.lg-off { background: var(--s-bar-off); }
+</style>
+</head>
+<body>
+<svg class="svg-defs" aria-hidden="true" focusable="false">
+  <defs>
+    <path id="star4" d="M0 -10 L2.6 -2.6 L10 0 L2.6 2.6 L0 10 L-2.6 2.6 L-10 0 L-2.6 -2.6 Z"/>
+    <path id="ray-l" d="M-22 -100 L0 -206 L22 -100 Z"/>
+    <path id="ray-s" d="M-18 -100 L0 -172 L18 -100 Z"/>
+    <g id="sun"><use href="#ray-s" class="ray-s" transform="rotate(22.5)"/><use href="#ray-s" class="ray-s" transform="rotate(67.5)"/><use href="#ray-s" class="ray-s" transform="rotate(112.5)"/><use href="#ray-s" class="ray-s" transform="rotate(157.5)"/><use href="#ray-s" class="ray-s" transform="rotate(202.5)"/><use href="#ray-s" class="ray-s" transform="rotate(247.5)"/><use href="#ray-s" class="ray-s" transform="rotate(292.5)"/><use href="#ray-s" class="ray-s" transform="rotate(337.5)"/><use href="#ray-l" class="ray-l" transform="rotate(0)"/><use href="#ray-l" class="ray-l" transform="rotate(45)"/><use href="#ray-l" class="ray-l" transform="rotate(90)"/><use href="#ray-l" class="ray-l" transform="rotate(135)"/><use href="#ray-l" class="ray-l" transform="rotate(180)"/><use href="#ray-l" class="ray-l" transform="rotate(225)"/><use href="#ray-l" class="ray-l" transform="rotate(270)"/><use href="#ray-l" class="ray-l" transform="rotate(315)"/></g>
+    <path id="cloud" d="M-62 20 H58 C78 20 80 -8 58 -10 C60 -34 24 -42 8 -22 C-4 -40 -44 -34 -46 -10 C-72 -10 -82 20 -62 20 Z"/>
+    <g id="globe">
+      <clipPath id="globe-clip"><circle r="92"/></clipPath>
+      <circle class="g-sea" r="92"/>
+      <path class="gouge" d="M-37.5 -84 H37.5 M-56.0 -73 H56.0 M-68.0 -62 H68.0 M-76.6 -51 H76.6 M-82.8 -40 H82.8 M-87.3 -29 H87.3 M-90.2 -18 H90.2 M-91.7 -7 H91.7 M-91.9 4 H91.9 M-90.8 15 H90.8 M-88.2 26 H88.2 M-84.2 37 H84.2 M-78.5 48 H78.5 M-70.6 59 H70.6 M-59.7 70 H59.7 M-43.6 81 H43.6"/>
+      <g clip-path="url(#globe-clip)">
+        <path class="g-land g-land-a" d="M-58 -44 C-40 -64 -8 -58 -2 -38 C4 -20 -14 -10 -20 6 C-26 22 -14 40 -28 54 C-44 62 -60 46 -56 26 C-52 8 -72 -4 -72 -20 C-72 -30 -66 -38 -58 -44 Z"/>
+        <path class="g-land g-land-b" d="M26 -52 C48 -60 70 -44 72 -22 C74 -4 56 2 50 18 C44 34 50 56 34 62 C20 66 14 48 18 32 C22 16 36 8 32 -6 C28 -20 14 -36 26 -52 Z"/>
+        <path class="g-land g-land-a" d="M-10 68 C0 60 14 68 10 80 C0 86 -12 80 -10 68 Z"/>
+      </g>
+      <g class="g-grid"><ellipse rx="62" ry="92"/><ellipse rx="30" ry="92"/><path d="M0 -92 V92 M-79.7 -46 H79.7 M-92 0 H92 M-79.7 46 H79.7"/></g>
+      <circle class="g-rim" r="92"/>
+    </g>
+    <filter id="chalk" x="-3%" y="-8%" width="106%" height="116%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <symbol id="i-pms" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><rect x="5" y="13" width="26" height="18"/><rect x="5" y="8" width="26" height="6"/><path d="M13 8 L10 14 M20 8 L17 14 M27 8 L24 14" stroke-width="2"/></g></symbol>
+    <symbol id="i-cross" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M18 4 V32 M9 13 H27"/><rect x="15" y="10" width="6" height="9" stroke-width="2"/></g></symbol>
+    <symbol id="i-note" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><ellipse cx="13" cy="27" rx="5.5" ry="3.5" fill="currentColor" stroke="none" transform="rotate(-15 13 27)"/><rect x="17.5" y="8" width="2.5" height="20" fill="currentColor" stroke="none"/><path d="M20 8 C28 10 28 17 23 20"/></g></symbol>
+    <symbol id="i-noteweb" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><ellipse cx="11" cy="27" rx="5" ry="3.2" fill="currentColor" stroke="none" transform="rotate(-15 11 27)"/><rect x="15" y="8" width="2.5" height="20" fill="currentColor" stroke="none"/><path d="M17.5 8 C24 9 24 15 20 18" stroke-width="2"/><circle cx="27" cy="25" r="5.5" stroke-width="2"/><path d="M24 25 Q27 22 30 25 Q27 28 24 25Z" fill="currentColor" stroke="none"/></g></symbol>
+    <symbol id="i-pedal" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><rect x="7" y="10" width="22" height="16"/><circle cx="13" cy="18" r="3" stroke-width="2"/><path d="M22 14 H25 M22 18 H25 M13 26 V29 M23 26 V29" stroke-width="2"/></g></symbol>
+    <symbol id="i-lyric" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><rect x="5" y="8" width="26" height="20"/><path d="M11 15 H25 M13 21 H23" stroke-width="2"/></g></symbol>
+    <symbol id="i-cei" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><polygon points="18,5.4 29.9,14 25.5,28.4 10.5,28.4 6.1,14" fill="currentColor" stroke="none"/></g></symbol>
+    <symbol id="i-wick" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M18 7 V12 M18 25 V30"/><rect x="13" y="12" width="10" height="13"/></g></symbol>
+    <symbol id="i-t4" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><rect x="5" y="7" width="26" height="22"/><path d="M10 13 L15 18 L10 23 M17 23 H24"/></g></symbol>
+    <symbol id="i-t4l" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><rect x="4" y="6" width="28" height="20"/><path d="M9 12 L14 16 L9 20 M16 20 H23 M11 31 H25"/></g></symbol>
+    <symbol id="i-torch" viewBox="0 0 36 36"><g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M18 4 C14 10 12 14 12 20 C12 26 15 30 18 30 C21 30 24 26 24 20 C24 14 22 10 18 4 Z"/><path d="M18 12 C16 16 15 18 15 22 C15 25 16 27 18 27 C20 27 21 25 21 22 C21 18 20 16 18 12 Z" stroke-width="2"/></g></symbol>
+    <symbol id="slotmap" viewBox="0 0 640 120"><rect class="sb off" x="1" y="107.0" width="8" height="9.0"/><rect class="sb off" x="11" y="104.8" width="8" height="11.2"/><rect class="sb off" x="21" y="110.0" width="8" height="6.0"/><rect class="sb off" x="31" y="105.3" width="8" height="10.7"/><rect class="sb off" x="41" y="106.3" width="8" height="9.7"/><rect class="sb off" x="51" y="109.6" width="8" height="6.4"/><rect class="sb off" x="61" y="104.2" width="8" height="11.8"/><rect class="sb off" x="71" y="108.1" width="8" height="7.9"/><rect class="sb off" x="81" y="108.3" width="8" height="7.7"/><rect class="sb off" x="91" y="104.1" width="8" height="11.9"/><rect class="sb off" x="101" y="109.5" width="8" height="6.5"/><rect class="sb off" x="111" y="106.5" width="8" height="9.5"/><rect class="sb off" x="121" y="105.1" width="8" height="10.9"/><rect class="sb off" x="131" y="110.0" width="8" height="6.0"/><rect class="sb off" x="141" y="104.9" width="8" height="11.1"/><rect class="sb off" x="151" y="106.8" width="8" height="9.2"/><rect class="sb off" x="161" y="109.3" width="8" height="6.7"/><rect class="sb off" x="171" y="104.0" width="8" height="12.0"/><rect class="sb off" x="181" y="108.6" width="8" height="7.4"/><rect class="sb on" x="191" y="89.0" width="8" height="27.0"/><rect class="sb on" x="201" y="66.2" width="8" height="49.8"/><rect class="sb on" x="211" y="54.1" width="8" height="61.9"/><rect class="sb on" x="221" y="58.5" width="8" height="57.5"/><rect class="sb on" x="231" y="48.6" width="8" height="67.4"/><rect class="sb on" x="241" y="34.2" width="8" height="81.8"/><rect class="sb on" x="251" y="39.1" width="8" height="76.9"/><rect class="sb on" x="261" y="37.7" width="8" height="78.3"/><rect class="sb on" x="271" y="22.9" width="8" height="93.1"/><rect class="sb on" x="281" y="24.5" width="8" height="91.5"/><rect class="sb on" x="291" y="30.5" width="8" height="85.5"/><rect class="sb on" x="301" y="18.8" width="8" height="97.2"/><rect class="sb on" x="311" y="15.7" width="8" height="100.3"/><rect class="sb on" x="321" y="26.3" width="8" height="89.7"/><rect class="sb on" x="331" y="21.0" width="8" height="95.0"/><rect class="sb on" x="341" y="13.8" width="8" height="102.2"/><rect class="sb on" x="351" y="25.4" width="8" height="90.6"/><rect class="sb on" x="361" y="28.2" width="8" height="87.8"/><rect class="sb on" x="371" y="19.5" width="8" height="96.5"/><rect class="sb on" x="381" y="28.5" width="8" height="87.5"/><rect class="sb on" x="391" y="39.1" width="8" height="76.9"/><rect class="sb on" x="401" y="32.5" width="8" height="83.5"/><rect class="sb on" x="411" y="37.0" width="8" height="79.0"/><rect class="sb on" x="421" y="53.3" width="8" height="62.7"/><rect class="sb on" x="431" y="52.6" width="8" height="63.4"/><rect class="sb on" x="441" y="53.2" width="8" height="62.8"/><rect class="sb on" x="451" y="72.7" width="8" height="43.3"/><rect class="sb on" x="461" y="85.7" width="8" height="30.3"/><rect class="sb off" x="471" y="104.1" width="8" height="11.9"/><rect class="sb off" x="481" y="108.3" width="8" height="7.7"/><rect class="sb off" x="491" y="108.2" width="8" height="7.8"/><rect class="sb off" x="501" y="104.2" width="8" height="11.8"/><rect class="sb off" x="511" y="109.6" width="8" height="6.4"/><rect class="sb off" x="521" y="106.3" width="8" height="9.7"/><rect class="sb off" x="531" y="105.3" width="8" height="10.7"/><rect class="sb off" x="541" y="110.0" width="8" height="6.0"/><rect class="sb off" x="551" y="104.8" width="8" height="11.2"/><rect class="sb off" x="561" y="107.0" width="8" height="9.0"/><rect class="sb off" x="571" y="109.2" width="8" height="6.8"/><rect class="sb off" x="581" y="104.0" width="8" height="12.0"/><rect class="sb off" x="591" y="108.7" width="8" height="7.3"/><rect class="sb off" x="601" y="107.7" width="8" height="8.3"/><rect class="sb off" x="611" y="104.4" width="8" height="11.6"/><rect class="sb off" x="621" y="109.8" width="8" height="6.2"/><rect class="sb off" x="631" y="105.9" width="8" height="10.1"/><path d="M0 117 H640" fill="none" stroke="var(--ink)" stroke-width="3"/></symbol>
+  </defs>
+</svg>
+<header class="site-header">
+  <div class="wrap head-bar">
+    <a class="brand" href="#home">
+      <svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><use href="../shared/sprite.svg#logo"/></svg>
+      <span class="wordmark">Vertical<br>Rectangle</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#home">Home</a>
+      <a href="#development">Development</a>
+      <a href="#pop-maker-studio">Pop Maker Studio</a>
+      <a href="#voice-range-weights">Research</a>
+    </nav>
+    <button class="toggle" type="button" data-theme-toggle aria-label="Switch between light and dark theme">
+      <svg class="bean" viewBox="0 0 24 24" aria-hidden="true"><g transform="rotate(35 12 12)"><ellipse cx="12" cy="12" rx="6.5" ry="9.5"/><path d="M12 3.2 C9.2 7.4 14.8 9.6 12 12 C9.2 14.4 14.8 16.6 12 20.8"/></g></svg>
+      <span class="theme-light-label">Light</span><span class="theme-dark-label">Dark</span>
+    </button>
+  </div>
+  <div class="kilim" aria-hidden="true"></div>
+</header>
+<main>
+<section id="home" class="page" aria-label="Home">
+  <div class="wrap hero">
+    <div class="sign">
+      <span class="stamp stamp--a">Open source</span>
+      <span class="stamp stamp--b">Made from scratch</span>
+      <h1 class="wordmark hero-title">Vertical<br>Rectangle</h1>
+      <p class="tagline">Independent creative technology studio</p>
+      <p class="menu-label eyebrow">Index</p>
+      <ul class="home-menu">
+        <li><a href="#development"><span class="mn">№01</span><span>Development</span><span class="leader" aria-hidden="true"></span><span class="go" aria-hidden="true">↗</span></a></li>
+        <li><span class="off" title="Not part of this prototype"><span class="mn">№02</span><span>Demos</span><span class="leader" aria-hidden="true"></span><span class="soon">soon</span></span></li>
+        <li><a href="#voice-range-weights"><span class="mn">№03</span><span>Research</span><span class="leader" aria-hidden="true"></span><span class="go" aria-hidden="true">↗</span></a></li>
+        <li><span class="off" title="Not part of this prototype"><span class="mn">№04</span><span>Artists</span><span class="leader" aria-hidden="true"></span><span class="soon">soon</span></span></li>
+        <li><a href="#connect"><span class="mn">№05</span><span>Connect</span><span class="leader" aria-hidden="true"></span><span class="go" aria-hidden="true">↓</span></a></li>
+      </ul>
+    </div>
+    <div class="poster">
+      <div class="poster-frame">
+        <svg class="scene" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+    <path id="e-p1" d="M-20.0 408.6 C-13.3 409.1 6.7 412.1 20.0 412.0 C33.3 411.9 46.7 409.5 60.0 408.0 C73.3 406.6 86.7 404.2 100.0 403.3 C113.3 402.4 126.7 402.4 140.0 402.7 C153.3 402.9 166.7 404.7 180.0 405.0 C193.3 405.3 206.7 405.9 220.0 404.4 C233.3 402.9 246.7 399.9 260.0 396.1 C273.3 392.2 286.7 386.1 300.0 381.4 C313.3 376.7 326.7 370.9 340.0 367.9 C353.3 364.9 366.7 363.1 380.0 363.5 C393.3 363.8 406.7 366.9 420.0 370.1 C433.3 373.3 446.7 378.8 460.0 382.6 C473.3 386.4 486.7 390.5 500.0 392.8 C513.3 395.2 526.7 396.0 540.0 396.6 C553.3 397.2 566.7 396.1 580.0 396.4 C593.3 396.6 613.3 397.8 620.0 398.0" vector-effect="non-scaling-stroke"/>
+    <path id="hp-p1" d="M-20.0 408.6 C-13.3 409.1 6.7 412.1 20.0 412.0 C33.3 411.9 46.7 409.5 60.0 408.0 C73.3 406.6 86.7 404.2 100.0 403.3 C113.3 402.4 126.7 402.4 140.0 402.7 C153.3 402.9 166.7 404.7 180.0 405.0 C193.3 405.3 206.7 405.9 220.0 404.4 C233.3 402.9 246.7 399.9 260.0 396.1 C273.3 392.2 286.7 386.1 300.0 381.4 C313.3 376.7 326.7 370.9 340.0 367.9 C353.3 364.9 366.7 363.1 380.0 363.5 C393.3 363.8 406.7 366.9 420.0 370.1 C433.3 373.3 446.7 378.8 460.0 382.6 C473.3 386.4 486.7 390.5 500.0 392.8 C513.3 395.2 526.7 396.0 540.0 396.6 C553.3 397.2 566.7 396.1 580.0 396.4 C593.3 396.6 613.3 397.8 620.0 398.0 L620 640 L-20 640 Z" vector-effect="non-scaling-stroke"/>
+    <clipPath id="cp-p1"><use href="#hp-p1"/></clipPath>
+    <path id="e-p2" d="M-20.0 454.4 C-13.3 454.5 6.7 456.2 20.0 455.2 C33.3 454.2 46.7 451.6 60.0 448.2 C73.3 444.7 86.7 438.8 100.0 434.5 C113.3 430.2 126.7 424.8 140.0 422.4 C153.3 420.0 166.7 419.2 180.0 420.1 C193.3 421.0 206.7 424.8 220.0 427.9 C233.3 431.1 246.7 436.0 260.0 438.9 C273.3 441.8 286.7 444.1 300.0 445.4 C313.3 446.7 326.7 446.2 340.0 446.6 C353.3 446.9 366.7 446.6 380.0 447.6 C393.3 448.6 406.7 450.6 420.0 452.6 C433.3 454.5 446.7 457.9 460.0 459.1 C473.3 460.4 486.7 461.4 500.0 460.0 C513.3 458.6 526.7 454.9 540.0 450.9 C553.3 446.9 566.7 440.3 580.0 435.9 C593.3 431.5 613.3 426.4 620.0 424.4" vector-effect="non-scaling-stroke"/>
+    <path id="hp-p2" d="M-20.0 454.4 C-13.3 454.5 6.7 456.2 20.0 455.2 C33.3 454.2 46.7 451.6 60.0 448.2 C73.3 444.7 86.7 438.8 100.0 434.5 C113.3 430.2 126.7 424.8 140.0 422.4 C153.3 420.0 166.7 419.2 180.0 420.1 C193.3 421.0 206.7 424.8 220.0 427.9 C233.3 431.1 246.7 436.0 260.0 438.9 C273.3 441.8 286.7 444.1 300.0 445.4 C313.3 446.7 326.7 446.2 340.0 446.6 C353.3 446.9 366.7 446.6 380.0 447.6 C393.3 448.6 406.7 450.6 420.0 452.6 C433.3 454.5 446.7 457.9 460.0 459.1 C473.3 460.4 486.7 461.4 500.0 460.0 C513.3 458.6 526.7 454.9 540.0 450.9 C553.3 446.9 566.7 440.3 580.0 435.9 C593.3 431.5 613.3 426.4 620.0 424.4 L620 640 L-20 640 Z" vector-effect="non-scaling-stroke"/>
+    <clipPath id="cp-p2"><use href="#hp-p2"/></clipPath>
+    <path id="e-p3" d="M-20.0 480.9 C-13.3 480.5 6.7 480.3 20.0 478.6 C33.3 476.9 46.7 472.4 60.0 470.8 C73.3 469.2 86.7 467.5 100.0 469.0 C113.3 470.4 126.7 475.7 140.0 479.7 C153.3 483.7 166.7 490.3 180.0 493.1 C193.3 495.8 206.7 496.4 220.0 496.2 C233.3 495.9 246.7 492.4 260.0 491.4 C273.3 490.4 286.7 489.8 300.0 490.1 C313.3 490.4 326.7 493.2 340.0 493.1 C353.3 493.0 366.7 492.4 380.0 489.7 C393.3 487.1 406.7 480.8 420.0 477.0 C433.3 473.3 446.7 468.2 460.0 467.1 C473.3 466.0 486.7 468.1 500.0 470.3 C513.3 472.5 526.7 477.9 540.0 480.2 C553.3 482.6 566.7 483.9 580.0 484.5 C593.3 485.1 613.3 483.8 620.0 483.6" vector-effect="non-scaling-stroke"/>
+    <path id="hp-p3" d="M-20.0 480.9 C-13.3 480.5 6.7 480.3 20.0 478.6 C33.3 476.9 46.7 472.4 60.0 470.8 C73.3 469.2 86.7 467.5 100.0 469.0 C113.3 470.4 126.7 475.7 140.0 479.7 C153.3 483.7 166.7 490.3 180.0 493.1 C193.3 495.8 206.7 496.4 220.0 496.2 C233.3 495.9 246.7 492.4 260.0 491.4 C273.3 490.4 286.7 489.8 300.0 490.1 C313.3 490.4 326.7 493.2 340.0 493.1 C353.3 493.0 366.7 492.4 380.0 489.7 C393.3 487.1 406.7 480.8 420.0 477.0 C433.3 473.3 446.7 468.2 460.0 467.1 C473.3 466.0 486.7 468.1 500.0 470.3 C513.3 472.5 526.7 477.9 540.0 480.2 C553.3 482.6 566.7 483.9 580.0 484.5 C593.3 485.1 613.3 483.8 620.0 483.6 L620 640 L-20 640 Z" vector-effect="non-scaling-stroke"/>
+    <clipPath id="cp-p3"><use href="#hp-p3"/></clipPath>
+    <path id="e-p4" d="M-20.0 545.8 C-13.3 545.5 6.7 544.6 20.0 543.8 C33.3 543.1 46.7 541.8 60.0 541.4 C73.3 541.0 86.7 541.6 100.0 541.4 C113.3 541.2 126.7 541.4 140.0 540.2 C153.3 539.1 166.7 536.4 180.0 534.3 C193.3 532.1 206.7 528.6 220.0 527.5 C233.3 526.4 246.7 526.3 260.0 527.8 C273.3 529.2 286.7 533.4 300.0 536.2 C313.3 539.1 326.7 543.2 340.0 544.9 C353.3 546.7 366.7 547.0 380.0 546.7 C393.3 546.3 406.7 544.0 420.0 542.9 C433.3 541.8 446.7 540.6 460.0 540.1 C473.3 539.6 486.7 540.2 500.0 539.8 C513.3 539.4 526.7 539.0 540.0 537.6 C553.3 536.3 566.7 533.3 580.0 531.5 C593.3 529.8 613.3 527.8 620.0 527.1" vector-effect="non-scaling-stroke"/>
+    <path id="hp-p4" d="M-20.0 545.8 C-13.3 545.5 6.7 544.6 20.0 543.8 C33.3 543.1 46.7 541.8 60.0 541.4 C73.3 541.0 86.7 541.6 100.0 541.4 C113.3 541.2 126.7 541.4 140.0 540.2 C153.3 539.1 166.7 536.4 180.0 534.3 C193.3 532.1 206.7 528.6 220.0 527.5 C233.3 526.4 246.7 526.3 260.0 527.8 C273.3 529.2 286.7 533.4 300.0 536.2 C313.3 539.1 326.7 543.2 340.0 544.9 C353.3 546.7 366.7 547.0 380.0 546.7 C393.3 546.3 406.7 544.0 420.0 542.9 C433.3 541.8 446.7 540.6 460.0 540.1 C473.3 539.6 486.7 540.2 500.0 539.8 C513.3 539.4 526.7 539.0 540.0 537.6 C553.3 536.3 566.7 533.3 580.0 531.5 C593.3 529.8 613.3 527.8 620.0 527.1 L620 640 L-20 640 Z" vector-effect="non-scaling-stroke"/>
+    <clipPath id="cp-p4"><use href="#hp-p4"/></clipPath>
+          </defs>
+          <rect class="sky" width="600" height="600"/>
+          <path class="gouge sky-gouge" d="M-10 14 Q145 8 300 14 T610 14 M-10 46 Q145 40 300 46 T610 46 M-10 76 Q145 70 300 76 T610 76 M-10 104 Q145 98 300 104 T610 104 M-10 130 Q145 124 300 130 T610 130 M-10 154 Q145 148 300 154 T610 154 M-10 176 Q145 170 300 176 T610 176 M-10 196 Q145 190 300 196 T610 196 M-10 215 Q145 209 300 215 T610 215 M-10 233 Q145 227 300 233 T610 233 M-10 250 Q145 244 300 250 T610 250 M-10 266 Q145 260 300 266 T610 266 M-10 281 Q145 275 300 281 T610 281 M-10 295 Q145 289 300 295 T610 295 M-10 308 Q145 302 300 308 T610 308 M-10 320 Q145 314 300 320 T610 320 M-10 332 Q145 326 300 332 T610 332 M-10 343 Q145 337 300 343 T610 343 M-10 353 Q145 347 300 353 T610 353 M-10 362 Q145 356 300 362 T610 362 M-10 371 Q145 365 300 371 T610 371"/>
+          <g><use href="#star4" class="star" transform="translate(40 44) scale(0.9)"/><use href="#star4" class="star" transform="translate(158 26) scale(0.6)"/><use href="#star4" class="star" transform="translate(352 40) scale(0.7)"/><use href="#star4" class="star" transform="translate(430 84) scale(0.55)"/><use href="#star4" class="star" transform="translate(552 36) scale(1.0)"/><use href="#star4" class="star" transform="translate(572 188) scale(0.6)"/><use href="#star4" class="star" transform="translate(28 232) scale(0.6)"/><use href="#star4" class="star" transform="translate(530 308) scale(0.7)"/></g>
+          <circle class="orbit" cx="250" cy="235" r="226"/>
+          <circle class="orbit" cx="250" cy="235" r="244"/>
+          <g transform="translate(250 235)">
+            <use href="#sun"/>
+            <use class="emblem" href="../shared/sprite.svg#logo" x="-112" y="-112" width="224" height="224"/>
+          </g>
+          <use href="#cloud" class="cloud" transform="translate(498 128) scale(1.05)"/>
+          <use href="#cloud" class="cloud" transform="translate(64 322) scale(.8)"/>
+          <use href="#globe" transform="translate(92 112) scale(.52)"/>
+  <use href="#hp-p1" class="hill" style="--hf:var(--s-h1)"/>
+  <g class="gouge gl gl-dot" clip-path="url(#cp-p1)"><use href="#e-p1" y="12"/><use href="#e-p1" y="24"/><use href="#e-p1" y="36"/><use href="#e-p1" y="48"/><use href="#e-p1" y="60"/><use href="#e-p1" y="72"/><use href="#e-p1" y="84"/><use href="#e-p1" y="96"/><use href="#e-p1" y="108"/><use href="#e-p1" y="120"/><use href="#e-p1" y="132"/><use href="#e-p1" y="144"/><use href="#e-p1" y="156"/><use href="#e-p1" y="168"/></g>
+  <use href="#hp-p1" class="hill-line"/>
+  <use href="#hp-p2" class="hill" style="--hf:var(--s-h2)"/>
+  <g class="gouge gl" clip-path="url(#cp-p2)"><use href="#e-p2" y="13"/><use href="#e-p2" y="26"/><use href="#e-p2" y="39"/><use href="#e-p2" y="52"/><use href="#e-p2" y="65"/><use href="#e-p2" y="78"/><use href="#e-p2" y="91"/><use href="#e-p2" y="104"/><use href="#e-p2" y="117"/><use href="#e-p2" y="130"/><use href="#e-p2" y="143"/><use href="#e-p2" y="156"/><use href="#e-p2" y="169"/><use href="#e-p2" y="182"/></g>
+  <use href="#hp-p2" class="hill-line"/>
+  <use href="#hp-p3" class="hill" style="--hf:var(--s-h3)"/>
+  <g class="gouge gl" clip-path="url(#cp-p3)"><use href="#e-p3" y="10"/><use href="#e-p3" y="20"/><use href="#e-p3" y="30"/><use href="#e-p3" y="40"/><use href="#e-p3" y="50"/><use href="#e-p3" y="60"/><use href="#e-p3" y="70"/><use href="#e-p3" y="80"/><use href="#e-p3" y="90"/><use href="#e-p3" y="100"/><use href="#e-p3" y="110"/><use href="#e-p3" y="120"/></g>
+  <use href="#hp-p3" class="hill-line"/>
+  <use href="#hp-p4" class="hill" style="--hf:var(--s-h4)"/>
+        </svg>
+        <svg class="rect rect-hero sticker" viewBox="0 0 200 240" aria-hidden="true"><use href="../shared/sprite.svg#rect-wave"/></svg>
+      </div>
+      <div class="seal" aria-hidden="true">
+        <svg viewBox="0 0 200 200">
+          <defs><path id="seal-path" d="M100 100 m-80 0 a80 80 0 1 1 160 0 a80 80 0 1 1 -160 0"/></defs>
+          <circle class="seal-outer" cx="100" cy="100" r="96"/>
+          <g class="ring-text"><text><textPath href="#seal-path" textLength="494" lengthAdjust="spacing">VERTICAL RECTANGLE · INDEPENDENT STUDIO · OPEN SOURCE · </textPath></text></g>
+          <circle class="seal-inner" cx="100" cy="100" r="58"/>
+          <use class="emblem" href="../shared/sprite.svg#logo" x="68" y="68" width="64" height="64"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap specials">
+    <div class="sec-head">
+      <h2 class="h-display">Featured</h2>
+    </div>
+    <div class="spec-grid">
+      <a class="card spec" href="#pop-maker-studio">
+        <div class="spec-art spec-art--shot">
+          <img src="../../img/pms-screen-2.webp" width="1237" height="1180" alt="Pop Maker Studio: lyric animation editor with effects panel">
+          <span class="tape"></span><span class="tape"></span>
+        </div>
+        <div class="spec-body">
+          <p class="eyebrow">C++ / GLSL · Beta</p>
+          <h3>Pop Maker Studio</h3>
+          <p>Local-first video editor with MCP server control. Claude and Codex friendly. C++ from scratch.</p>
+          <span class="go">Pop Maker Studio →</span>
+        </div>
+      </a>
+      <a class="card spec" href="#voice-range-weights">
+        <div class="spec-art spec-art--pine">
+          <svg class="slot" viewBox="0 0 640 120" aria-hidden="true"><use href="#slotmap"/></svg>
+        </div>
+        <div class="spec-body">
+          <p class="eyebrow">Research</p>
+          <h3>Reading Vocal Range from Model Weights</h3>
+          <p>A voice model's vocal range is sitting in its pitch embedding. Diff it against the base and read it out in a microsecond — no audio.</p>
+          <span class="go">Research →</span>
+        </div>
+      </a>
+      <a class="card spec" href="#development">
+        <div class="spec-art spec-art--rose">
+          <svg class="art-sun" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="46"/></svg>
+          <svg class="rect" viewBox="0 0 200 240" aria-hidden="true"><use href="../shared/sprite.svg#rect-mic"/></svg>
+        </div>
+        <div class="spec-body">
+          <p class="eyebrow">Embedded · Live</p>
+          <h3>Silvertune Pedal</h3>
+          <p>Silvertune in a pedal for live performance autotune with no computer.</p>
+          <span class="go">Development →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="development" class="page" aria-labelledby="dev-title">
+  <div class="wrap dev">
+    <div class="board">
+      <header class="board-head">
+        <div>
+          <p class="eyebrow">11 projects</p>
+          <h1 class="h-display chalk-title" id="dev-title">Development</h1>
+          <p class="board-sub">Music tools, AI installations, and web apps.</p>
+        </div>
+        <div class="board-art" aria-hidden="true">
+          <svg class="globe" viewBox="-100 -100 200 200"><use href="#globe"/></svg>
+          <span class="stamp">Open source</span>
+        </div>
+      </header>
+      <section class="cat cat--house" aria-labelledby="cat-audio">
+        <div class="cat-head"><h2 class="cat-title" id="cat-audio">Audio</h2><span class="cat-rule" aria-hidden="true"></span><span class="cat-sub">3 projects</span></div>
+        <ul class="menu-grid">
+          <li><a class="ticket" href="#development"><span class="tile"><svg viewBox="0 0 36 36" aria-hidden="true"><use href="#i-note"/></svg></span><span class="line"><span class="name">Silvertune</span><span class="leader" aria-hidden="true"></span><span class="tag">C++17 · Live</span><span class="go" aria-hidden="true">↗</span></span><p>An Industry-Standard, 100% FLOSS Autotune. Only 74KB."</p></a></li>
+          <li><a class="ticket" href="#development"><span class="tile"><svg viewBox="0 0 36 36" aria-hidden="true"><use href="#i-noteweb"/></svg></span><span class="line"><span class="name">Silvertune Web</span><span class="leader" aria-hidden="true"></span><span class="tag">Rust + JS · Live</span><span class="go" aria-hidden="true">↗</span></span><p>Real-time pitch correction in the browser. No install.</p></a></li>
+          <li><a class="ticket" href="#development"><span class="tile"><svg viewBox="0 0 36 36" aria-hidden="true"><use href="#i-pedal"/></svg></span><span class="line"><span class="name">Silvertune Pedal</span><span class="leader" aria-hidden="true"></span><span class="tag">C++ · Live</span><span class="go" aria-hidden="true">↗</span></span><p>Silvertune in a pedal for live performance autotune with no computer.</p></a></li>
+          <li class="cameo" aria-hidden="true"><svg class="rect" viewBox="0 0 200 240"><use href="../shared/sprite.svg#rect-mic"/></svg></li>
+        </ul>
+      </section><section class="cat cat--single" aria-labelledby="cat-video">
+        <div class="cat-head"><h2 class="cat-title" id="cat-video">Video</h2><span class="cat-rule" aria-hidden="true"></span><span class="cat-sub">2 projects</span></div>
+        <ul class="menu-grid">
+          <li><a class="ticket" href="#pop-maker-studio"><span class="tile"><svg viewBox="0 0 36 36" aria-hidden="true"><use href="#i-pms"/></svg></span><span class="line"><span class="name">Pop Maker Studio</span><span class="leader" aria-hidden="true"></span><span class="tag">C++ · Beta</span><span class="go" aria-hidden="true">↗</span></span><p>Local-first video editor with MCP server control. Claude and Codex friendly. C++ from scratch.</p></a></li>
+          <li><a class="ticket" href="#development"><span class="tile"><svg viewBox="0 0 36 36" aria-hidden="true"><use href="#i-lyric"/></svg></span><span class="line"><span class="name">Lyric Video Blender</span><span class="leader" aria-hidden="true"></span><span class="tag">Blender Addon · Stable</span><span class="go" aria-hidden="true">↗</span></span><p>Blender addon that separates vocals, transcribes lyrics with AI, and generates animated lyric videos.</p></a></li>
+        </ul>
+      </section><section class="cat cat--special" aria-labelledby="cat-agents">
+        <div class="cat-head"><h2 class="cat-title" id="cat-agents">Agents &amp; benchmarks</h2><span class="cat-rule" aria-hidden="true"></span><span class="cat-sub">3 projects</span></div>
+        <ul class="menu-grid">
+          <li><a class="ticket" href="#development"><span class="tile"><svg viewBox="0 0 36 36" aria-hidden="true"><use href="#i-t4"/></svg></span><span class="line"><span class="name">T4 Code</span><span class="leader" aria-hidden="true"></span><span class="tag">macOS · iOS</span><span class="go" aria-hidden="true">↗</span></span><p>Observability and control workspace for Oh My Pi agents — macOS, iOS, and terminal.</p></a></li>
+          <li><a class="ticket" href="#development"><span class="tile"><svg viewBox="0 0 36 36" aria-hidden="true"><use href="#i-t4l"/></svg></span><span class="line"><span class="name">T4 Code — Linux</span><span class="leader" aria-hidden="true"></span><span class="tag">Swift + GTK4</span><span class="go" aria-hidden="true">↗</span></span><p>Native Linux client in Swift + GTK4 — live sessions, subagents, terminal, files, and a browser pane, in Rosé Pine Dawn and Moon.</p></a></li>
+          <li><a class="ticket" href="#development"><span class="tile"><svg viewBox="0 0 36 36" aria-hidden="true"><use href="#i-torch"/></svg></span><span class="line"><span class="name">NullTorch</span><span class="leader" aria-hidden="true"></span><span class="tag">C++17 · Live</span><span class="go" aria-hidden="true">↗</span></span><p>A hostile-file benchmark for AI coding models. Six models write a pure-C++ PyTorch .pt reader from scratch.</p></a></li>
+        </ul>
+      </section><section class="cat cat--house" aria-labelledby="cat-web">
+        <div class="cat-head"><h2 class="cat-title" id="cat-web">Installations &amp; web</h2><span class="cat-rule" aria-hidden="true"></span><span class="cat-sub">3 projects</span></div>
+        <ul class="menu-grid">
+          <li><a class="ticket" href="#development"><span class="tile"><svg viewBox="0 0 36 36" aria-hidden="true"><use href="#i-cross"/></svg></span><span class="line"><span class="name">A Digital Prayer</span><span class="leader" aria-hidden="true"></span><span class="tag">Installation · Beta</span><span class="go" aria-hidden="true">↗</span></span><p>A confessional cross that prays in the voices it steals. AI Psychosis Summit 2 · NYC.</p></a></li>
+          <li><a class="ticket" href="#development"><span class="tile"><svg viewBox="0 0 36 36" aria-hidden="true"><use href="#i-cei"/></svg></span><span class="line"><span class="name">Cultural Extremity Index</span><span class="leader" aria-hidden="true"></span><span class="tag">JavaScript · Live</span><span class="go" aria-hidden="true">↗</span></span><p>How extreme are you?</p></a></li>
+          <li><a class="ticket" href="#development"><span class="tile"><svg viewBox="0 0 36 36" aria-hidden="true"><use href="#i-wick"/></svg></span><span class="line"><span class="name">Wickrunner</span><span class="leader" aria-hidden="true"></span><span class="tag">TypeScript · Live</span><span class="go" aria-hidden="true">↗</span></span><p>The ONLY competitive stock trading game.</p></a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</section>
+
+<section id="pop-maker-studio" class="page" aria-labelledby="pms-title">
+  <div class="wrap pms">
+    <a class="btn btn--sm" href="#development">← Back</a>
+    <header class="pms-head">
+      <div>
+        <p class="eyebrow">Development · Video</p>
+        <h1 class="h-display pms-title" id="pms-title">Pop Maker Studio</h1>
+        <p class="pms-tagline">Local-first video editor with MCP server control. C++ from scratch. Claude and Codex friendly.</p>
+        <div class="pms-links">
+          <a class="btn btn--pine" href="https://popmakerstudio.com" target="_blank" rel="noopener">popmakerstudio.com ↗</a>
+          <a class="btn" href="https://github.com/verticalrectangle/pop-maker-studio" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+      <svg class="rect sticker" viewBox="0 0 200 240" aria-hidden="true"><use href="../shared/sprite.svg#rect-gpu"/></svg>
+    </header>
+
+    <div class="cork" role="group" aria-label="Pop Maker Studio screenshots">
+      <input class="sr" type="radio" name="pms-shot" id="pms-a" checked>
+      <input class="sr" type="radio" name="pms-shot" id="pms-b">
+      <input class="sr" type="radio" name="pms-shot" id="pms-c">
+      <div class="cork-main">
+        <figure class="photo"><img src="../../img/pms-screen-2.webp" width="1237" height="1180" alt="Pop Maker Studio: lyric animation editor with effects panel" fetchpriority="high"><figcaption>Fig. 1 — lyric animation editor with effects panel</figcaption></figure>
+        <figure class="photo"><img src="../../img/pms-screen-3.webp" width="1237" height="1180" alt="Pop Maker Studio: glitch effect applied to portrait clip"><figcaption>Fig. 2 — glitch effect applied to portrait clip</figcaption></figure>
+        <figure class="photo"><img src="../../img/pms-screen-1.webp" width="1237" height="1180" alt="Pop Maker Studio: clip inspector with timeline"><figcaption>Fig. 3 — clip inspector with timeline</figcaption></figure>
+      </div>
+      <div class="cork-thumbs">
+        <label class="thumb" for="pms-a"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><circle class="pin-head" cx="12" cy="12" r="9"/><circle class="pin-hi" cx="9" cy="9" r="2.6"/></svg><img src="../../img/pms-screen-2.webp" width="1237" height="1180" alt="" loading="lazy"><span>Fig. 1 · Lyric editor</span></label>
+        <label class="thumb" for="pms-b"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><circle class="pin-head" cx="12" cy="12" r="9"/><circle class="pin-hi" cx="9" cy="9" r="2.6"/></svg><img src="../../img/pms-screen-3.webp" width="1237" height="1180" alt="" loading="lazy"><span>Fig. 2 · Glitch</span></label>
+        <label class="thumb" for="pms-c"><svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><circle class="pin-head" cx="12" cy="12" r="9"/><circle class="pin-hi" cx="9" cy="9" r="2.6"/></svg><img src="../../img/pms-screen-1.webp" width="1237" height="1180" alt="" loading="lazy"><span>Fig. 3 · Inspector</span></label>
+      </div>
+    </div>
+
+    <div class="pms-grid">
+      <div>
+        <div class="menu-card">
+          <span class="stamp">One binary</span>
+          <p class="project-page-body">A complete video editor written entirely in C++ from scratch — no Electron, no Python runtime, no cloud. Cut and composite footage, animate text and subtitles with GPU-accelerated GLSL shaders, apply effects, and export with pixel-identical preview. All ML inference runs fully on-device via ONNX Runtime: vocal separation with MDX-Net, background removal with u2net, whisper.cpp transcription down to the millisecond. Controllable via MCP server: Claude and Codex can drive the timeline directly. One binary. Zero dependencies.</p>
+        </div>
+        <div class="reel">
+          <figure class="film film--demo"><span class="tape"></span><video src="../../img/pms-demo.mp4" autoplay muted loop playsinline></video><figcaption><span class="rec">Full demo</span><span>9:16</span></figcaption></figure>
+          <figure class="film film--loop"><span class="tape"></span><video src="../../img/pms-loop-1.mp4" autoplay muted loop playsinline></video><figcaption><span class="rec">Loop 01</span><span>1:1</span></figcaption></figure>
+          <figure class="film film--loop"><span class="tape"></span><video src="../../img/pms-loop-2.mp4" autoplay muted loop playsinline></video><figcaption><span class="rec">Loop 02</span><span>1:1</span></figcaption></figure>
+        </div>
+      </div>
+      <aside class="receipt-col" aria-label="Spec sheet">
+        <div class="printer" role="button" tabindex="0" title="Print the spec sheet again" aria-label="Print the spec sheet again"></div>
+        <div class="receipt-wrap">
+          <div class="receipt">
+            <div class="rc-head"><b>Pop Maker Studio</b><span>Vertical Rectangle</span></div>
+            <div class="rc-meta"><span>Beta</span><span>Spec sheet</span></div>
+            <ul class="spec-list">
+          <li><span class="k">Format</span><span class="dots" aria-hidden="true"></span><span class="v">Desktop App · MCP Server</span></li>
+          <li><span class="k">Language</span><span class="dots" aria-hidden="true"></span><span class="v">C++ / GLSL</span></li>
+          <li><span class="k">Platform</span><span class="dots" aria-hidden="true"></span><span class="v">Linux / macOS / Win</span></li>
+          <li><span class="k">Status</span><span class="dots" aria-hidden="true"></span><span class="v">Beta</span></li>
+          <li><span class="k">License</span><span class="dots" aria-hidden="true"></span><span class="v">GPLv3</span></li>
+            </ul>
+            <div class="rc-total"><span>Total dependencies</span><span>0</span></div>
+            <div class="rc-foot">popmakerstudio.com</div>
+            <div class="rc-bars" aria-hidden="true"></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="voice-range-weights" class="page research-article" aria-labelledby="art-title">
+  <div class="wrap article-wrap">
+    <div class="art-deco deco-ring" aria-hidden="true">
+      <svg viewBox="-135 -135 270 270" aria-hidden="true">
+        <path class="r r1" d="M97.5 0.0 C97.7 10.8 93.8 22.4 89.8 32.7 C85.8 43.0 80.8 54.0 73.5 61.6 C66.1 69.3 55.2 74.4 45.5 78.9 C35.9 83.4 26.0 86.0 15.6 88.5 C5.3 91.1 -6.1 95.3 -16.6 94.3 C-27.2 93.3 -37.9 87.7 -47.6 82.5 C-57.4 77.3 -68.2 71.3 -75.0 62.9 C-81.8 54.5 -86.1 42.6 -88.4 32.2 C-90.6 21.7 -88.5 10.7 -88.5 0.0 C-88.5 -10.7 -91.3 -22.3 -88.4 -32.2 C-85.5 -42.1 -77.6 -50.9 -70.9 -59.5 C-64.3 -68.1 -57.5 -78.0 -48.5 -84.0 C-39.5 -90.0 -27.6 -94.3 -16.8 -95.4 C-6.1 -96.5 5.4 -93.0 16.0 -90.6 C26.6 -88.2 38.0 -86.5 46.8 -81.1 C55.7 -75.7 62.2 -66.1 69.1 -58.0 C76.0 -49.8 83.7 -41.8 88.4 -32.2 C93.1 -22.5 97.2 -10.8 97.5 0.0 Z" stroke-dasharray="520 80"/>
+        <path class="r r2" d="M95.9 -4.0 C95.6 6.4 94.1 17.6 90.0 26.9 C86.0 36.3 78.8 44.8 71.7 51.9 C64.6 59.0 55.9 63.9 47.4 69.5 C39.0 75.1 30.5 82.9 20.8 85.5 C11.1 88.2 -0.5 86.9 -10.7 85.1 C-20.9 83.3 -31.6 80.0 -40.5 74.8 C-49.3 69.5 -57.9 61.9 -63.8 53.7 C-69.7 45.5 -72.7 35.1 -76.0 25.5 C-79.3 15.9 -83.1 6.0 -83.5 -4.0 C-83.9 -14.0 -81.8 -24.8 -78.4 -34.4 C-75.1 -43.9 -69.5 -53.1 -63.2 -61.3 C-57.0 -69.5 -49.8 -78.8 -41.0 -83.7 C-32.1 -88.5 -20.4 -89.0 -10.2 -90.3 C0.0 -91.6 10.5 -92.8 20.4 -91.2 C30.3 -89.7 40.5 -85.8 49.3 -80.8 C58.1 -75.7 66.0 -68.6 73.0 -61.1 C80.1 -53.5 87.8 -45.0 91.6 -35.5 C95.4 -26.0 96.1 -14.4 95.9 -4.0 Z" stroke-dasharray="300 24 120 20"/>
+        <path class="r r3" d="M113.3 34.0 C112.8 42.1 112.5 50.7 109.4 57.8 C106.2 64.8 99.4 70.1 94.5 76.3 C89.5 82.6 85.8 90.7 79.5 95.5 C73.2 100.3 64.5 103.7 56.5 105.0 C48.6 106.3 39.8 104.8 31.8 103.2 C23.8 101.5 15.2 99.5 8.6 95.2 C2.1 91.0 -3.0 83.7 -7.7 77.4 C-12.4 71.0 -16.8 64.4 -19.7 57.2 C-22.7 50.0 -24.9 42.0 -25.5 34.0 C-26.1 26.0 -25.6 17.4 -23.4 9.5 C-21.3 1.6 -17.9 -7.4 -12.5 -13.4 C-7.1 -19.4 1.5 -23.4 9.0 -26.7 C16.4 -29.9 24.3 -31.9 32.2 -33.1 C40.0 -34.3 48.4 -35.5 56.0 -34.0 C63.6 -32.5 70.2 -27.7 77.6 -24.3 C85.0 -20.8 94.7 -18.9 100.4 -13.3 C106.2 -7.8 110.0 1.3 112.1 9.2 C114.2 17.1 113.7 25.9 113.3 34.0 Z" stroke-dasharray="270 170"/>
+        <circle class="sp" cx="123.3" cy="45.7" r="1.6"/><circle class="sp" cx="94.1" cy="96.1" r="2.2"/><circle class="sp" cx="-42.6" cy="128.9" r="1.6"/><circle class="sp" cx="-101.5" cy="81.2" r="4.2"/><circle class="sp" cx="-116.4" cy="-57.7" r="1.6"/><circle class="sp" cx="-40.9" cy="-121.2" r="2.2"/><circle class="sp" cx="75.7" cy="-111.3" r="2.2"/>
+      </svg>
+    </div>
+    <div class="art-deco deco-rect" aria-hidden="true">
+      <svg class="rect sticker" viewBox="0 0 200 240"><use href="../shared/sprite.svg#rect-mic"/></svg>
+    </div>
+    <div class="art-col">
+      <a class="btn btn--sm" href="#home">← Back</a>
+      <header class="art-head">
+        <span class="stamp">Research</span>
+        <h1 class="art-title" id="art-title">You can read a voice model's vocal range straight off its weights</h1>
+        <a class="btn btn--pine" href="https://github.com/verticalrectangle/pop-maker-studio" target="_blank" rel="noopener">Source · pop-maker-studio ↗</a>
+        <figure class="art-fig">
+          <svg class="slot" viewBox="0 0 640 120" role="img" aria-label="A row of 256 pitch-embedding slots drawn as 64 bars: the middle stretch that moved during training is tall and filled, the rest are short stubs."><use href="#slotmap"/></svg>
+          <figcaption><span>Fig. 1 — illustration: 256 pitch slots, low → high</span><span><i class="lg lg-on"></i> moved in training&ensp;<i class="lg lg-off"></i> untouched</span></figcaption>
+        </figure>
+      </header>
+      <div class="prose">
+        <p class="project-page-body">When you use an AI voice model to sound like someone else, there's one knob you always end up fighting: pitch. If the model was trained on a deep voice and yours is high, you have to guess. Shift down an octave? Convert, listen, try again. Everyone does it by ear, and it's the single most common "why does this sound bad."</p>
+<p class="research-lead">You don't have to guess. The model already knows its own range. It's sitting in the weights, and you can read it out in a microsecond, without playing a note.</p>
+<h2 class="research-h2">Why the range is in there</h2>
+<p class="project-page-body">These models (RVC) handle pitch with a small lookup table called a <strong>pitch embedding</strong>: 256 slots, one per pitch step from low to high, each holding a learned vector. A slot only changes during training when the training audio actually hits that pitch. If the voice never sang low, the low slots never get touched.</p>
+<p class="project-page-body">And every voice model is <strong>fine-tuned from the same shared starting point</strong> (a "base" model). So line up a finished voice's pitch table against that base, look at which slots <em>moved</em>, and you've got a map of exactly which pitches the voice was trained on. That map <strong>is</strong> its vocal range.</p>
+<h2 class="research-h2">How you read it (it's basically subtraction)</h2>
+<p class="project-page-body">The code is short. At export time (<code>rvc_onnx.cpp:1359-1410</code>):</p>
+<ol>
+<li>Subtract the base pitch table from the voice's, slot by slot.</li>
+<li>For each slot, measure how far it moved (the length of that difference).</li>
+<li>Smooth it a touch, then keep the slots that moved more than ~30% of the biggest mover.</li>
+</ol>
+<p class="project-page-body">That's the range: a 256-slot "trained / not trained" map.</p>
+<p class="project-page-body">Auto-key is then just arithmetic (<code>vc_onnx.cpp:316-381</code>). The input's pitch over time is already a list of numbers, and you measure it once anyway as a normal first step. Shifting it an octave is multiplying those numbers; checking "unshifted vs. up vs. down" is counting how many of them fall inside the trained map. You pick the shift with the best count, and ties stay put. <strong>Nothing is converted or played to decide.</strong> The choice happens on the pitch numbers, before any audio is generated.</p>
+<p class="project-page-body">The payoff: you sing in your natural pitch and it lands you in the model's range automatically. A high voice into a model trained on a deep one just works, with no knob.</p>
+<h2 class="research-h2">The part that isn't about audio</h2>
+<p class="project-page-body">Nothing here is specific to voices. Any model with an embedding lookup, like the word table in a language model or the class table in a classifier, has the same property: <strong>a row only moves if training touched it.</strong> Diff a fine-tuned model's embedding against its base, and the rows that moved tell you what the fine-tune actually saw. Vocal range is just the case where that map happens to be immediately useful, and where you can turn it into a feature people press a button on.</p>
+<h2 class="research-h2">Related work</h2>
+<p class="project-page-body">Other people read things out of weight differences too, for different goals: some train a model to <em>describe</em> how a fine-tune changed its behavior; others reconstruct training examples from gradients. This is the simple, narrow end of that street. It reads one concrete number (a range) straight off the embedding, with subtraction and a threshold, and uses it to fix a real annoyance.</p>
+      </div>
+      <aside class="notes" aria-label="Spec sheet">
+        <div class="notes-head">Specs <span>Research</span></div>
+        <ul class="spec-list">
+        <li><span class="k">Domain</span><span class="dots" aria-hidden="true"></span><span class="v">RVC Voice Models</span></li>
+        <li><span class="k">Method</span><span class="dots" aria-hidden="true"></span><span class="v">Pitch Embedding Diff</span></li>
+        <li><span class="k">Cost</span><span class="dots" aria-hidden="true"></span><span class="v">Microseconds · No Audio</span></li>
+        <li><span class="k">Application</span><span class="dots" aria-hidden="true"></span><span class="v">Auto-Key Selection</span></li>
+        <li><span class="k">Source</span><span class="dots" aria-hidden="true"></span><span class="v">Pop Maker Studio</span></li>
+        </ul>
+      </aside>
+      <a class="btn btn--sm art-back" href="#home">← Back</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer id="connect" class="site-footer">
+  <svg class="hills" viewBox="0 0 1200 160" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+    <path id="e-f1" d="M-30.0 83.9 C-20.0 85.4 10.0 91.1 30.0 92.8 C50.0 94.5 70.0 94.5 90.0 94.1 C110.0 93.7 130.0 91.5 150.0 90.2 C170.0 89.0 190.0 87.2 210.0 86.6 C230.0 86.0 250.0 86.2 270.0 86.4 C290.0 86.6 310.0 87.8 330.0 87.7 C350.0 87.6 370.0 87.4 390.0 85.7 C410.0 83.9 430.0 80.8 450.0 77.4 C470.0 74.1 490.0 69.0 510.0 65.6 C530.0 62.1 550.0 58.2 570.0 56.6 C590.0 55.0 610.0 54.9 630.0 56.0 C650.0 57.2 670.0 60.7 690.0 63.7 C710.0 66.7 730.0 71.3 750.0 74.2 C770.0 77.2 790.0 79.9 810.0 81.5 C830.0 83.0 850.0 83.1 870.0 83.4 C890.0 83.6 910.0 82.8 930.0 83.1 C950.0 83.4 970.0 83.9 990.0 85.3 C1010.0 86.6 1030.0 89.1 1050.0 91.0 C1070.0 92.9 1090.0 95.7 1110.0 96.5 C1130.0 97.4 1150.0 97.6 1170.0 96.1 C1190.0 94.6 1220.0 88.9 1230.0 87.4" vector-effect="non-scaling-stroke"/>
+    <path id="hp-f1" d="M-30.0 83.9 C-20.0 85.4 10.0 91.1 30.0 92.8 C50.0 94.5 70.0 94.5 90.0 94.1 C110.0 93.7 130.0 91.5 150.0 90.2 C170.0 89.0 190.0 87.2 210.0 86.6 C230.0 86.0 250.0 86.2 270.0 86.4 C290.0 86.6 310.0 87.8 330.0 87.7 C350.0 87.6 370.0 87.4 390.0 85.7 C410.0 83.9 430.0 80.8 450.0 77.4 C470.0 74.1 490.0 69.0 510.0 65.6 C530.0 62.1 550.0 58.2 570.0 56.6 C590.0 55.0 610.0 54.9 630.0 56.0 C650.0 57.2 670.0 60.7 690.0 63.7 C710.0 66.7 730.0 71.3 750.0 74.2 C770.0 77.2 790.0 79.9 810.0 81.5 C830.0 83.0 850.0 83.1 870.0 83.4 C890.0 83.6 910.0 82.8 930.0 83.1 C950.0 83.4 970.0 83.9 990.0 85.3 C1010.0 86.6 1030.0 89.1 1050.0 91.0 C1070.0 92.9 1090.0 95.7 1110.0 96.5 C1130.0 97.4 1150.0 97.6 1170.0 96.1 C1190.0 94.6 1220.0 88.9 1230.0 87.4 L1230 170 L-30 170 Z" vector-effect="non-scaling-stroke"/>
+    <clipPath id="cp-f1"><use href="#hp-f1"/></clipPath>
+    <path id="e-f2" d="M-30.0 118.1 C-20.0 118.3 10.0 120.5 30.0 119.8 C50.0 119.1 70.0 116.9 90.0 113.9 C110.0 110.8 130.0 105.0 150.0 101.4 C170.0 97.8 190.0 93.6 210.0 92.3 C230.0 91.0 250.0 92.0 270.0 93.4 C290.0 94.7 310.0 98.6 330.0 100.5 C350.0 102.5 370.0 104.4 390.0 105.3 C410.0 106.3 430.0 105.6 450.0 106.4 C470.0 107.1 490.0 107.8 510.0 109.8 C530.0 111.8 550.0 115.8 570.0 118.4 C590.0 121.0 610.0 124.6 630.0 125.3 C650.0 125.9 670.0 124.7 690.0 122.3 C710.0 119.9 730.0 114.5 750.0 111.0 C770.0 107.5 790.0 103.2 810.0 101.3 C830.0 99.3 850.0 99.3 870.0 99.1 C890.0 98.9 910.0 100.4 930.0 100.3 C950.0 100.2 970.0 99.3 990.0 98.6 C1010.0 97.9 1030.0 95.7 1050.0 95.9 C1070.0 96.0 1090.0 97.1 1110.0 99.6 C1130.0 102.2 1150.0 107.5 1170.0 111.3 C1190.0 115.0 1220.0 120.4 1230.0 122.2" vector-effect="non-scaling-stroke"/>
+    <path id="hp-f2" d="M-30.0 118.1 C-20.0 118.3 10.0 120.5 30.0 119.8 C50.0 119.1 70.0 116.9 90.0 113.9 C110.0 110.8 130.0 105.0 150.0 101.4 C170.0 97.8 190.0 93.6 210.0 92.3 C230.0 91.0 250.0 92.0 270.0 93.4 C290.0 94.7 310.0 98.6 330.0 100.5 C350.0 102.5 370.0 104.4 390.0 105.3 C410.0 106.3 430.0 105.6 450.0 106.4 C470.0 107.1 490.0 107.8 510.0 109.8 C530.0 111.8 550.0 115.8 570.0 118.4 C590.0 121.0 610.0 124.6 630.0 125.3 C650.0 125.9 670.0 124.7 690.0 122.3 C710.0 119.9 730.0 114.5 750.0 111.0 C770.0 107.5 790.0 103.2 810.0 101.3 C830.0 99.3 850.0 99.3 870.0 99.1 C890.0 98.9 910.0 100.4 930.0 100.3 C950.0 100.2 970.0 99.3 990.0 98.6 C1010.0 97.9 1030.0 95.7 1050.0 95.9 C1070.0 96.0 1090.0 97.1 1110.0 99.6 C1130.0 102.2 1150.0 107.5 1170.0 111.3 C1190.0 115.0 1220.0 120.4 1230.0 122.2 L1230 170 L-30 170 Z" vector-effect="non-scaling-stroke"/>
+    <clipPath id="cp-f2"><use href="#hp-f2"/></clipPath>
+    <path id="e-f3" d="M-30.0 132.7 C-20.0 131.5 10.0 127.5 30.0 125.6 C50.0 123.8 70.0 121.1 90.0 121.7 C110.0 122.3 130.0 126.1 150.0 129.0 C170.0 131.9 190.0 137.2 210.0 139.3 C230.0 141.3 250.0 141.4 270.0 141.4 C290.0 141.3 310.0 139.2 330.0 139.1 C350.0 138.9 370.0 140.2 390.0 140.5 C410.0 140.7 430.0 142.1 450.0 140.7 C470.0 139.3 490.0 135.3 510.0 132.3 C530.0 129.3 550.0 124.1 570.0 122.6 C590.0 121.2 610.0 122.1 630.0 123.5 C650.0 124.9 670.0 129.3 690.0 131.2 C710.0 133.0 730.0 133.9 750.0 134.6 C770.0 135.2 790.0 134.1 810.0 135.1 C830.0 136.0 850.0 138.6 870.0 140.4 C890.0 142.2 910.0 145.8 930.0 146.0 C950.0 146.2 970.0 144.0 990.0 141.4 C1010.0 138.7 1030.0 132.8 1050.0 130.2 C1070.0 127.6 1090.0 125.9 1110.0 125.6 C1130.0 125.3 1150.0 127.7 1170.0 128.2 C1190.0 128.8 1220.0 128.6 1230.0 128.7" vector-effect="non-scaling-stroke"/>
+    <path id="hp-f3" d="M-30.0 132.7 C-20.0 131.5 10.0 127.5 30.0 125.6 C50.0 123.8 70.0 121.1 90.0 121.7 C110.0 122.3 130.0 126.1 150.0 129.0 C170.0 131.9 190.0 137.2 210.0 139.3 C230.0 141.3 250.0 141.4 270.0 141.4 C290.0 141.3 310.0 139.2 330.0 139.1 C350.0 138.9 370.0 140.2 390.0 140.5 C410.0 140.7 430.0 142.1 450.0 140.7 C470.0 139.3 490.0 135.3 510.0 132.3 C530.0 129.3 550.0 124.1 570.0 122.6 C590.0 121.2 610.0 122.1 630.0 123.5 C650.0 124.9 670.0 129.3 690.0 131.2 C710.0 133.0 730.0 133.9 750.0 134.6 C770.0 135.2 790.0 134.1 810.0 135.1 C830.0 136.0 850.0 138.6 870.0 140.4 C890.0 142.2 910.0 145.8 930.0 146.0 C950.0 146.2 970.0 144.0 990.0 141.4 C1010.0 138.7 1030.0 132.8 1050.0 130.2 C1070.0 127.6 1090.0 125.9 1110.0 125.6 C1130.0 125.3 1150.0 127.7 1170.0 128.2 C1190.0 128.8 1220.0 128.6 1230.0 128.7 L1230 170 L-30 170 Z" vector-effect="non-scaling-stroke"/>
+    <clipPath id="cp-f3"><use href="#hp-f3"/></clipPath>
+    </defs>
+  <use href="#hp-f1" class="hill" style="--hf:var(--s-h2)"/>
+  <g class="gouge gl" clip-path="url(#cp-f1)"><use href="#e-f1" y="11"/><use href="#e-f1" y="22"/><use href="#e-f1" y="33"/><use href="#e-f1" y="44"/><use href="#e-f1" y="55"/><use href="#e-f1" y="66"/><use href="#e-f1" y="77"/><use href="#e-f1" y="88"/><use href="#e-f1" y="99"/><use href="#e-f1" y="110"/></g>
+  <use href="#hp-f1" class="hill-line"/>
+  <use href="#hp-f2" class="hill" style="--hf:var(--s-h1)"/>
+  <g class="gouge gl gl-dot" clip-path="url(#cp-f2)"><use href="#e-f2" y="10"/><use href="#e-f2" y="20"/><use href="#e-f2" y="30"/><use href="#e-f2" y="40"/><use href="#e-f2" y="50"/><use href="#e-f2" y="60"/><use href="#e-f2" y="70"/><use href="#e-f2" y="80"/></g>
+  <use href="#hp-f2" class="hill-line"/>
+  <use href="#hp-f3" class="hill" style="--hf:var(--s-foot)"/>
+  </svg>
+  <div class="foot-body">
+    <div class="wrap foot-grid">
+      <div class="foot-cameo" aria-hidden="true">
+        <svg class="rect sticker" viewBox="0 0 200 240"><use href="../shared/sprite.svg#hrect-suit"/></svg>
+      </div>
+      <div>
+        <div class="foot-top"><h2 class="h-display">Connect</h2></div>
+        <ul class="connect-list">
+          <li><a class="card connect" href="mailto:alexis@verticalrectangle.com"><div><div class="lbl">Email</div><div class="val">alexis@verticalrectangle.com</div></div><span class="arrow" aria-hidden="true">↗</span></a></li>
+          <li><a class="card connect" href="https://x.com/VertRect" target="_blank" rel="noopener"><div><div class="lbl">X / Twitter</div><div class="val">@VertRect</div></div><span class="arrow" aria-hidden="true">↗</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <p class="fine"><span class="wordmark">Vertical Rectangle</span> · Prototype B</p>
+  <div class="kilim kilim--foot" aria-hidden="true"></div>
+</footer>
+
+<script>
+var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var root = document.documentElement;
+function replay(el, cls) { el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls); }
+
+// Current page marker for the nav (visual state keys off aria-current).
+(function () {
+  var links = document.querySelectorAll('.nav a');
+  function mark() {
+    var id = location.hash.slice(1);
+    var el = id && document.getElementById(id);
+    if (!el || !el.classList.contains('page')) id = 'home';
+    links.forEach(function (a) {
+      if (a.hash === '#' + id) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+  }
+  addEventListener('hashchange', mark);
+  mark();
+})();
+
+// Rubber stamps: click (or Enter) re-slams a stamp and leaves an ink ghost behind.
+(function () {
+  function slam(s) {
+    if (still) return;
+    var host = s.offsetParent;
+    if (host) {
+      var g = s.cloneNode(true);
+      g.classList.remove('slam');
+      g.classList.add('stamp-ghost');
+      g.removeAttribute('tabindex');
+      g.setAttribute('aria-hidden', 'true');
+      g.style.left = (s.offsetLeft + 4 + Math.random() * 6) + 'px';
+      g.style.top = (s.offsetTop + 3 + Math.random() * 4) + 'px';
+      g.style.right = 'auto'; g.style.bottom = 'auto';
+      host.appendChild(g);
+      setTimeout(function () { g.remove(); }, 4000);
+    }
+    replay(s, 'slam');
+  }
+  document.querySelectorAll('.stamp').forEach(function (s) {
+    s.setAttribute('tabindex', '0');
+    s.setAttribute('role', 'button');
+    s.addEventListener('click', function () { slam(s); });
+    s.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); slam(s); } });
+  });
+  // The hero stamps land when the café opens.
+  document.querySelectorAll('.sign .stamp').forEach(function (s, i) {
+    if (!still) setTimeout(function () { replay(s, 'slam'); }, 250 + i * 260);
+  });
+})();
+
+// Scroll turns the seal.
+(function () {
+  var queued = false;
+  addEventListener('scroll', function () {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () { queued = false; root.style.setProperty('--scroll', Math.round(scrollY)); });
+  }, { passive: true });
+})();
+
+// Thermal printer: the spec receipt prints each time you arrive and it scrolls into view;
+// click the printer to reprint. Observing starts only once the page is displayed.
+(function () {
+  var wrap = document.querySelector('.receipt-wrap');
+  var printer = document.querySelector('.printer');
+  function print() { wrap.classList.remove('will-print'); replay(wrap, 'printing'); }
+  printer.addEventListener('click', print);
+  printer.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); print(); } });
+  if (still || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    if (entries[0].isIntersecting) { io.disconnect(); print(); }
+  }, { threshold: 0.25 });
+  function arm() {
+    io.disconnect();
+    if (location.hash !== '#pop-maker-studio') return;
+    wrap.classList.remove('printing');
+    wrap.classList.add('will-print');
+    requestAnimationFrame(function () { io.observe(wrap); });
+  }
+  addEventListener('hashchange', arm);
+  arm();
+})();
+
+// Coffee rings: click the article margins to set your cup down. Six rings max; the oldest lifts.
+(function () {
+  var wrap = document.querySelector('.article-wrap');
+  var col = wrap.querySelector('.art-col');
+  var art = wrap.querySelector('.deco-ring svg');
+  var rings = [];
+  wrap.addEventListener('click', function (e) {
+    if (e.target.closest('.art-col, a, button, .stamp')) return;
+    var c = col.getBoundingClientRect();
+    if (e.clientX > c.left - 8 && e.clientX < c.right + 8) return;
+    var w = wrap.getBoundingClientRect();
+    var ring = document.createElement('div');
+    ring.className = 'art-deco deco-ring ring-drop';
+    ring.setAttribute('aria-hidden', 'true');
+    ring.style.left = (e.clientX - w.left) + 'px';
+    ring.style.top = (e.clientY - w.top) + 'px';
+    ring.style.setProperty('--rr', Math.round(Math.random() * 360) + 'deg');
+    ring.appendChild(art.cloneNode(true));
+    wrap.appendChild(ring);
+    rings.push(ring);
+    if (rings.length > 6) {
+      var old = rings.shift();
+      if (still || root.dataset.theme === 'dark') old.remove();
+      else { old.classList.add('lift'); setTimeout(function () { old.remove(); }, 520); }
+    }
+  });
+})();
+</script>
+</body>
+</html>

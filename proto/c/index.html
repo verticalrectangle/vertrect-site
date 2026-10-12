@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vertical Rectangle · Prototype C</title>
+<script src="../shared/theme.js"></script>
+<link rel="preload" as="font" href="../../fonts/InterVariable.woff2" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../shared/base.css">
+<style>
+  /* ═══ Prototype C ═══
+     Brutal furniture (nav, cards, tables, buttons) + 2007 Apple showroom
+     (spreads, silhouette posters, Cover Flow). Light: Dawn. Dark: strict 1-bit. Rect never speaks. */
+
+  :root {
+    --wrap: 1180px;
+    --label: 600 12px/1.2 'JetBrains Mono', ui-monospace, monospace;
+    --poster-bg: var(--gold);
+    --poster-fg: var(--ink);
+  }
+
+  /* Paper grain: light only, never in the 1-bit filing. */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 100;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .34 0 0 0 0 .32 0 0 0 0 .47 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: .09; mix-blend-mode: multiply;
+  }
+  :root[data-theme='dark'] body::before { display: none; }
+
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 28px; }
+  .label { font: var(--label); text-transform: uppercase; letter-spacing: .08em; }
+
+  /* ── Light source: hard shadows fall away from the pointer (JS sets --sx/--sy). ── */
+  :root[data-theme] {
+    --sx: 6; --sy: 6;
+    --shadow: calc(var(--sx) * 1px) calc(var(--sy) * 1px) 0 var(--ink);
+    --shadow-sm: calc(var(--sx) * .67px) calc(var(--sy) * .67px) 0 var(--ink);
+    --press-half: translate(calc(var(--sx) * .5px), calc(var(--sy) * .5px));
+    --press-full: translate(calc(var(--sx) * 1px), calc(var(--sy) * 1px));
+    --shadow-half: calc(var(--sx) * .5px) calc(var(--sy) * .5px) 0 var(--ink);
+  }
+
+  /* ── Brutal furniture ── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    border: var(--border); background: var(--surface); color: var(--ink);
+    padding: 12px 18px; font: 700 15px/1 'Inter', sans-serif; text-decoration: none;
+    box-shadow: var(--shadow-sm); transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .btn:hover { transform: var(--press-half); box-shadow: var(--shadow-half); }
+  .btn:active { transform: var(--press-full); box-shadow: 0 0 0 var(--ink); }
+  .btn--solid { background: var(--ink); color: var(--bg); }
+
+  /* ── Apple-2007 links ── */
+  .alink { color: var(--link); text-decoration: none; font-size: 19px; font-weight: 400; }
+  .alink::after { content: " ›"; }
+  .alink:hover { text-decoration: underline; text-underline-offset: 4px; }
+  :root[data-theme='dark'] .alink { text-decoration: underline; text-underline-offset: 4px; }
+
+  /* ── Top bar ── */
+  .topbar {
+    position: sticky; top: 0; z-index: 50; background: var(--bg);
+    border-bottom: var(--border);
+  }
+  .progress {
+    position: absolute; left: 0; right: 0; bottom: -9px; height: 6px; background: var(--ink);
+    transform-origin: 0 50%; transform: scaleX(var(--p, 0));
+  }
+  .topbar-inner { display: flex; align-items: center; gap: 20px; padding: 12px 28px; max-width: none; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+  .brand svg.logo { width: 34px; height: 34px; }
+  .brand .wordmark { font-size: 17px; line-height: 1; }
+  .navlinks { display: flex; margin-left: auto; border: var(--border); list-style: none; background: var(--surface); position: relative; }
+  .navlinks::before {
+    content: ""; position: absolute; top: 0; bottom: 0; left: 0;
+    width: var(--ind-w, 0); transform: translateX(var(--ind-x, 0)); background: var(--ink);
+    transition: transform .45s cubic-bezier(.2,.8,.2,1), width .45s cubic-bezier(.2,.8,.2,1);
+  }
+  .navlinks li + li { border-left: var(--border); }
+  .navlinks a {
+    position: relative; display: block; padding: 9px 14px; text-decoration: none; color: var(--ink);
+    font: var(--label); text-transform: uppercase; letter-spacing: .08em; white-space: nowrap;
+    transition: color .25s ease;
+  }
+  .navlinks a.is-on { color: var(--bg); }
+  .toggle {
+    border: var(--border); background: var(--surface); color: var(--ink);
+    padding: 8px 12px; font: var(--label); text-transform: uppercase; letter-spacing: .08em;
+    box-shadow: var(--shadow-sm); transition: transform .12s, box-shadow .12s;
+  }
+  .toggle:hover { transform: var(--press-half); box-shadow: var(--shadow-half); }
+  .toggle::before {
+    content: ""; display: inline-block; width: 11px; height: 11px; margin-right: 8px; vertical-align: -1px;
+    border: 2px solid currentColor; border-radius: 50%;
+    background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+  }
+
+  /* ── Page entrance: slow Apple fade ── */
+  .page { scroll-margin-top: 140px; }
+  .page:target, body:not(:has(.page:target)) #home { animation: fade-up .7s cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  /* ═══ HOME: report cover ═══ */
+  .cover {
+    margin: 48px 0 56px; border: 4px solid var(--ink); background: var(--surface);
+    box-shadow: calc(var(--sx) * 2px) calc(var(--sy) * 2px) 0 var(--ink);
+  }
+  .cover-strip {
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+    background: var(--ink); color: var(--bg); padding: 10px 20px;
+  }
+  .cover-body { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; min-height: 520px; }
+  .cover-title { padding: 56px 48px; }
+  .cover-logo { width: 96px; height: 96px; margin-bottom: 28px; }
+  .cover-wordmark { font-size: clamp(56px, 9vw, 128px); }
+  .cover-tagline { margin-top: 22px; font-size: 22px; font-weight: 300; color: var(--subtle); max-width: 22ch; }
+  .cover-ctas { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 36px; }
+  .cover-art { align-self: stretch; border-left: 4px solid var(--ink); position: relative; overflow: hidden; background: var(--overlay); }
+  .cover-art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .sun { fill: var(--gold); stroke: var(--ink); stroke-width: 4; }
+  .ray { fill: var(--gold); stroke: var(--ink); stroke-width: 3; }
+  .hill-back { fill: var(--foam); stroke: var(--ink); stroke-width: 4; }
+  .hill-front { fill: var(--pine); stroke: var(--ink); stroke-width: 4; }
+  :root[data-theme='dark'] .cover-art { background: #000; }
+  :root[data-theme='dark'] .sun, :root[data-theme='dark'] .ray { fill: url(#dots); stroke: #fff; }
+  :root[data-theme='dark'] .hill-back { fill: url(#hatch); stroke: #fff; }
+  :root[data-theme='dark'] .hill-front { fill: #000; stroke: #fff; }
+
+  .section-title { font-size: clamp(32px, 4.4vw, 52px); font-weight: 700; letter-spacing: -0.035em; line-height: 1; margin-bottom: 28px; }
+  .kicker { margin-bottom: 18px; color: var(--subtle); }
+
+  .highlights { margin-bottom: 72px; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); border: var(--border); box-shadow: var(--shadow); background: var(--surface); }
+  .kpi { padding: 28px 24px; }
+  .kpi + .kpi { border-left: var(--border); }
+  .kpi-num { font-size: clamp(44px, 5vw, 68px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .kpi-num small { font-size: .45em; letter-spacing: 0; margin-left: 4px; }
+  .kpi-label { margin-top: 12px; }
+
+  .toc { margin-bottom: 96px; }
+  .toc ol { list-style: none; border-top: var(--border); }
+  .toc a {
+    display: grid; grid-template-columns: 64px 1fr auto; align-items: baseline; gap: 16px;
+    padding: 20px 8px; border-bottom: var(--border); text-decoration: none; color: var(--ink);
+    transition: background .15s, padding .15s;
+  }
+  .toc a:hover { background: var(--ink); color: var(--bg); padding-left: 20px; }
+  .toc-title { font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; letter-spacing: -0.02em; display: flex; gap: 14px; align-items: baseline; }
+  .toc-title::after { content: ""; flex: 1; border-bottom: 3px dotted currentColor; transform: translateY(-6px); }
+  .toc-sub { color: var(--subtle); text-align: right; }
+
+  /* ═══ Silhouette posters (iPod-ad) ═══ */
+  .poster { background: var(--poster-bg); color: var(--poster-fg); --sil: var(--poster-fg); border-bottom: var(--border); overflow: hidden; }
+  .poster--love { --poster-bg: var(--love); --poster-fg: var(--surface); }
+  .poster .rect--silhouette { --sil: var(--poster-fg); }
+  .poster--love .rect--silhouette { --r-hi: var(--ink); }
+  :root[data-theme='dark'] .poster { --poster-bg: #fff; --poster-fg: #000; }
+  :root[data-theme='dark'] .poster .rect--silhouette { --sil: #000; --r-hi: #fff; }
+  .poster-inner { display: grid; grid-template-columns: 1.3fr 1fr; align-items: end; gap: 24px; padding-top: 72px; }
+  .poster-copy { padding-bottom: 80px; }
+  .poster h1 { font-size: clamp(52px, 9vw, 120px); font-weight: 700; letter-spacing: -0.045em; line-height: .92; }
+  .poster p.sub { margin-top: 20px; font-size: clamp(20px, 2.2vw, 28px); font-weight: 300; letter-spacing: -0.01em; }
+  .poster .label { display: block; margin-bottom: 22px; }
+  .poster svg.rect { width: 100%; max-width: 380px; height: auto; aspect-ratio: 200 / 240; justify-self: center; margin-bottom: -28px; transform: translateY(calc(var(--scroll, 0) * -0.18px)); }
+
+  /* ═══ Project cards ═══ */
+  .divisions { padding: 64px 28px 96px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px, 1fr)); gap: 30px; }
+  .card {
+    display: flex; flex-direction: column; text-decoration: none; color: var(--ink);
+    background: var(--surface); border: var(--border); box-shadow: var(--shadow);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .card:hover { transform: var(--press-half); box-shadow: var(--shadow-half); }
+  .card:active { transform: var(--press-full); box-shadow: 0 0 0 var(--ink); }
+  .card-band { height: 116px; background: var(--band, var(--gold)); border-bottom: var(--border); position: relative; padding: 14px; }
+  .chip { display: inline-block; background: var(--surface); border: 3px solid var(--ink); padding: 4px 8px; }
+  .card-band::after {
+    content: ""; position: absolute; right: 18px; bottom: -3px; width: 58px; height: 58px;
+    background: var(--surface); border: 3px solid var(--ink); border-radius: 50%;
+  }
+  .card:nth-child(3n+2) .card-band::after { border-radius: 58px 58px 0 0; height: 30px; bottom: -3px; }
+  .card:nth-child(3n) .card-band::after { border-radius: 0; width: 26px; height: 52px; bottom: 14px; right: 26px; }
+  .card h3 { font-size: 23px; font-weight: 800; letter-spacing: -0.025em; line-height: 1.1; padding: 18px 18px 8px; }
+  .card p { font-size: 15px; line-height: 1.5; color: var(--subtle); padding: 0 18px; flex: 1; }
+  .card-foot { padding: 16px 18px; margin-top: 16px; border-top: var(--border); display: flex; justify-content: space-between; }
+  :root[data-theme='dark'] .card-band { background-color: #000; background-image: radial-gradient(#fff 1.3px, transparent 1.6px); background-size: 7px 7px; }
+  :root[data-theme='dark'] .chip { background: #000; }
+
+  /* ═══ Launch spread ═══ */
+  .spread { text-align: center; padding: 72px 28px 0; }
+  .spread .label { color: var(--subtle); }
+  .spread-title { margin-top: 14px; font-size: clamp(48px, 8vw, 100px); font-weight: 600; letter-spacing: -0.045em; line-height: .95; }
+  .spread-sub { margin: 20px auto 0; max-width: 30ch; font-size: clamp(20px, 2.4vw, 28px); font-weight: 300; letter-spacing: -0.015em; line-height: 1.3; color: var(--subtle); }
+  .spread-links { margin-top: 24px; display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; }
+  .stage { margin: 56px auto 0; max-width: 820px; }
+  .stage input { position: absolute; opacity: 0; pointer-events: none; }
+  .shot { display: none; }
+  #pms-s1:checked ~ .shots .shot-1, #pms-s2:checked ~ .shots .shot-2, #pms-s3:checked ~ .shots .shot-3 { display: block; animation: fade-up .5s ease both; }
+  .shot img { width: 100%; height: auto; }
+  .reflect { height: 140px; overflow: hidden; }
+  .reflect img { transform: scaleY(-1); -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,.32), transparent 22%); mask-image: linear-gradient(to top, rgba(0,0,0,.32), transparent 22%); }
+  .stage-dots { display: flex; justify-content: center; gap: 12px; margin-top: -96px; position: relative; }
+  .stage-dots label { width: 14px; height: 14px; border: 3px solid var(--ink); background: var(--surface); cursor: pointer; }
+  #pms-s1:checked ~ .stage-dots label[for=pms-s1], #pms-s2:checked ~ .stage-dots label[for=pms-s2], #pms-s3:checked ~ .stage-dots label[for=pms-s3] { background: var(--ink); }
+  .stage input:focus-visible ~ .stage-dots { outline: 3px solid var(--ink); outline-offset: 6px; }
+  .spread-body { max-width: 680px; margin: 96px auto 0; text-align: center; font-size: 21px; font-weight: 300; line-height: 1.6; letter-spacing: -0.01em; }
+
+  .action { margin-top: 96px; }
+  .media-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 28px; }
+  .media-grid .stack { display: grid; gap: 28px; }
+  .frame { border: var(--border); box-shadow: var(--shadow); background: var(--ink); }
+  .frame video { width: 100%; height: 100%; object-fit: cover; }
+
+  .specs { width: 100%; border-collapse: collapse; border: var(--border); box-shadow: var(--shadow); background: var(--surface); }
+  .specs th, .specs td { border: var(--border); padding: 16px 18px; text-align: left; vertical-align: top; }
+  .specs th { width: 34%; background: var(--ink); color: var(--bg); font: var(--label); text-transform: uppercase; letter-spacing: .08em; }
+  .specs td { font-size: 17px; font-weight: 500; }
+  .page-end { margin: 64px 0 96px; display: flex; gap: 16px; flex-wrap: wrap; }
+
+  /* ═══ Research article ═══ */
+  .paper { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 56px; padding-top: 64px; padding-bottom: 96px; }
+  .paper-margin { position: sticky; top: 100px; align-self: start; text-align: center; }
+  .paper-margin svg.rect { width: 100%; height: auto; aspect-ratio: 200 / 240; }
+  .paper-body { max-width: 68ch; }
+  .stamp {
+    display: inline-block; border: 3px double var(--ink); padding: 6px 10px; outline: 3px solid var(--ink); outline-offset: 3px;
+    transform: rotate(-2deg); margin: 4px 0 28px 4px;
+  }
+  .paper-body h1 { font-size: clamp(34px, 4.6vw, 56px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.04; }
+  .byline { margin: 22px 0 40px; padding: 14px 0; border-top: var(--border); border-bottom: var(--border); display: flex; flex-wrap: wrap; gap: 8px 22px; }
+  .byline a { color: var(--link); }
+  .prose { font-size: 18.5px; line-height: 1.7; }
+  .prose p, .prose ol { margin-bottom: 1.1em; }
+  .prose ol { padding-left: 1.4em; }
+  .prose li { margin-bottom: .4em; padding-left: .3em; }
+  .prose li::marker { font: var(--label); }
+  .prose code { font: 500 .86em 'JetBrains Mono', monospace; background: var(--overlay); border: 2px solid var(--ink); padding: 1px 5px; }
+  .prose strong { font-weight: 700; }
+  .lead { font-size: 23px; line-height: 1.45; font-weight: 500; letter-spacing: -0.01em; border-left: 8px solid var(--ink); padding: 6px 0 6px 22px; margin: 32px 0 36px; }
+  .prose h2 { font-size: 27px; font-weight: 800; letter-spacing: -0.025em; line-height: 1.15; margin: 52px 0 16px; }
+  .paper-specs { margin-top: 48px; }
+  :root[data-theme='dark'] .prose h2 { font: 600 20px/1.3 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .02em; }
+  :root[data-theme='dark'] .paper-body h1 { font-weight: 700; }
+
+  /* ═══ Cover Flow ═══ */
+  .coverflow { padding: 72px 0 24px; text-align: center; overflow: hidden; }
+  .cf-stage { position: relative; height: 380px; perspective: 1100px; }
+  .cf-item {
+    position: absolute; left: 50%; top: 20px; width: 280px; margin-left: -140px;
+    transition: transform .55s cubic-bezier(.2,.7,.2,1); cursor: pointer;
+    -webkit-box-reflect: below 2px linear-gradient(transparent 62%, rgba(255,255,255,.28));
+  }
+  .cf-item img { width: 280px; height: 280px; object-fit: cover; }
+  .cf-caption { margin-top: 8px; }
+  .cf-caption strong { display: block; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
+  .cf-caption span { color: var(--subtle); }
+  .cf-controls { display: flex; justify-content: center; gap: 14px; margin-top: 22px; }
+  .artists { padding: 56px 28px 96px; }
+
+  /* ═══ Footer: connect ═══ */
+  .footer { border-top: var(--border); background: var(--surface); }
+  .footer-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; padding: 48px 28px 56px; }
+  .footer .brand svg.logo { width: 44px; height: 44px; }
+  .footer .brand .wordmark { font-size: 22px; }
+  .legal { margin-top: 18px; color: var(--subtle); line-height: 1.7; }
+  .ir h2 { margin-bottom: 16px; }
+  .ir-links { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  /* ═══ Mobile ═══ */
+  @media (max-width: 900px) {
+    .topbar-inner { flex-wrap: wrap; padding: 10px 16px; gap: 10px; }
+    .navlinks { order: 3; width: 100%; overflow-x: auto; margin-left: 0; scrollbar-width: none; }
+    .brand .wordmark { font-size: 15px; }
+    .toggle { margin-left: auto; }
+    .wrap { padding: 0 16px; }
+    .cover { margin-top: 24px; box-shadow: 8px 8px 0 var(--ink); }
+    .cover-body { grid-template-columns: 1fr; }
+    .cover-title { padding: 32px 22px; }
+    .cover-wordmark { font-size: 11.5vw; }
+    .cover-art { border-left: 0; border-top: 4px solid var(--ink); min-height: 300px; }
+    .kpis { grid-template-columns: 1fr 1fr; }
+    .kpi:nth-child(3) { border-left: 0; }
+    .kpi:nth-child(n+3) { border-top: var(--border); }
+    .poster-inner { grid-template-columns: 1fr; padding-top: 40px; }
+    .poster-copy { padding-bottom: 8px; }
+    .poster svg.rect { max-width: 220px; }
+    .media-grid { grid-template-columns: 1fr; }
+    .paper { grid-template-columns: 1fr; gap: 0; padding-top: 36px; }
+    .paper-margin { display: none; }
+    .prose { font-size: 17.5px; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .toc a { grid-template-columns: 44px 1fr; }
+    .toc a > .label:last-child { display: none; }
+    .cf-stage { height: 300px; }
+    .cf-item { width: 200px; margin-left: -100px; }
+    .cf-item img { width: 200px; height: 200px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#home" aria-label="Vertical Rectangle home">
+      <svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><use href="../shared/sprite.svg#logo"/></svg>
+      <span class="wordmark">Vertical Rectangle</span>
+    </a>
+    <ul class="navlinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#development">Development</a></li>
+      <li><a href="#voice-range-weights">Research</a></li>
+      <li><a href="#artists">Artists</a></li>
+      <li><a href="#ir">Connect</a></li>
+    </ul>
+    <button class="toggle" data-theme-toggle type="button"><span class="theme-light-label">Light</span><span class="theme-dark-label">Dark</span></button>
+  </div>
+  <span class="progress" aria-hidden="true"></span>
+</header>
+
+<main>
+
+<!-- ═════════════════ HOME ═════════════════ -->
+<section id="home" class="page">
+  <div class="wrap">
+    <article class="cover">
+      <header class="cover-strip label"><span>Music tools</span><span>AI installations</span><span>Web apps</span></header>
+      <div class="cover-body">
+        <div class="cover-title">
+          <svg class="logo cover-logo" viewBox="0 0 512 512" aria-hidden="true"><use href="../shared/sprite.svg#logo"/></svg>
+          <h1 class="wordmark cover-wordmark">Vertical<br>Rectangle</h1>
+          <p class="cover-tagline">Independent creative technology studio</p>
+          <div class="cover-ctas">
+            <a class="btn btn--solid" href="#development">Development ›</a>
+            <a class="btn" href="#voice-range-weights">Research ›</a>
+          </div>
+        </div>
+        <div class="cover-art" aria-hidden="true">
+          <svg viewBox="0 0 500 560" preserveAspectRatio="xMidYMax slice">
+            <defs>
+              <pattern id="dots" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.6" fill="#fff"/></pattern>
+              <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="2.2" height="9" fill="#fff"/></pattern>
+            </defs>
+            <g transform="translate(250 250)">
+              <g class="rays">
+                <rect class="ray" x="-9" y="-196" width="18" height="36"/>
+                <rect class="ray" x="-9" y="-196" width="18" height="36" transform="rotate(30)"/>
+                <rect class="ray" x="-9" y="-196" width="18" height="36" transform="rotate(60)"/>
+                <rect class="ray" x="-9" y="-196" width="18" height="36" transform="rotate(90)"/>
+                <rect class="ray" x="-9" y="-196" width="18" height="36" transform="rotate(120)"/>
+                <rect class="ray" x="-9" y="-196" width="18" height="36" transform="rotate(150)"/>
+                <rect class="ray" x="-9" y="-196" width="18" height="36" transform="rotate(180)"/>
+                <rect class="ray" x="-9" y="-196" width="18" height="36" transform="rotate(210)"/>
+                <rect class="ray" x="-9" y="-196" width="18" height="36" transform="rotate(240)"/>
+                <rect class="ray" x="-9" y="-196" width="18" height="36" transform="rotate(270)"/>
+                <rect class="ray" x="-9" y="-196" width="18" height="36" transform="rotate(300)"/>
+                <rect class="ray" x="-9" y="-196" width="18" height="36" transform="rotate(330)"/>
+              </g>
+              <circle class="sun" r="140"/>
+            </g>
+            <path class="hill-back" d="M-20 470 C 80 380, 220 400, 300 440 C 380 470, 440 420, 540 400 L540 600 L-20 600 Z"/>
+            <path class="hill-front" d="M-20 520 C 120 470, 300 480, 540 510 L540 600 L-20 600 Z"/>
+            <svg class="rect" x="120" y="196" width="260" height="312" viewBox="0 0 200 240"><use href="../shared/sprite.svg#rect-wave"/></svg>
+          </svg>
+        </div>
+      </div>
+      <footer class="cover-strip label"><span>verticalrectangle.com</span><span>alexis@verticalrectangle.com</span><span>@VertRect</span></footer>
+    </article>
+
+    <section class="highlights" aria-labelledby="hl-title">
+      <h2 id="hl-title" class="label kicker">At a glance</h2>
+      <div class="kpis">
+        <div class="kpi"><div class="kpi-num"><span data-count="11">11</span></div><div class="label kpi-label">Projects</div></div>
+        <div class="kpi"><div class="kpi-num"><span data-count="2">2</span></div><div class="label kpi-label">Research papers</div></div>
+        <div class="kpi"><div class="kpi-num"><span data-count="3">3</span></div><div class="label kpi-label">Artists</div></div>
+        <div class="kpi"><div class="kpi-num"><span data-count="74">74</span><small>KB</small></div><div class="label kpi-label">Smallest product</div></div>
+      </div>
+    </section>
+
+    <section class="toc" aria-labelledby="toc-title">
+      <h2 id="toc-title" class="section-title">Index</h2>
+      <ol>
+        <li><a href="#development"><span class="label">01</span><span class="toc-title">Development</span><span class="label toc-sub">11 projects</span></a></li>
+        <li><a href="#voice-range-weights"><span class="label">02</span><span class="toc-title">Research</span><span class="label toc-sub">2 papers</span></a></li>
+        <li><a href="#artists"><span class="label">03</span><span class="toc-title">Artists</span><span class="label toc-sub">3 artists</span></a></li>
+        <li><a href="#ir"><span class="label">04</span><span class="toc-title">Connect</span><span class="label toc-sub">Email · X</span></a></li>
+      </ol>
+    </section>
+  </div>
+</section>
+
+<!-- ═════════════════ DEVELOPMENT ═════════════════ -->
+<section id="development" class="page">
+  <header class="poster">
+    <div class="wrap poster-inner">
+      <div class="poster-copy">
+        <span class="label">11 projects</span>
+        <h1>Development.</h1>
+        <p class="sub">Music tools, AI installations, and web apps.</p>
+      </div>
+      <svg class="rect rect--silhouette" viewBox="0 0 200 240" aria-hidden="true"><use href="../shared/sprite.svg#rect-mic"/></svg>
+    </div>
+  </header>
+  <div class="wrap divisions">
+    <div class="grid">
+      <a class="card" href="#pop-maker-studio" style="--band: var(--gold)"><div class="card-band"><span class="chip label">01</span></div><h3>Pop Maker Studio</h3><p>Local-first video editor with MCP server control. Claude and Codex friendly. C++ from scratch.</p><div class="card-foot label"><span>C++ / GLSL · Beta</span><span>↗</span></div></a>
+      <a class="card" href="#development" style="--band: var(--rose)"><div class="card-band"><span class="chip label">02</span></div><h3>A Digital Prayer</h3><p>A confessional cross that prays in the voices it steals. AI Psychosis Summit 2 · NYC.</p><div class="card-foot label"><span>Installation · Beta</span><span>↗</span></div></a>
+      <a class="card" href="#development" style="--band: var(--foam)"><div class="card-band"><span class="chip label">03</span></div><h3>Silvertune</h3><p>An Industry-Standard, 100% FLOSS Autotune. Only 74KB."</p><div class="card-foot label"><span>CLAP · Live</span><span>↗</span></div></a>
+      <a class="card" href="#development" style="--band: var(--iris)"><div class="card-band"><span class="chip label">04</span></div><h3>Silvertune Web</h3><p>Real-time pitch correction in the browser. No install.</p><div class="card-foot label"><span>Rust + JS · Live</span><span>↗</span></div></a>
+      <a class="card" href="#development" style="--band: var(--love)"><div class="card-band"><span class="chip label">05</span></div><h3>Silvertune Pedal</h3><p>Silvertune in a pedal for live performance autotune with no computer.</p><div class="card-foot label"><span>Embedded · Live</span><span>↗</span></div></a>
+      <a class="card" href="#development" style="--band: var(--pine)"><div class="card-band"><span class="chip label">06</span></div><h3>Lyric Video Blender</h3><p>Blender addon that separates vocals, transcribes lyrics with AI, and generates animated lyric videos.</p><div class="card-foot label"><span>Blender Addon · Stable</span><span>↗</span></div></a>
+      <a class="card" href="#development" style="--band: var(--gold)"><div class="card-band"><span class="chip label">07</span></div><h3>Cultural Extremity Index</h3><p>How extreme are you?</p><div class="card-foot label"><span>JavaScript · Live</span><span>↗</span></div></a>
+      <a class="card" href="#development" style="--band: var(--rose)"><div class="card-band"><span class="chip label">08</span></div><h3>Wickrunner</h3><p>The ONLY competitive stock trading game.</p><div class="card-foot label"><span>TypeScript · Live</span><span>↗</span></div></a>
+      <a class="card" href="#development" style="--band: var(--foam)"><div class="card-band"><span class="chip label">09</span></div><h3>T4 Code</h3><p>Observability and control workspace for Oh My Pi agents — macOS, iOS, and terminal.</p><div class="card-foot label"><span>macOS · iOS</span><span>↗</span></div></a>
+      <a class="card" href="#development" style="--band: var(--iris)"><div class="card-band"><span class="chip label">10</span></div><h3>T4 Code — Linux</h3><p>Native Linux client in Swift + GTK4 — live sessions, subagents, terminal, files, and a browser pane, in Rosé Pine Dawn and Moon.</p><div class="card-foot label"><span>Swift · GTK4</span><span>↗</span></div></a>
+      <a class="card" href="#development" style="--band: var(--love)"><div class="card-band"><span class="chip label">11</span></div><h3>NullTorch</h3><p>A hostile-file benchmark for AI coding models. Six models write a pure-C++ PyTorch .pt reader from scratch.</p><div class="card-foot label"><span>C++17 · Live</span><span>↗</span></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════ LAUNCH SPREAD: POP MAKER STUDIO ═════════════════ -->
+<section id="pop-maker-studio" class="page">
+  <div class="spread">
+    <p class="label">Development</p>
+    <h1 class="spread-title">Pop Maker Studio.</h1>
+    <p class="spread-sub">Local-first video editor with MCP server control. C++ from scratch. Claude and Codex friendly.</p>
+    <p class="spread-links">
+      <a class="alink" href="https://popmakerstudio.com" target="_blank" rel="noopener">popmakerstudio.com</a>
+      <a class="alink" href="https://github.com/verticalrectangle/pop-maker-studio" target="_blank" rel="noopener">GitHub</a>
+    </p>
+    <div class="stage">
+      <input type="radio" name="pms" id="pms-s1" checked aria-label="Lyric animation editor">
+      <input type="radio" name="pms" id="pms-s2" aria-label="Glitch effect">
+      <input type="radio" name="pms" id="pms-s3" aria-label="Clip inspector">
+      <div class="shots">
+        <figure class="shot shot-1"><img src="../../img/pms-screen-2.webp" alt="Pop Maker Studio: lyric animation editor with effects panel" width="1237" height="1180"><div class="reflect" aria-hidden="true"><img src="../../img/pms-screen-2.webp" alt=""></div></figure>
+        <figure class="shot shot-2"><img src="../../img/pms-screen-3.webp" alt="Pop Maker Studio: glitch effect applied to portrait clip" width="1237" height="1180" loading="lazy"><div class="reflect" aria-hidden="true"><img src="../../img/pms-screen-3.webp" alt="" loading="lazy"></div></figure>
+        <figure class="shot shot-3"><img src="../../img/pms-screen-1.webp" alt="Pop Maker Studio: clip inspector with timeline" width="1237" height="1180" loading="lazy"><div class="reflect" aria-hidden="true"><img src="../../img/pms-screen-1.webp" alt="" loading="lazy"></div></figure>
+      </div>
+      <div class="stage-dots"><label for="pms-s1"></label><label for="pms-s2"></label><label for="pms-s3"></label></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <p class="spread-body">A complete video editor written entirely in C++ from scratch — no Electron, no Python runtime, no cloud. Cut and composite footage, animate text and subtitles with GPU-accelerated GLSL shaders, apply effects, and export with pixel-identical preview. All ML inference runs fully on-device via ONNX Runtime: vocal separation with MDX-Net, background removal with u2net, whisper.cpp transcription down to the millisecond. Controllable via MCP server: Claude and Codex can drive the timeline directly. One binary. Zero dependencies.</p>
+
+    <section class="action">
+      <h2 class="section-title">Video</h2>
+      <div class="media-grid">
+        <div class="frame"><video src="../../img/pms-demo.mp4" autoplay muted loop playsinline></video></div>
+        <div class="stack">
+          <div class="frame"><video src="../../img/pms-loop-1.mp4" autoplay muted loop playsinline></video></div>
+          <div class="frame"><video src="../../img/pms-loop-2.mp4" autoplay muted loop playsinline></video></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="action">
+      <h2 class="section-title">Tech Specs</h2>
+      <table class="specs">
+        <tr><th scope="row">Format</th><td>Desktop App · MCP Server</td></tr>
+        <tr><th scope="row">Language</th><td>C++ / GLSL</td></tr>
+        <tr><th scope="row">Platform</th><td>Linux / macOS / Win</td></tr>
+        <tr><th scope="row">Status</th><td>Beta</td></tr>
+        <tr><th scope="row">License</th><td>GPLv3</td></tr>
+      </table>
+    </section>
+    <div class="page-end"><a class="btn" href="#development">← Development</a><a class="btn btn--solid" href="https://popmakerstudio.com" target="_blank" rel="noopener">popmakerstudio.com ↗</a></div>
+  </div>
+</section>
+
+<!-- ═════════════════ RESEARCH ARTICLE ═════════════════ -->
+<section id="voice-range-weights" class="page">
+  <div class="wrap paper">
+    <figure class="paper-margin" aria-hidden="true">
+      <svg class="rect" viewBox="0 0 200 240"><use href="../shared/sprite.svg#rect-mic"/></svg>
+    </figure>
+    <article class="paper-body">
+      <p class="stamp label">Research</p>
+      <h1>You can read a voice model's vocal range straight off its weights</h1>
+      <p class="byline label"><a href="https://github.com/verticalrectangle/pop-maker-studio" target="_blank" rel="noopener">Source · pop-maker-studio ↗</a></p>
+      <div class="prose">
+        <p>When you use an AI voice model to sound like someone else, there's one knob you always end up fighting: pitch. If the model was trained on a deep voice and yours is high, you have to guess. Shift down an octave? Convert, listen, try again. Everyone does it by ear, and it's the single most common "why does this sound bad."</p>
+        <p class="lead">You don't have to guess. The model already knows its own range. It's sitting in the weights, and you can read it out in a microsecond, without playing a note.</p>
+
+        <h2>Why the range is in there</h2>
+        <p>These models (RVC) handle pitch with a small lookup table called a <strong>pitch embedding</strong>: 256 slots, one per pitch step from low to high, each holding a learned vector. A slot only changes during training when the training audio actually hits that pitch. If the voice never sang low, the low slots never get touched.</p>
+        <p>And every voice model is <strong>fine-tuned from the same shared starting point</strong> (a "base" model). So line up a finished voice's pitch table against that base, look at which slots <em>moved</em>, and you've got a map of exactly which pitches the voice was trained on. That map <strong>is</strong> its vocal range.</p>
+
+        <h2>How you read it (it's basically subtraction)</h2>
+        <p>The code is short. At export time (<code>rvc_onnx.cpp:1359-1410</code>):</p>
+        <ol>
+          <li>Subtract the base pitch table from the voice's, slot by slot.</li>
+          <li>For each slot, measure how far it moved (the length of that difference).</li>
+          <li>Smooth it a touch, then keep the slots that moved more than ~30% of the biggest mover.</li>
+        </ol>
+        <p>That's the range: a 256-slot "trained / not trained" map.</p>
+        <p>Auto-key is then just arithmetic (<code>vc_onnx.cpp:316-381</code>). The input's pitch over time is already a list of numbers, and you measure it once anyway as a normal first step. Shifting it an octave is multiplying those numbers; checking "unshifted vs. up vs. down" is counting how many of them fall inside the trained map. You pick the shift with the best count, and ties stay put. <strong>Nothing is converted or played to decide.</strong> The choice happens on the pitch numbers, before any audio is generated.</p>
+        <p>The payoff: you sing in your natural pitch and it lands you in the model's range automatically. A high voice into a model trained on a deep one just works, with no knob.</p>
+
+        <h2>The part that isn't about audio</h2>
+        <p>Nothing here is specific to voices. Any model with an embedding lookup, like the word table in a language model or the class table in a classifier, has the same property: <strong>a row only moves if training touched it.</strong> Diff a fine-tuned model's embedding against its base, and the rows that moved tell you what the fine-tune actually saw. Vocal range is just the case where that map happens to be immediately useful, and where you can turn it into a feature people press a button on.</p>
+
+        <h2>Related work</h2>
+        <p>Other people read things out of weight differences too, for different goals: some train a model to <em>describe</em> how a fine-tune changed its behavior; others reconstruct training examples from gradients. This is the simple, narrow end of that street. It reads one concrete number (a range) straight off the embedding, with subtraction and a threshold, and uses it to fix a real annoyance.</p>
+      </div>
+      <table class="specs paper-specs">
+        <tr><th scope="row">Domain</th><td>RVC Voice Models</td></tr>
+        <tr><th scope="row">Method</th><td>Pitch Embedding Diff</td></tr>
+        <tr><th scope="row">Cost</th><td>Microseconds · No Audio</td></tr>
+        <tr><th scope="row">Application</th><td>Auto-Key Selection</td></tr>
+        <tr><th scope="row">Source</th><td>Pop Maker Studio</td></tr>
+      </table>
+      <div class="page-end"><a class="btn" href="#home">← Home</a></div>
+    </article>
+  </div>
+</section>
+
+<!-- ═════════════════ ARTISTS ═════════════════ -->
+<section id="artists" class="page">
+  <header class="poster poster--love">
+    <div class="wrap poster-inner">
+      <div class="poster-copy">
+        <span class="label">3 artists</span>
+        <h1>Artists.</h1>
+        <p class="sub">Epsilver, Ekioze, Depravity Girlz.</p>
+      </div>
+      <svg class="rect rect--silhouette" viewBox="0 0 200 240" aria-hidden="true"><use href="../shared/sprite.svg#rect-dance"/></svg>
+    </div>
+  </header>
+
+  <div class="coverflow" aria-roledescription="carousel" aria-label="Epsilver releases">
+    <div class="cf-stage" tabindex="0">
+      <figure class="cf-item"><img src="../../img/epsilver-art-llunatic.webp" alt="LLunatic cover art"></figure>
+      <figure class="cf-item"><img src="../../img/epsilver-art-numa-numa.webp" alt="Numa Numa cover art"></figure>
+      <figure class="cf-item"><img src="../../img/epsilver-art-say-to-me.webp" alt="Say To Me cover art"></figure>
+      <figure class="cf-item"><img src="../../img/epsilver-art-sister-golden-hair.webp" alt="Sister Golden Hair cover art"></figure>
+    </div>
+    <div class="cf-caption" aria-live="polite"><strong id="cf-title">Say To Me</strong><span class="label">Epsilver</span></div>
+    <div class="cf-controls">
+      <button class="btn" type="button" data-cf="-1" aria-label="Previous">‹</button>
+      <button class="btn" type="button" data-cf="1" aria-label="Next">›</button>
+    </div>
+  </div>
+
+  <div class="wrap artists">
+    <div class="grid">
+      <a class="card" href="#artists" style="--band: var(--love)"><div class="card-band"><span class="chip label">01</span></div><h3>Epsilver</h3><p>Digital art, music, and writing.</p><div class="card-foot label"><span>Alexis</span><span>↗</span></div></a>
+      <a class="card" href="#artists" style="--band: var(--iris)"><div class="card-band"><span class="chip label">02</span></div><h3>Ekioze</h3><p>Creative writing, concept art, and digital art.</p><div class="card-foot label"><span>Leah</span><span>↗</span></div></a>
+      <a class="card" href="#artists" style="--band: var(--gold)"><div class="card-band"><span class="chip label">03</span></div><h3>Depravity Girlz</h3><p>Cyber art and content making collective.</p><div class="card-foot label"><span>Collective</span><span>↗</span></div></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" id="ir">
+  <div class="footer-inner">
+    <div>
+      <a class="brand" href="#home">
+        <svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><use href="../shared/sprite.svg#logo"/></svg>
+        <span class="wordmark">Vertical Rectangle</span>
+      </a>
+      <p class="label legal">© 2026 Vertical Rectangle</p>
+    </div>
+    <div class="ir">
+      <h2 class="label">Connect</h2>
+      <div class="ir-links">
+        <a class="btn" href="mailto:alexis@verticalrectangle.com">alexis@verticalrectangle.com ↗</a>
+        <a class="btn" href="https://x.com/VertRect" target="_blank" rel="noopener">@VertRect ↗</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Cover Flow: center item flat, neighbours fold back on the Y axis.
+  (function () {
+    var stage = document.querySelector('.cf-stage');
+    var items = Array.prototype.slice.call(stage.children);
+    var title = document.getElementById('cf-title');
+    var current = 2;
+    function render() {
+      items.forEach(function (el, i) {
+        var d = i - current, s = Math.sign(d), a = Math.abs(d);
+        el.style.transform = d === 0
+          ? 'translateX(0) translateZ(120px)'
+          : 'translateX(' + (s * (230 + (a - 1) * 90)) + 'px) rotateY(' + (-s * 68) + 'deg)';
+        el.style.zIndex = 10 - a;
+      });
+      title.textContent = items[current].querySelector('img').alt.replace(/ cover art$/, '');
+    }
+    function go(n) { current = Math.max(0, Math.min(items.length - 1, n)); render(); }
+    items.forEach(function (el, i) { el.addEventListener('click', function () { go(i); }); });
+    document.querySelectorAll('[data-cf]').forEach(function (b) {
+      b.addEventListener('click', function () { go(current + Number(b.dataset.cf)); });
+    });
+    stage.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') go(current - 1);
+      if (e.key === 'ArrowRight') go(current + 1);
+    });
+    render();
+  })();
+
+  var root = document.documentElement;
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Sliding nav indicator: follows hover/focus, settles on the current section.
+  (function () {
+    var nav = document.querySelector('.navlinks');
+    var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+    var SECTION = { 'pop-maker-studio': 'development' };
+    function current() {
+      var id = location.hash.slice(1);
+      var el = id && document.getElementById(id);
+      var key = el && (el.classList.contains('page') || id === 'ir') ? (SECTION[id] || id) : 'home';
+      return links.filter(function (a) { return a.hash === '#' + key; })[0] || links[0];
+    }
+    function moveTo(a) {
+      nav.style.setProperty('--ind-x', a.offsetLeft + 'px');
+      nav.style.setProperty('--ind-w', a.offsetWidth + 'px');
+      links.forEach(function (l) { l.classList.toggle('is-on', l === a); });
+    }
+    links.forEach(function (a) {
+      a.addEventListener('mouseenter', function () { moveTo(a); });
+      a.addEventListener('focus', function () { moveTo(a); });
+    });
+    nav.addEventListener('mouseleave', function () { moveTo(current()); });
+    nav.addEventListener('focusout', function () { moveTo(current()); });
+    addEventListener('hashchange', function () { moveTo(current()); });
+    addEventListener('resize', function () { moveTo(current()); });
+    document.fonts.ready.then(function () { moveTo(current()); });
+    moveTo(current());
+  })();
+
+  // Reading progress under the top bar; --scroll feeds the poster parallax.
+  (function () {
+    var bar = document.querySelector('.progress');
+    var queued = false;
+    function update() {
+      queued = false;
+      var max = document.documentElement.scrollHeight - innerHeight;
+      bar.style.setProperty('--p', (max > 0 ? Math.min(1, scrollY / max) : 1).toFixed(4));
+      root.style.setProperty('--scroll', Math.round(scrollY));
+    }
+    addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(update); } }, { passive: true });
+    addEventListener('hashchange', function () { requestAnimationFrame(update); });
+    update();
+  })();
+
+  // Light source: every hard shadow falls away from the pointer, constant length.
+  (function () {
+    if (still) return;
+    var x = 0, y = 0, queued = false;
+    addEventListener('pointermove', function (e) {
+      x = e.clientX; y = e.clientY;
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () {
+        queued = false;
+        var dx = innerWidth / 2 - x, dy = innerHeight / 2 - y, d = Math.hypot(dx, dy);
+        if (d < 30) return;
+        root.style.setProperty('--sx', (7 * dx / d).toFixed(2));
+        root.style.setProperty('--sy', (7 * dy / d).toFixed(2));
+      });
+    });
+  })();
+
+  // Financial highlights count up the first time they scroll into view.
+  (function () {
+    var nums = document.querySelectorAll('[data-count]');
+    if (still || !('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        var el = e.target, to = Number(el.dataset.count), t0 = performance.now();
+        (function tick(t) {
+          var k = Math.min(1, (t - t0) / 1400), eased = 1 - Math.pow(1 - k, 4);
+          el.textContent = Math.round(to * eased);
+          if (k < 1) requestAnimationFrame(tick);
+        })(t0);
+      });
+    }, { threshold: 0.6 });
+    nums.forEach(function (el) { el.textContent = '0'; io.observe(el); });
+  })();
+</script>
+</body>
+</html>

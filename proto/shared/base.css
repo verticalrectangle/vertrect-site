@@ -1,0 +1,157 @@
+/* Shared foundation for every prototype: fonts, theme tokens, wordmark, logo, Rect, routing. */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../../fonts/InterVariable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../../fonts/JetBrainsMono-400.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../../fonts/JetBrainsMono-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+
+/* ── Light: Rosé Pine Dawn ── */
+:root, :root[data-theme='light'] {
+  --bg: #faf4ed;
+  --surface: #fffaf3;
+  --overlay: #f2e9e1;
+  --ink: #575279;
+  --subtle: #797593;
+  --muted: #9893a5;
+  --love: #b4637a;
+  --gold: #ea9d34;
+  --rose: #d7827e;
+  --pine: #286983;
+  --foam: #56949f;
+  --iris: #907aa9;
+  --hl-med: #dfdad9;
+  --on-accent: #faf4ed;   /* text placed on pine/love/iris blocks */
+  --link: #286983;
+  --shadow: 6px 6px 0 var(--ink);
+  --shadow-sm: 4px 4px 0 var(--ink);
+  --border: 3px solid var(--ink);
+
+  --logo-ring: #faf4ed;
+  --logo-disc: #575279;
+  --logo-rect: #faf4ed;
+  --logo-ink: #575279;
+
+  --r-body: #d7827e;
+  --r-ink: #575279;
+  --r-a1: #ea9d34;
+  --r-a2: #286983;
+  --r-a3: #fffaf3;
+  --r-hi: #fffaf3;
+  --r-suit: #dfdad9;
+
+  color-scheme: light;
+}
+
+/* ── Dark: strict 1-bit. Only #000 and #fff; media is the only color. ── */
+:root[data-theme='dark'] {
+  --bg: #000;
+  --surface: #000;
+  --overlay: #000;
+  --ink: #fff;
+  --subtle: #fff;
+  --muted: #fff;
+  --love: #fff;
+  --gold: #fff;
+  --rose: #fff;
+  --pine: #fff;
+  --foam: #fff;
+  --iris: #fff;
+  --hl-med: #fff;
+  --on-accent: #000;
+  --link: #fff;
+
+  --logo-ring: #fff;
+  --logo-disc: #000;
+  --logo-rect: #fff;
+  --logo-ink: #fff;
+
+  --r-body: #000;
+  --r-ink: #fff;
+  --r-a1: #000;
+  --r-a2: #000;
+  --r-a3: #000;
+  --r-hi: #fff;
+  --r-suit: #000;
+
+  color-scheme: dark;
+}
+
+/* Halftone: the 1-bit stand-in for a color fill. */
+.halftone {
+  background-image: radial-gradient(var(--ink) 1.3px, transparent 1.6px);
+  background-size: 7px 7px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: var(--bg); }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+img, video { display: block; max-width: 100%; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* The wordmark: Inter 900, uppercase, -0.01em. Never varies. */
+.wordmark {
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+svg.logo, svg.rect { display: block; overflow: visible; }
+
+/* Silhouette Rect: every fill is ink except the white cord/iPod. */
+.rect--silhouette {
+  --r-body: var(--sil, #575279);
+  --r-ink: var(--sil, #575279);
+  --r-a1: var(--sil, #575279);
+  --r-a2: var(--sil, #575279);
+  --r-a3: var(--sil, #575279);
+  --r-hi: #fffaf3;
+}
+:root[data-theme='dark'] .rect--silhouette { --sil: #fff; --r-hi: #fff; }
+
+/* Hash routing: one page visible; home when nothing is targeted. */
+.page { display: none; }
+.page:target { display: block; }
+body:not(:has(.page:target)) #home { display: block; }
+
+/* Theme toggle (shared mechanics; each prototype styles the look). */
+[data-theme-toggle] { cursor: pointer; font: inherit; }
+.theme-dark-label { display: none; }
+:root[data-theme='dark'] .theme-dark-label { display: inline; }
+:root[data-theme='dark'] .theme-light-label { display: none; }
+
+/* Theme wipe (driven by theme.js): new snapshot is clipped open over the old one. */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { z-index: 2; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

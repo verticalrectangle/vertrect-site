@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vertical Rectangle · Prototype D</title>
+<script src="../shared/theme.js"></script>
+<link rel="preload" as="font" href="../../fonts/InterVariable.woff2" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../shared/base.css">
+<style>
+  /* ═══ Prototype D · Shelf ═══
+     The brand shape is the interface: every project is a 1:2 vertical rectangle
+     standing on a bookcase. Spines open in place; the open spine morphs into its page.
+     Light: Rosé Pine Dawn. Dark: strict 1-bit. Rect stands in the room and never speaks. */
+
+  :root {
+    --wrap: 1200px;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --b3: 3px solid var(--ink);
+    --b4: 4px solid var(--ink);
+    --bar-h: 72px;
+    --spine-w: 124px;
+    --spine-h: 272px;
+    --spine-open: 400px;
+  }
+
+  .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 28px; }
+  .label { font: 600 12px/1.25 var(--mono); text-transform: uppercase; letter-spacing: .09em; }
+  .page { scroll-margin-top: var(--bar-h); }
+  section[id] { scroll-margin-top: calc(var(--bar-h) + 12px); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px; padding: 13px 18px;
+    border: var(--b3); background: var(--surface); color: var(--ink);
+    font: 800 15px/1 'Inter', sans-serif; letter-spacing: -0.005em; text-decoration: none;
+    box-shadow: 5px 5px 0 var(--ink); transition: transform .1s ease, box-shadow .1s ease;
+  }
+  .btn:hover { transform: translate(2px, 2px); box-shadow: 3px 3px 0 var(--ink); }
+  .btn:active { transform: translate(5px, 5px); box-shadow: 0 0 0 var(--ink); }
+  .btn--ink { background: var(--ink); color: var(--bg); }
+
+  /* ── Top bar ── */
+  .bar { position: sticky; top: 0; z-index: 50; background: var(--bg); border-bottom: var(--b4); }
+  .bar-in { display: flex; align-items: center; gap: 28px; height: var(--bar-h); }
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; margin-right: auto; }
+  .brand svg.logo { width: 36px; height: 36px; }
+  .brand .wordmark { font-size: 18px; line-height: 1; }
+  .nav { display: flex; gap: 26px; list-style: none; }
+  .nav a {
+    position: relative; display: block; padding: 6px 0; color: var(--ink); text-decoration: none;
+    font: 700 15px/1 'Inter', sans-serif; letter-spacing: -0.005em;
+  }
+  .nav a::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 4px; background: var(--ink);
+    transform: scaleX(0); transform-origin: 0 50%; transition: transform .25s cubic-bezier(.2,.8,.2,1);
+  }
+  .nav a:hover::after, .nav a[aria-current="true"]::after { transform: scaleX(1); }
+  .toggle {
+    display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border: var(--b3);
+    background: var(--surface); color: var(--ink); font: 600 12px/1 var(--mono); text-transform: uppercase; letter-spacing: .08em;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .toggle::before { content: ""; width: 12px; height: 12px; border: 2px solid currentColor; border-radius: 50%; background: linear-gradient(90deg, currentColor 50%, transparent 50%); }
+
+  /* ═══ Hero: the wordmark and a vertical screen ═══ */
+  .hero { border-bottom: var(--b4); overflow: hidden; }
+  .hero-in { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 48px; align-items: end; padding-top: 56px; }
+  .hero-copy { padding-bottom: 72px; }
+  .hero-copy svg.logo { width: 72px; height: 72px; margin-bottom: 30px; }
+  .hero h1 { font-size: clamp(50px, 7.6vw, 104px); }
+  .hero-tag { margin-top: 22px; font-size: clamp(20px, 2vw, 26px); font-weight: 400; letter-spacing: -0.015em; color: var(--subtle); }
+  .hero-links { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
+
+  .stagefloor { display: flex; align-items: flex-end; gap: 18px; }
+  .monolith {
+    position: relative; width: 264px; aspect-ratio: 1 / 2; background: #000;
+    border: var(--b4); box-shadow: 12px 12px 0 var(--ink); margin-bottom: 0;
+  }
+  .monolith video { width: 100%; height: 100%; object-fit: cover; }
+  .monolith figcaption { position: absolute; left: -4px; right: -4px; top: calc(100% + 4px); padding: 8px 0; }
+  .hero-rect { width: 170px; height: auto; aspect-ratio: 200 / 240; margin-bottom: -18px; }
+  :root:not([data-theme='dark']) .hero-rect { --r-body: var(--gold); --r-a1: var(--rose); }
+
+  /* ═══ Bookcase ═══ */
+  .sec { padding: 88px 0 24px; }
+  .sec-head { display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; margin-bottom: 30px; }
+  .sec-head h2 { font-size: clamp(36px, 4.6vw, 58px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+  .sec-head p { color: var(--subtle); font-size: 18px; }
+  .sec-head .label { margin-left: auto; color: var(--subtle); }
+
+  .case { border: var(--b4); background: var(--overlay); box-shadow: 10px 10px 0 var(--ink); padding: 22px 22px 0; }
+  .shelf {
+    position: relative; list-style: none; display: flex; align-items: flex-end; gap: 12px;
+    padding: 34px 6px 0; border-bottom: 12px solid var(--ink); margin-bottom: 22px; min-height: calc(var(--spine-h) + 34px); overflow: hidden;
+  }
+  .shelf:last-child { margin-bottom: 0; }
+
+  .spine {
+    --c: var(--gold);
+    position: relative; flex: 0 0 var(--spine-w); height: var(--spine-h);
+    background: var(--c); border: var(--b3); border-bottom-width: 0; overflow: hidden;
+    box-shadow: 5px 0 0 var(--ink);
+    transform-origin: 50% 100%;
+    transition: flex-basis .5s cubic-bezier(.3,.8,.2,1), transform .28s cubic-bezier(.3,.8,.2,1);
+  }
+  :is(.spine, .name-spine, .book).c-gold { --c: var(--gold); } :is(.spine, .name-spine, .book).c-rose { --c: var(--rose); } :is(.spine, .name-spine, .book).c-foam { --c: var(--foam); }
+  :is(.spine, .name-spine, .book).c-iris { --c: var(--iris); } :is(.spine, .name-spine, .book).c-love { --c: var(--love); } :is(.spine, .name-spine, .book).c-pine { --c: var(--pine); }
+  .spine:not(.is-open):hover, .spine:not(.is-open):focus-within { transform: translateY(-14px); }
+  .spine:not(.is-open):hover + .spine:not(.is-open) { transform: rotate(-2.5deg); transform-origin: 0 100%; }
+  .spine:not(.is-open):has(+ .spine:not(.is-open):hover) { transform: rotate(2.5deg); transform-origin: 100% 100%; }
+  .spine.is-open { flex-basis: var(--spine-open); }
+
+  .spine-face {
+    position: absolute; inset: 0; width: 100%; border: 0; background: none; color: var(--ink); cursor: pointer; text-align: left; font: inherit;
+  }
+  .spine-face:focus-visible { outline-offset: -8px; }
+  .spine .no { position: absolute; left: 10px; top: 10px; padding: 4px 6px; background: var(--surface); border: 2px solid var(--ink); font: 600 11px/1 var(--mono); }
+  .spine .plate {
+    position: absolute; left: 50%; top: 46px; bottom: 54px; transform: translateX(-50%);
+    writing-mode: vertical-rl; display: flex; align-items: center; justify-content: center; text-align: center;
+    padding: 10px 7px; background: var(--surface); border: var(--b3); max-width: calc(100% - 26px);
+    font: 900 15px/1.08 'Inter', sans-serif; text-transform: uppercase; letter-spacing: .01em;
+    transition: opacity .2s ease;
+  }
+  .spine .glyph { position: absolute; left: 50%; bottom: 10px; width: 38px; height: 38px; margin-left: -19px; padding: 5px; color: var(--ink); background: var(--surface); border: 2px solid var(--ink); }
+  .spine .glyph svg { display: block; width: 100%; height: 100%; }
+  .spine .x { position: absolute; right: 12px; top: 10px; font: 700 18px/1 'Inter', sans-serif; visibility: hidden; }
+  .spine.is-open .spine-face { bottom: auto; height: 52px; }
+  .spine.is-open .plate, .spine.is-open .glyph { visibility: hidden; }
+  .spine.is-open .x { visibility: visible; }
+
+  .spine-body {
+    position: absolute; left: 0; top: 52px; bottom: 0; width: calc(var(--spine-open) - 6px);
+    background: var(--surface); border-top: var(--b3); padding: 16px 18px; display: flex; flex-direction: column; gap: 9px;
+    visibility: hidden;
+  }
+  .spine.is-open .spine-body { visibility: visible; animation: unfold .45s cubic-bezier(.3,.8,.2,1) .1s both; }
+  @keyframes unfold { from { transform: translateY(100%); } }
+  .spine-body h3 { font-size: 22px; font-weight: 800; letter-spacing: -0.025em; line-height: 1.1; }
+  .spine-body p { font-size: 15px; line-height: 1.45; color: var(--subtle); }
+  .spine-body .meta { margin-top: auto; color: var(--ink); }
+  .spine-body a { align-self: flex-start; font-weight: 800; color: var(--ink); text-decoration: none; border-bottom: 3px solid currentColor; }
+
+  /* Bookcase furniture: Rect as a bookend, a sphere on a stand, horizontal rectangles lying down. */
+  .bookend { flex: 0 0 auto; width: calc(var(--spine-h) * .833); height: var(--spine-h); align-self: flex-end; }
+  .bookend svg { width: 100%; height: 100%; }
+  :root:not([data-theme='dark']) .bookend { --r-body: var(--foam); }
+  .ornament { margin-left: auto; align-self: flex-end; display: flex; align-items: flex-end; gap: 16px; padding-right: 10px; }
+  .shelf:has(.is-open) .ornament { visibility: hidden; }
+  .ornament svg { display: block; overflow: visible; }
+  .orb { fill: var(--gold); stroke: var(--ink); stroke-width: 3; }
+  .orb-stand { fill: var(--ink); }
+  .slab { fill: var(--surface); stroke: var(--ink); stroke-width: 3; }
+  .slab.s2 { fill: var(--rose); } .slab.s3 { fill: var(--pine); }
+  :root[data-theme='dark'] .orb { fill: url(#d-dots); stroke: #fff; }
+  :root[data-theme='dark'] .slab { fill: #000; stroke: #fff; }
+  :root[data-theme='dark'] .slab.s2 { fill: url(#d-hatch); }
+
+  /* Dark: every spine is black; pattern tells them apart. */
+  :root[data-theme='dark'] .case { background: #000; }
+  :root[data-theme='dark'] :is(.spine, .name-spine, .book) { background-color: #000; background-image: var(--pat); background-size: var(--pat-s, auto); }
+  :root[data-theme='dark'] :is(.name-spine .plate, .book span) { background: #000; }
+  :is(.spine, .name-spine, .book).c-gold { --pat: radial-gradient(#fff 1.3px, transparent 1.7px); --pat-s: 7px 7px; }
+  :is(.spine, .name-spine, .book).c-rose { --pat: repeating-linear-gradient(45deg, #fff 0 2px, transparent 2px 8px); }
+  :is(.spine, .name-spine, .book).c-foam { --pat: radial-gradient(#fff 2px, transparent 2.4px); --pat-s: 12px 12px; }
+  :is(.spine, .name-spine, .book).c-iris { --pat: repeating-linear-gradient(0deg, #fff 0 2px, transparent 2px 7px); }
+  :is(.spine, .name-spine, .book).c-love { --pat: repeating-linear-gradient(90deg, #fff 0 2px, transparent 2px 7px); }
+  :is(.spine, .name-spine, .book).c-pine { --pat: conic-gradient(#fff 25%, transparent 0 50%, #fff 0 75%, transparent 0); --pat-s: 6px 6px; }
+
+  /* ═══ Research: papers standing on the desk ═══ */
+  .papers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; align-items: start; }
+  .paper {
+    display: flex; flex-direction: column; gap: 14px; min-height: 440px; padding: 30px 30px 26px;
+    background: var(--surface); border: var(--b3); box-shadow: 8px 8px 0 var(--ink); color: var(--ink); text-decoration: none;
+    transform: rotate(var(--r, 0deg)); transition: transform .3s cubic-bezier(.3,.8,.2,1), box-shadow .3s;
+  }
+  .paper:nth-child(1) { --r: -1.2deg; }
+  .paper:nth-child(2) { --r: 1deg; margin-top: 34px; }
+  a.paper:hover { transform: rotate(0) translate(-3px, -3px); box-shadow: 12px 12px 0 var(--ink); }
+  .paper .label { padding-bottom: 12px; border-bottom: var(--b3); display: flex; justify-content: space-between; }
+  .paper h3 { font-size: clamp(24px, 2.6vw, 32px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; }
+  .paper p { font-size: 17px; line-height: 1.55; color: var(--subtle); }
+  .paper dl { margin-top: auto; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; padding-top: 14px; border-top: var(--b3); }
+  .paper dt { font: 600 11px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--subtle); }
+  .paper dd { font-size: 14px; font-weight: 600; }
+
+  /* ═══ Artists: one shelf per artist; every photo stands on its own name plate ═══ */
+  .artist + .artist { margin-top: 56px; }
+  .artist-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; margin-bottom: 18px; }
+  .artist-head h3 { font-size: clamp(28px, 3vw, 38px); font-weight: 800; letter-spacing: -0.035em; line-height: 1; }
+  .artist-head .label { color: var(--subtle); }
+  .artist-head p { flex-basis: 100%; font-size: 17px; color: var(--subtle); max-width: 62ch; }
+  .artist-head p a { color: var(--link); }
+  .artist-links { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin-top: 6px; }
+  .artist-links a { display: inline-block; padding: 6px 10px; border: 2px solid var(--ink); background: var(--surface); color: var(--ink); text-decoration: none; font: 600 12px/1 var(--mono); text-transform: uppercase; letter-spacing: .06em; }
+  .artist-links a:hover { background: var(--ink); color: var(--bg); }
+
+  .shelf--artist { overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; scrollbar-color: var(--ink) transparent; min-height: 0; padding-top: 22px; }
+  .shelf--artist > li { flex: none; }
+  .name-spine {
+    --c: var(--gold);
+    position: relative; width: 92px; height: var(--spine-h); background: var(--c);
+    border: var(--b3); border-bottom-width: 0; box-shadow: 5px 0 0 var(--ink);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .name-spine .plate {
+    writing-mode: vertical-rl; padding: 10px 7px; background: var(--surface); border: var(--b3); max-height: calc(100% - 32px);
+    font: 900 16px/1.05 'Inter', sans-serif; text-transform: uppercase; letter-spacing: .01em; text-align: center;
+  }
+  .book { --c: var(--rose); width: 70px; height: var(--h, 230px); background: var(--c); border: var(--b3); border-bottom-width: 0; box-shadow: 5px 0 0 var(--ink); display: flex; align-items: center; justify-content: center; }
+  .book span { writing-mode: vertical-rl; padding: 8px 5px; background: var(--surface); border: 2px solid var(--ink); font: 600 11px/1.1 var(--mono); text-transform: uppercase; letter-spacing: .07em; }
+  .book.lean { transform: rotate(-9deg); transform-origin: 100% 100%; margin-left: 16px; }
+
+  .sleeve, .member { display: flex; flex-direction: column; background: var(--surface); border: var(--b3); border-bottom-width: 0; box-shadow: 5px 0 0 var(--ink); transition: transform .25s cubic-bezier(.3,.8,.2,1); }
+  .sleeve:hover, .member:hover { transform: translateY(-10px); }
+  .sleeve { width: 184px; }
+  .sleeve img { width: 100%; aspect-ratio: 1; object-fit: cover; border-bottom: var(--b3); }
+  .sleeve figcaption { padding: 9px 10px; }
+  .member { width: 176px; }
+  .member figcaption { padding: 10px 11px 12px; display: grid; gap: 4px; }
+  .member b { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+  .member .role { font-size: 13px; line-height: 1.35; color: var(--subtle); }
+  .member .ml { display: flex; gap: 10px; margin-top: 4px; }
+  .member .ml a { font: 600 11px/1 var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--ink); }
+
+  .skim { position: relative; aspect-ratio: 3 / 4; border-bottom: var(--b3); overflow: hidden; touch-action: pan-y; cursor: ew-resize; background: #000; }
+  .skim img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; visibility: hidden; }
+  .skim img.on { visibility: visible; }
+  .skim-ticks { position: absolute; left: 8px; right: 8px; bottom: 8px; display: flex; gap: 4px; }
+  .skim-ticks i { flex: 1; height: 5px; background: var(--surface); border: 2px solid var(--ink); }
+  .skim-ticks i.on { background: var(--ink); border-color: var(--surface); }
+  .shelf--artist .bookend { height: 190px; width: 158px; }
+
+  /* Depravity: one closed box set on the shelf; opening it pulls a drawer of members out below. */
+  .artist[id] { scroll-margin-top: calc(var(--bar-h) + 16px); }
+  .shelf--artist { margin-bottom: 0; }
+  .box {
+    --c: var(--iris);
+    position: relative; display: block; width: 380px; height: 214px; padding: 0; cursor: pointer; text-align: left;
+    color: var(--ink); font: inherit; background: var(--c); border: var(--b3); border-bottom-width: 0; box-shadow: 5px 0 0 var(--ink);
+    transition: transform .25s cubic-bezier(.3,.8,.2,1);
+  }
+  .box:hover, .box[aria-expanded="true"] { transform: translateY(-10px); }
+  .box-lid {
+    position: absolute; left: -3px; right: -3px; top: -3px; height: 34px; background: var(--surface); border: var(--b3);
+    transform-origin: 0 100%; transition: transform .45s cubic-bezier(.3,1.4,.5,1);
+  }
+  .box[aria-expanded="true"] .box-lid { transform: translate(6px, -18px) rotate(-7deg); }
+  .box-face { position: absolute; inset: 46px 14px 14px; background: var(--surface); border: var(--b3); padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+  .box-face b { font: 900 34px/1 'Inter', sans-serif; text-transform: uppercase; letter-spacing: -0.02em; }
+  .box-face .label { color: var(--subtle); }
+  .tabs { margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px; }
+  .tabs i { font: 600 11px/1 var(--mono); font-style: normal; text-transform: uppercase; letter-spacing: .06em; padding: 4px 6px; border: 2px solid var(--ink); }
+  :root[data-theme='dark'] .box { background-color: #000; background-image: repeating-linear-gradient(0deg, #fff 0 2px, transparent 2px 7px); }
+  :root[data-theme='dark'] :is(.box-lid, .box-face) { background: #000; }
+  .shelf--artist .bookend.small { height: 170px; width: 142px; }
+
+  .drawer { display: none; }
+  .drawer.is-open { display: block; animation: pull .45s cubic-bezier(.3,.8,.2,1); }
+  @keyframes pull { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0 0); } }
+  .drawer-in { overflow: hidden; }
+  .shelf--drawer { margin-top: 22px; border-top: var(--b3); padding-top: 26px; }
+  .drawer.is-open .member { animation: rise .5s cubic-bezier(.3,.8,.2,1) both; animation-delay: calc(var(--i) * 70ms + 120ms); }
+  @keyframes rise { from { transform: translateY(105%); } }
+
+  /* ═══ Footer ═══ */
+  .footer { margin-top: 110px; border-top: var(--b4); }
+  .footer-in { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end; padding: 64px 28px 54px; }
+  .footer h2 { font-size: clamp(36px, 4.6vw, 58px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin-bottom: 22px; }
+  .mail { display: inline-block; font-size: clamp(22px, 3.2vw, 40px); font-weight: 700; letter-spacing: -0.03em; color: var(--ink); text-decoration: none; border-bottom: 5px solid currentColor; }
+  .footer .socials { margin-top: 20px; display: flex; gap: 14px; }
+  .footer .brand-end { text-align: right; }
+  .footer .brand-end svg.logo { width: 54px; height: 54px; margin-left: auto; margin-bottom: 14px; }
+  .footer .brand-end .wordmark { font-size: 24px; }
+  .footer .brand-end p { margin-top: 10px; color: var(--subtle); }
+
+  /* ═══ Detail: Pop Maker Studio ═══ */
+  .back { display: inline-block; margin: 36px 0 22px; font-weight: 700; color: var(--ink); text-decoration: none; border-bottom: 3px solid currentColor; }
+  .dhead {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 30px; align-items: stretch;
+    background: var(--gold); border: var(--b4); box-shadow: 12px 12px 0 var(--ink); padding: 34px 36px;
+  }
+  .dhead .no { display: inline-block; padding: 5px 8px; background: var(--surface); border: 2px solid var(--ink); font: 600 12px/1 var(--mono); }
+  .dhead h1 { margin-top: 22px; font-size: clamp(44px, 7vw, 92px); font-weight: 900; letter-spacing: -0.045em; line-height: .92; }
+  .dhead p { margin-top: 18px; max-width: 34ch; font-size: clamp(18px, 1.8vw, 22px); line-height: 1.35; }
+  .dhead .hero-links { margin-top: 26px; }
+  .dhead .plate {
+    writing-mode: vertical-rl; display: flex; align-items: center; justify-content: center; padding: 14px 12px;
+    background: var(--surface); border: var(--b3); font: 900 22px/1 'Inter', sans-serif; text-transform: uppercase; letter-spacing: .02em;
+  }
+  :root[data-theme='dark'] .dhead { background-color: #000; background-image: radial-gradient(#fff 1.3px, transparent 1.7px); background-size: 7px 7px; }
+  :root[data-theme='dark'] .dhead > div { background: #000; padding: 18px; margin: -18px; border: 3px solid #fff; }
+
+  .reel { display: grid; grid-template-columns: 236px minmax(0, 1fr); gap: 34px; margin-top: 70px; align-items: start; }
+  .reel .monolith { width: 100%; }
+  .loops { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 18px; }
+  .loops video { width: 100%; aspect-ratio: 1; object-fit: cover; border: var(--b3); background: #000; }
+  .viewer { border: var(--b4); background: var(--surface); box-shadow: 10px 10px 0 var(--ink); }
+  .viewer-img { aspect-ratio: 1237 / 1180; background: #000; border-bottom: var(--b3); overflow: hidden; }
+  .viewer-img img { width: 100%; height: 100%; object-fit: cover; }
+  .viewer-img img.swap { animation: swap .38s cubic-bezier(.3,1.3,.5,1); }
+  @keyframes swap { from { transform: scale(1.06); } }
+  .thumbs { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .thumbs button { display: flex; gap: 10px; align-items: center; padding: 10px 12px; border: 0; border-right: var(--b3); background: var(--surface); color: var(--ink); cursor: pointer; font: 600 12px/1.2 var(--mono); text-transform: uppercase; letter-spacing: .06em; text-align: left; }
+  .thumbs button:last-child { border-right: 0; }
+  .thumbs button img { width: 46px; height: 44px; object-fit: cover; border: 2px solid var(--ink); flex: none; }
+  .thumbs button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+
+  .copy { max-width: 68ch; margin: 80px auto 0; font-size: 20px; line-height: 1.65; }
+  .spec { width: 100%; max-width: 760px; margin: 64px auto 0; border-collapse: collapse; border: var(--b4); background: var(--surface); box-shadow: 10px 10px 0 var(--ink); }
+  .spec th, .spec td { border: var(--b3); padding: 15px 18px; text-align: left; }
+  .spec th { width: 34%; background: var(--ink); color: var(--bg); font: 600 12px/1.2 var(--mono); text-transform: uppercase; letter-spacing: .08em; }
+  .spec td { font-size: 17px; font-weight: 600; }
+  .ends { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; max-width: 760px; margin: 52px auto 0; }
+
+  /* ═══ Detail: mk-mmd (the video, the exported scene beside it) ═══ */
+  .dhead--pine { background: var(--pine); color: var(--surface); }
+  .dhead--pine .no, .dhead--pine .plate { color: var(--ink); }
+  :root[data-theme='dark'] .dhead--pine { color: var(--ink); }
+  .reel--mk { grid-template-columns: 236px minmax(0, 1fr); }
+  .sound { width: 100%; justify-content: center; margin-top: 26px; }
+  .sound[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .caption { margin-top: 14px; text-align: center; color: var(--subtle); }
+  .stage-frame { border: var(--b4); background: var(--surface); box-shadow: 10px 10px 0 var(--ink); }
+  .stage-head { display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px; border-bottom: var(--b3); background: var(--ink); color: var(--bg); }
+  .stage-frame iframe { display: block; width: 100%; height: 640px; border: 0; background: var(--surface); }
+  .spec--credits { margin-top: 40px; }
+  .spec--credits caption { padding: 0 0 10px; text-align: left; }
+  .spec--credits a { color: inherit; }
+  .copy code { font: 600 .88em var(--mono); }
+
+  /* ═══ Detail: research paper ═══ */
+  .article { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 64px; }
+  .ahead { background: var(--surface); border: var(--b3); box-shadow: 10px 10px 0 var(--ink); padding: 34px 36px 30px; }
+  .ahead .label { padding-bottom: 12px; border-bottom: var(--b3); display: flex; justify-content: space-between; gap: 12px; }
+  .ahead h1 { margin-top: 22px; font-size: clamp(32px, 4.6vw, 56px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.04; }
+  .ahead a { display: inline-block; margin-top: 20px; color: var(--link); font-weight: 600; }
+  .prose { max-width: 68ch; margin-top: 52px; font-size: 18.5px; line-height: 1.72; }
+  .prose p, .prose ol { margin-bottom: 1.1em; }
+  .prose ol { padding-left: 1.4em; }
+  .prose li { margin-bottom: .4em; }
+  .prose li::marker { font: 600 .85em var(--mono); }
+  .prose h2 { font-size: 27px; font-weight: 800; letter-spacing: -0.025em; line-height: 1.15; margin: 52px 0 14px; }
+  .prose code { font: 500 .86em var(--mono); background: var(--overlay); border: 2px solid var(--ink); padding: 1px 5px; }
+  .prose strong { font-weight: 700; }
+  .prose .lead { font-size: 23px; line-height: 1.45; font-weight: 500; border-left: 8px solid var(--ink); padding-left: 22px; margin: 30px 0 34px; }
+  .article .spec, .article .ends { margin-left: 0; }
+  .margin { position: sticky; top: calc(var(--bar-h) + 36px); align-self: start; }
+  .margin svg.rect { width: 100%; height: auto; aspect-ratio: 200 / 240; }
+  :root:not([data-theme='dark']) .margin { --r-body: var(--iris); }
+
+  /* ═══ Page transitions (named elements only during navigation) ═══ */
+  html.vt-nav [data-vt="pms"], html.vt-nav #pop-maker-studio .dhead { view-transition-name: pms; }
+  html.vt-nav [data-vt="paper"], html.vt-nav #voice-range-weights .ahead { view-transition-name: paper; }
+  html.vt-nav [data-vt="paper2"], html.vt-nav #local-llm-on-12gb .ahead { view-transition-name: paper2; }
+  html.vt-nav [data-vt="mk"], html.vt-nav #mk-mmd .dhead { view-transition-name: mk; }
+  ::view-transition-group(pms), ::view-transition-group(paper), ::view-transition-group(paper2), ::view-transition-group(mk) { animation-duration: .55s; animation-timing-function: cubic-bezier(.3,.8,.2,1); }
+  ::view-transition-old(mk), ::view-transition-new(mk),
+  ::view-transition-old(pms), ::view-transition-new(pms),
+  ::view-transition-old(paper), ::view-transition-new(paper),
+  ::view-transition-old(paper2), ::view-transition-new(paper2) { height: 100%; object-fit: cover; }
+  html.vt-nav::view-transition-old(root) { animation: vt-out .3s ease both; }
+  html.vt-nav::view-transition-new(root) { animation: vt-in .4s ease .1s both; }
+  @keyframes vt-out { to { opacity: 0; } }
+  @keyframes vt-in { from { opacity: 0; } }
+
+  /* ═══ Mobile ═══ */
+  @media (max-width: 900px) {
+    :root { --bar-h: 64px; --spine-w: 104px; --spine-h: 208px; --spine-open: 292px; }
+    .wrap { padding: 0 16px; }
+    .bar-in { gap: 10px; }
+    .brand .wordmark { display: none; }
+    .brand svg.logo { width: 30px; height: 30px; }
+    .nav { gap: 11px; }
+    .nav a { font-size: 13px; letter-spacing: -0.02em; }
+    .toggle { padding: 8px; font-size: 0; gap: 0; }
+    .hero-in { grid-template-columns: 1fr; gap: 10px; padding-top: 34px; }
+    .hero-copy { padding-bottom: 28px; }
+    .hero-copy svg.logo { width: 54px; height: 54px; margin-bottom: 20px; }
+    .stagefloor { justify-content: center; }
+    .monolith { width: 180px; }
+    .hero-rect { width: 110px; }
+    .sec { padding-top: 64px; }
+    .sec-head .label { margin-left: 0; }
+    .case { padding: 14px 0 0; box-shadow: 6px 6px 0 var(--ink); }
+    .shelf { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 30px 14px 0; }
+    .spine { scroll-snap-align: center; }
+    .ornament { display: none; }
+    .papers { grid-template-columns: 1fr; }
+    .sleeve { width: 150px; }
+    .member { width: 156px; }
+    .box { width: 216px; }
+    .box-face b { font-size: 24px; }
+    .shelf--artist .bookend.small { display: none; }
+    .paper { min-height: 0; }
+    .paper:nth-child(2) { margin-top: 0; }
+    .footer-in { grid-template-columns: 1fr; padding: 48px 16px; }
+    .footer .brand-end { text-align: left; }
+    .footer .brand-end svg.logo { margin-left: 0; }
+    .dhead { grid-template-columns: 1fr; padding: 24px; }
+    .dhead .plate { display: none; }
+    .reel { grid-template-columns: 1fr; }
+    .reel .monolith { width: 200px; margin: 0 auto; }
+    .sound { display: flex; max-width: 200px; margin-inline: auto; }
+    .copy { font-size: 18px; }
+    .article { grid-template-columns: 1fr; }
+    .margin { display: none; }
+    .ahead { padding: 24px; }
+    .thumbs button span { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="d-dots" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.6" fill="#fff"/></pattern>
+    <pattern id="d-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="2" height="8" fill="#fff"/></pattern>
+  </defs>
+  <symbol id="g-audio" viewBox="0 0 30 30"><g fill="none" stroke="currentColor" stroke-width="3"><circle cx="10" cy="22" r="5" fill="currentColor"/><path d="M15 22V5c6 1 9 4 9 9"/></g></symbol>
+  <symbol id="g-video" viewBox="0 0 30 30"><g fill="none" stroke="currentColor" stroke-width="3"><rect x="3" y="10" width="24" height="16"/><path d="M3 10l4-6h20l-4 6M11 4l-4 6M19 4l-4 6"/></g></symbol>
+  <symbol id="g-agent" viewBox="0 0 30 30"><g fill="none" stroke="currentColor" stroke-width="3"><rect x="3" y="4" width="24" height="22"/><path d="M8 11l5 4-5 4M15 20h7"/></g></symbol>
+  <symbol id="g-web" viewBox="0 0 30 30"><g fill="none" stroke="currentColor" stroke-width="3"><circle cx="15" cy="15" r="11"/><path d="M4 15h22M15 4c-6 7-6 15 0 22M15 4c6 7 6 15 0 22"/></g></symbol>
+</svg>
+
+<header class="bar">
+  <div class="wrap bar-in">
+    <a class="brand" href="#home" aria-label="Vertical Rectangle home">
+      <svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><use href="../shared/sprite.svg#logo"/></svg>
+      <span class="wordmark">Vertical Rectangle</span>
+    </a>
+    <ul class="nav">
+      <li><a href="#development">Development</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#artists">Artists</a></li>
+      <li><a href="#connect">Connect</a></li>
+    </ul>
+    <button class="toggle" type="button" data-theme-toggle aria-label="Switch between light and dark theme"><span class="theme-light-label">Light</span><span class="theme-dark-label">Dark</span></button>
+  </div>
+</header>
+
+<main>
+
+<!-- ═════════════════ HOME ═════════════════ -->
+<div id="home" class="page">
+  <section class="hero">
+    <div class="wrap hero-in">
+      <div class="hero-copy">
+        <svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><use href="../shared/sprite.svg#logo"/></svg>
+        <h1 class="wordmark">Vertical<br>Rectangle</h1>
+        <p class="hero-tag">Independent creative technology studio</p>
+        <div class="hero-links">
+          <a class="btn btn--ink" href="#development">Development</a>
+          <a class="btn" href="#research">Research</a>
+        </div>
+      </div>
+      <div class="stagefloor">
+        <figure class="monolith">
+          <video src="../../img/pms-demo.mp4" autoplay muted loop playsinline aria-label="Pop Maker Studio demo"></video>
+        </figure>
+        <svg class="rect hero-rect" viewBox="0 0 200 240" aria-hidden="true"><use href="../shared/sprite.svg#rect-casual"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="development" class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Development</h2>
+        <p>Music tools, AI installations, and web apps.</p>
+        <span class="label">12 projects</span>
+      </div>
+      <div class="case">
+        <ul class="shelf">
+          <li class="spine c-gold" data-vt="pms">
+            <button class="spine-face" type="button" aria-expanded="false" aria-controls="sb-01"><span class="no">01</span><span class="plate">Pop Maker Studio</span><span class="glyph"><svg><use href="#g-video"/></svg></span><span class="x" aria-hidden="true">×</span></button>
+            <div class="spine-body" id="sb-01"><h3>Pop Maker Studio</h3><p>Local-first video editor with MCP server control. Claude and Codex friendly. C++ from scratch.</p><p class="meta label">C++ / GLSL · Beta</p><a href="#pop-maker-studio" data-vt-link="pms">Pop Maker Studio →</a></div>
+          </li>
+          <li class="spine c-rose">
+            <button class="spine-face" type="button" aria-expanded="false" aria-controls="sb-02"><span class="no">02</span><span class="plate">A Digital Prayer</span><span class="glyph"><svg><use href="#g-web"/></svg></span><span class="x" aria-hidden="true">×</span></button>
+            <div class="spine-body" id="sb-02"><h3>A Digital Prayer</h3><p>A confessional cross that prays in the voices it steals. AI Psychosis Summit 2 · NYC.</p><p class="meta label">Installation · Beta</p></div>
+          </li>
+          <li class="spine c-foam">
+            <button class="spine-face" type="button" aria-expanded="false" aria-controls="sb-03"><span class="no">03</span><span class="plate">Silvertune</span><span class="glyph"><svg><use href="#g-audio"/></svg></span><span class="x" aria-hidden="true">×</span></button>
+            <div class="spine-body" id="sb-03"><h3>Silvertune</h3><p>An Industry-Standard, 100% FLOSS Autotune. Only 74KB."</p><p class="meta label">CLAP · C++17 · Live</p></div>
+          </li>
+          <li class="spine c-iris">
+            <button class="spine-face" type="button" aria-expanded="false" aria-controls="sb-04"><span class="no">04</span><span class="plate">Silvertune Web</span><span class="glyph"><svg><use href="#g-audio"/></svg></span><span class="x" aria-hidden="true">×</span></button>
+            <div class="spine-body" id="sb-04"><h3>Silvertune Web</h3><p>Real-time pitch correction in the browser. No install.</p><p class="meta label">Rust + JS · Live</p></div>
+          </li>
+          <li class="spine c-love">
+            <button class="spine-face" type="button" aria-expanded="false" aria-controls="sb-05"><span class="no">05</span><span class="plate">Silvertune Pedal</span><span class="glyph"><svg><use href="#g-audio"/></svg></span><span class="x" aria-hidden="true">×</span></button>
+            <div class="spine-body" id="sb-05"><h3>Silvertune Pedal</h3><p>Silvertune in a pedal for live performance autotune with no computer.</p><p class="meta label">Embedded · C++ · Live</p></div>
+          </li>
+          <li class="spine c-pine">
+            <button class="spine-face" type="button" aria-expanded="false" aria-controls="sb-06"><span class="no">06</span><span class="plate">Lyric Video Blender</span><span class="glyph"><svg><use href="#g-video"/></svg></span><span class="x" aria-hidden="true">×</span></button>
+            <div class="spine-body" id="sb-06"><h3>Lyric Video Blender</h3><p>Blender addon that separates vocals, transcribes lyrics with AI, and generates animated lyric videos.</p><p class="meta label">Blender Addon · Stable</p></div>
+          </li>
+          <li class="ornament" aria-hidden="true">
+            <svg width="92" height="132" viewBox="0 0 92 132"><circle class="orb" cx="46" cy="44" r="40"/><rect class="orb-stand" x="38" y="84" width="16" height="30"/><rect class="orb-stand" x="18" y="112" width="56" height="12"/></svg>
+          </li>
+        </ul>
+        <ul class="shelf">
+          <li class="spine c-gold">
+            <button class="spine-face" type="button" aria-expanded="false" aria-controls="sb-07"><span class="no">07</span><span class="plate">Cultural Extremity Index</span><span class="glyph"><svg><use href="#g-web"/></svg></span><span class="x" aria-hidden="true">×</span></button>
+            <div class="spine-body" id="sb-07"><h3>Cultural Extremity Index</h3><p>How extreme are you?</p><p class="meta label">JavaScript · Live</p></div>
+          </li>
+          <li class="spine c-rose">
+            <button class="spine-face" type="button" aria-expanded="false" aria-controls="sb-08"><span class="no">08</span><span class="plate">Wickrunner</span><span class="glyph"><svg><use href="#g-web"/></svg></span><span class="x" aria-hidden="true">×</span></button>
+            <div class="spine-body" id="sb-08"><h3>Wickrunner</h3><p>The ONLY competitive stock trading game.</p><p class="meta label">TypeScript · Live</p></div>
+          </li>
+          <li class="spine c-foam">
+            <button class="spine-face" type="button" aria-expanded="false" aria-controls="sb-09"><span class="no">09</span><span class="plate">T4 Code</span><span class="glyph"><svg><use href="#g-agent"/></svg></span><span class="x" aria-hidden="true">×</span></button>
+            <div class="spine-body" id="sb-09"><h3>T4 Code</h3><p>Observability and control workspace for Oh My Pi agents — macOS, iOS, and terminal.</p><p class="meta label">macOS · iOS</p></div>
+          </li>
+          <li class="spine c-iris">
+            <button class="spine-face" type="button" aria-expanded="false" aria-controls="sb-10"><span class="no">10</span><span class="plate">T4 Code — Linux</span><span class="glyph"><svg><use href="#g-agent"/></svg></span><span class="x" aria-hidden="true">×</span></button>
+            <div class="spine-body" id="sb-10"><h3>T4 Code — Linux</h3><p>Native Linux client in Swift + GTK4 — live sessions, subagents, terminal, files, and a browser pane, in Rosé Pine Dawn and Moon.</p><p class="meta label">Swift · GTK4</p></div>
+          </li>
+          <li class="spine c-love">
+            <button class="spine-face" type="button" aria-expanded="false" aria-controls="sb-11"><span class="no">11</span><span class="plate">NullTorch</span><span class="glyph"><svg><use href="#g-agent"/></svg></span><span class="x" aria-hidden="true">×</span></button>
+            <div class="spine-body" id="sb-11"><h3>NullTorch</h3><p>A hostile-file benchmark for AI coding models. Six models write a pure-C++ PyTorch .pt reader from scratch.</p><p class="meta label">C++17 · Live</p></div>
+          </li>
+          <li class="spine c-pine" data-vt="mk">
+            <button class="spine-face" type="button" aria-expanded="false" aria-controls="sb-12"><span class="no">12</span><span class="plate">mk-mmd</span><span class="glyph"><svg><use href="#g-video"/></svg></span><span class="x" aria-hidden="true">×</span></button>
+            <div class="spine-body" id="sb-12"><h3>mk-mmd</h3><p>Music videos with MMD models in Blender, built from one project file. Made for AI agents first.</p><p class="meta label">Python · Blender · CLI</p><a href="#mk-mmd" data-vt-link="mk">mk-mmd →</a></div>
+          </li>
+          <li class="bookend" aria-hidden="true"><svg class="rect" viewBox="0 0 200 240"><use href="../shared/sprite.svg#rect-casual"/></svg></li>
+          <li class="ornament" aria-hidden="true">
+            <svg width="150" height="78" viewBox="0 0 150 78"><rect class="slab s3" x="14" y="2" width="118" height="22"/><rect class="slab s2" x="4" y="28" width="134" height="22"/><rect class="slab" x="10" y="54" width="126" height="22"/></svg>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="research" class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Research</h2>
+        <span class="label">2 papers</span>
+      </div>
+      <div class="papers">
+        <a class="paper" href="#voice-range-weights" data-vt="paper" data-vt-link="paper">
+          <span class="label"><span>Research</span><span>01</span></span>
+          <h3>You can read a voice model's vocal range straight off its weights</h3>
+          <p>A voice model's vocal range is sitting in its pitch embedding. Diff it against the base and read it out in a microsecond — no audio.</p>
+          <dl><dt>Domain</dt><dd>RVC Voice Models</dd><dt>Method</dt><dd>Pitch Embedding Diff</dd><dt>Source</dt><dd>Pop Maker Studio</dd></dl>
+        </a>
+        <a class="paper" href="#local-llm-on-12gb" data-vt="paper2" data-vt-link="paper2">
+          <span class="label"><span>Research</span><span>02</span></span>
+          <h3>Training and Serving LLMs Inside 12 GB of VRAM</h3>
+          <p>A from-scratch 256k-context trainer at 41k tok/s and 1M-context steps, plus what it actually takes to serve a 35B uncensored MoE on a mid-range card.</p>
+          <dl><dt>Hardware</dt><dd>RX 7700 XT · 12.87 GB</dd><dt>Training</dt><dd>256k ctx · 41.8k tok/s · 1M step OK</dd><dt>Serving</dt><dd>35B MoE @ 262k ctx</dd></dl>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="artists" class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Artists</h2>
+        <span class="label">3 artists</span>
+      </div>
+      <div class="artist">
+        <div class="artist-head">
+          <h3>Epsilver</h3><span class="label">Alexis</span>
+          <p>Digital art, music, and writing made under the name epsilver. Glitch, collage, and motion. Also publishes a blog.</p>
+          <ul class="artist-links">
+            <li><a href="https://epsilver.xyz" target="_blank" rel="noopener">Site ↗</a></li>
+            <li><a href="https://open.spotify.com/artist/732Bt8NRkphmqJ8o5NLfJY" target="_blank" rel="noopener">Spotify ↗</a></li>
+            <li><a href="https://www.youtube.com/@epsilverart" target="_blank" rel="noopener">YouTube ↗</a></li>
+            <li><a href="https://soundcloud.com/explodingplasticsilver" target="_blank" rel="noopener">SoundCloud ↗</a></li>
+            <li><a href="https://www.tiktok.com/@epsilver" target="_blank" rel="noopener">TikTok ↗</a></li>
+            <li><a href="https://substack.com/@epsilver" target="_blank" rel="noopener">Substack ↗</a></li>
+            <li><a href="https://x.com/epsilver_" target="_blank" rel="noopener">X ↗</a></li>
+            <li><a href="https://xhslink.com/m/GTGOY3fsh3" target="_blank" rel="noopener">小红书 ↗</a></li>
+          </ul>
+        </div>
+        <div class="case">
+          <ul class="shelf shelf--artist" aria-label="Epsilver artwork">
+            <li class="name-spine c-love" aria-hidden="true"><span class="plate">Epsilver</span></li>
+            <li><figure class="sleeve"><img src="../../img/epsilver-art-llunatic.webp" alt="Epsilver artwork: Llunatic" loading="lazy"><figcaption class="label">Llunatic</figcaption></figure></li>
+            <li><figure class="sleeve"><img src="../../img/epsilver-art-numa-numa.webp" alt="Epsilver artwork: Numa Numa" loading="lazy"><figcaption class="label">Numa Numa</figcaption></figure></li>
+            <li><figure class="sleeve"><img src="../../img/epsilver-art-say-to-me.webp" alt="Epsilver artwork: Say to Me" loading="lazy"><figcaption class="label">Say to Me</figcaption></figure></li>
+            <li><figure class="sleeve"><img src="../../img/epsilver-art-sister-golden-hair.webp" alt="Epsilver artwork: Sister Golden Hair" loading="lazy"><figcaption class="label">Sister Golden Hair</figcaption></figure></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="artist" id="depravity">
+        <div class="artist-head">
+          <h3>Depravity</h3><span class="label">Collective · 4 members</span>
+          <p>Invest in the future. Invest in depravity. A collective of cyber artists and content creators. We do tiktok. We do X. Eleleth even does <a href="https://eleleth.neocities.org" target="_blank" rel="noopener">Neocities</a>.</p>
+        </div>
+        <div class="case">
+          <ul class="shelf shelf--artist" aria-label="Depravity">
+            <li class="name-spine c-iris" aria-hidden="true"><span class="plate">Depravity</span></li>
+            <li>
+              <button class="box" type="button" aria-expanded="false" aria-controls="depravity-members">
+                <span class="box-lid" aria-hidden="true"></span>
+                <span class="box-face"><span class="label">Box set · 4 members</span><b>Depravity</b><span class="tabs"><i>Elise</i><i>Nick</i><i>Eleleth</i><i>Alexis</i></span></span>
+              </button>
+            </li>
+            <li class="bookend small" aria-hidden="true"><svg class="rect" viewBox="0 0 200 240"><use href="../shared/sprite.svg#rect-dance"/></svg></li>
+          </ul>
+          <div class="drawer" id="depravity-members" inert>
+            <div class="drawer-in">
+              <ul class="shelf shelf--artist shelf--drawer" aria-label="Depravity members">
+                <li><figure class="member" style="--i: 0">
+                  <div class="skim" data-skim>
+                    <img src="../../img/C8B9C76C-0F2D-4D3C-96E1-57B2CC1F1929.jpg" alt="Elise, photo 1" loading="lazy">
+                    <img src="../../img/37596606-D369-4ECC-8970-A6D105C12754.jpg" alt="Elise, photo 2" loading="lazy">
+                    <img src="../../img/5F5EAFDE-F09E-4C02-87EC-194BC4E920D8.jpg" alt="Elise, photo 3" loading="lazy">
+                  </div>
+                  <figcaption><b>Elise</b><span class="role">queen of the internet (currently in exile)</span><span class="ml"><a href="https://www.tiktok.com/@hotscenekid" target="_blank" rel="noopener">TikTok ↗</a><a href="https://x.com/hotscenekid4eva" target="_blank" rel="noopener">X ↗</a></span></figcaption>
+                </figure></li>
+                <li><figure class="member" style="--i: 1">
+                  <div class="skim" data-skim>
+                    <img src="../../img/nick-death-grips.jpeg" alt="Nick, photo 1" loading="lazy">
+                    <img src="../../img/777F4C24-98B9-4A72-8CD0-0CE1DB9229F2.jpg" alt="Nick, photo 2" loading="lazy">
+                  </div>
+                  <figcaption><b>Nick</b><span class="role">a really funny guy so that's why we let him be the only male member.</span><span class="ml"><a href="https://www.tiktok.com/@sensitivewhiteboy" target="_blank" rel="noopener">TikTok ↗</a><a href="https://x.com/appleorangenow" target="_blank" rel="noopener">X ↗</a></span></figcaption>
+                </figure></li>
+                <li><figure class="member" style="--i: 2">
+                  <div class="skim" data-skim>
+                    <img src="../../img/e-3.jpg" alt="Eleleth, photo 1" loading="lazy">
+                    <img src="../../img/e-2.jpg" alt="Eleleth, photo 2" loading="lazy">
+                    <img src="../../img/e-1.jpg" alt="Eleleth, photo 3" loading="lazy">
+                  </div>
+                  <figcaption><b>Eleleth</b><span class="role">posthuman cybergnostic radfem word salad enthusiast</span><span class="ml"><a href="https://eleleth.neocities.org" target="_blank" rel="noopener">Neocities ↗</a><a href="https://x.com/bythostic" target="_blank" rel="noopener">X ↗</a></span></figcaption>
+                </figure></li>
+                <li><figure class="member" style="--i: 3">
+                  <div class="skim" data-skim>
+                    <img src="../../img/GuUePw9WMAAezY6.jpg" alt="Alexis, photo 1" loading="lazy">
+                    <img src="../../img/GxI7PBYWAAARb18.jpg" alt="Alexis, photo 2" loading="lazy">
+                    <img src="../../img/HFqRlp6XsAAKVor.jpg" alt="Alexis, photo 3" loading="lazy">
+                  </div>
+                  <figcaption><b>Alexis</b><span class="role">Clout sourcer and freelance psyop</span><span class="ml"><a href="https://www.tiktok.com/@epsilver" target="_blank" rel="noopener">TikTok ↗</a><a href="https://x.com/epsilver_" target="_blank" rel="noopener">X ↗</a></span></figcaption>
+                </figure></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="artist">
+        <div class="artist-head">
+          <h3>Ekioze</h3><span class="label">Leah</span>
+          <p>Creative writing, character concept art, and digital art.</p>
+        </div>
+        <div class="case">
+          <ul class="shelf shelf--artist" aria-label="Ekioze">
+            <li class="name-spine c-foam" aria-hidden="true"><span class="plate">Ekioze</span></li>
+            <li class="book c-gold" style="--h: 244px"><span>Creative writing</span></li>
+            <li class="book c-pine" style="--h: 220px"><span>Character concept art</span></li>
+            <li class="book c-rose lean" style="--h: 232px"><span>Digital art</span></li>
+            <li class="bookend" aria-hidden="true"><svg class="rect" viewBox="0 0 200 240"><use href="../shared/sprite.svg#rect-casual"/></svg></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═════════════════ POP MAKER STUDIO ═════════════════ -->
+<section id="pop-maker-studio" class="page">
+  <div class="wrap">
+    <a class="back" href="#development" data-vt-link="pms">← Development</a>
+    <header class="dhead">
+      <div>
+        <span class="no">01 · Development</span>
+        <h1>Pop Maker Studio</h1>
+        <p>Local-first video editor with MCP server control. C++ from scratch. Claude and Codex friendly.</p>
+        <div class="hero-links">
+          <a class="btn btn--ink" href="https://popmakerstudio.com" target="_blank" rel="noopener">popmakerstudio.com ↗</a>
+          <a class="btn" href="https://github.com/verticalrectangle/pop-maker-studio" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+      <span class="plate" aria-hidden="true">Pop Maker Studio</span>
+    </header>
+
+    <div class="reel">
+      <div>
+        <figure class="monolith"><video src="../../img/pms-demo.mp4" autoplay muted loop playsinline aria-label="Pop Maker Studio demo"></video></figure>
+        <div class="loops">
+          <video src="../../img/pms-loop-1.mp4" autoplay muted loop playsinline aria-label="Pop Maker Studio loop 1"></video>
+          <video src="../../img/pms-loop-2.mp4" autoplay muted loop playsinline aria-label="Pop Maker Studio loop 2"></video>
+        </div>
+      </div>
+      <div class="viewer">
+        <div class="viewer-img"><img id="shot" src="../../img/pms-screen-2.webp" alt="Pop Maker Studio: lyric animation editor with effects panel" width="1237" height="1180"></div>
+        <div class="thumbs" role="group" aria-label="Screenshots">
+          <button type="button" aria-pressed="true" data-src="../../img/pms-screen-2.webp" data-alt="Pop Maker Studio: lyric animation editor with effects panel"><img src="../../img/pms-screen-2.webp" alt=""><span>Lyric editor</span></button>
+          <button type="button" aria-pressed="false" data-src="../../img/pms-screen-3.webp" data-alt="Pop Maker Studio: glitch effect applied to portrait clip"><img src="../../img/pms-screen-3.webp" alt="" loading="lazy"><span>Glitch</span></button>
+          <button type="button" aria-pressed="false" data-src="../../img/pms-screen-1.webp" data-alt="Pop Maker Studio: clip inspector with timeline"><img src="../../img/pms-screen-1.webp" alt="" loading="lazy"><span>Inspector</span></button>
+        </div>
+      </div>
+    </div>
+
+    <p class="copy">A complete video editor written entirely in C++ from scratch — no Electron, no Python runtime, no cloud. Cut and composite footage, animate text and subtitles with GPU-accelerated GLSL shaders, apply effects, and export with pixel-identical preview. All ML inference runs fully on-device via ONNX Runtime: vocal separation with MDX-Net, background removal with u2net, whisper.cpp transcription down to the millisecond. Controllable via MCP server: Claude and Codex can drive the timeline directly. One binary. Zero dependencies.</p>
+
+    <table class="spec">
+      <tr><th scope="row">Format</th><td>Desktop App · MCP Server</td></tr>
+      <tr><th scope="row">Language</th><td>C++ / GLSL</td></tr>
+      <tr><th scope="row">Platform</th><td>Linux / macOS / Win</td></tr>
+      <tr><th scope="row">Status</th><td>Beta</td></tr>
+      <tr><th scope="row">License</th><td>GPLv3</td></tr>
+    </table>
+    <div class="ends"><a class="btn" href="#development" data-vt-link="pms">← Development</a><a class="btn" href="#research">Research →</a></div>
+  </div>
+</section>
+
+<!-- ═════════════════ MK-MMD ═════════════════ -->
+<section id="mk-mmd" class="page">
+  <div class="wrap">
+    <a class="back" href="#development" data-vt-link="mk">← Development</a>
+    <header class="dhead dhead--pine">
+      <div>
+        <span class="no">12 · Development</span>
+        <h1>mk-mmd</h1>
+        <p>Agent-friendly MMD rigging and set design for Blender: a CLI that poses, simulates, frames, renders and checks.</p>
+        <div class="hero-links">
+          <a class="btn btn--ink" href="https://github.com/verticalrectangle/mk-mmd" target="_blank" rel="noopener">GitHub ↗</a>
+          <a class="btn" href="https://omp.sh" target="_blank" rel="noopener">omp ↗</a>
+          <a class="btn" href="https://stencil.so/tern" target="_blank" rel="noopener">Tern ↗</a>
+        </div>
+      </div>
+      <span class="plate" aria-hidden="true">mk-mmd</span>
+    </header>
+
+    <div class="reel reel--mk">
+      <div>
+        <figure class="monolith"><video id="mk-hero" src="../../mk-mmd/scene/data/9x16.mp4" autoplay muted loop playsinline aria-label="Hello Brooklyn, made with mk-mmd"></video></figure>
+        <button class="btn sound" id="mk-sound" type="button" aria-pressed="false">Sound off</button>
+        <p class="label caption">Hello Brooklyn · 11.5 s</p>
+      </div>
+      <div class="stage-frame">
+        <div class="stage-head"><span class="label">The scene</span><span class="label">Hello Brooklyn</span></div>
+        <iframe id="mk-scene" title="Hello Brooklyn: the baked scene and its music timeline" data-src="../../mk-mmd/scene/index.html" allow="autoplay"></iframe>
+      </div>
+    </div>
+
+    <p class="copy"><code>mk</code> is a command-line toolkit for making music videos with MMD models in Blender. A project is one <code>mk.toml</code>: <code>mk</code> builds the scene from it (sets, props, vehicles, characters, poses, grips, performance, secondary motion, lights, shots, cut effects, type in the world and over the picture), measures it with checks, renders every output and grades the result into MP4s with the song. It also analyses songs (beats, bars, sung words), measures how real people move in reference clips, and builds original MMD characters in code. It is built for AI agents first (JSON out, checks that fail loudly, fast reruns) and works fine for people too.</p>
+
+    <table class="spec">
+      <tr><th scope="row">Format</th><td>CLI · JSON out</td></tr>
+      <tr><th scope="row">Language</th><td>Python · Blender 4.2 + mmd_tools</td></tr>
+      <tr><th scope="row">Platform</th><td>Linux</td></tr>
+      <tr><th scope="row">Works with</th><td>omp · Tern</td></tr>
+      <tr><th scope="row">Status</th><td>In development</td></tr>
+    </table>
+
+    <table class="spec spec--credits">
+      <caption class="label">Hello Brooklyn · credits</caption>
+      <tr><th scope="row">Models</th><td>Sour式鏡音リン and Sour式鏡音レン Ver.2.01 by Sour暄 · <a href="../../mk-mmd/scene/licences/sour_rin/ReadMe.txt">ReadMe</a></td></tr>
+      <tr><th scope="row">Music</th><td>Beastie Boys, “B-Boy Bouillabaisse: Hello Brooklyn”, Paul's Boutique (1989), 11.5 s</td></tr>
+      <tr><th scope="row">Type</th><td>Noto Sans CJK JP Black · SIL Open Font License 1.1</td></tr>
+    </table>
+    <div class="ends"><a class="btn" href="#development" data-vt-link="mk">← Development</a><a class="btn" href="#research">Research →</a></div>
+  </div>
+</section>
+
+<!-- ═════════════════ RESEARCH PAPER ═════════════════ -->
+<section id="voice-range-weights" class="page">
+  <div class="wrap">
+    <a class="back" href="#research" data-vt-link="paper">← Research</a>
+    <div class="article">
+      <article>
+        <header class="ahead">
+          <span class="label"><span>Research</span><span>01</span></span>
+          <h1>You can read a voice model's vocal range straight off its weights</h1>
+          <a href="https://github.com/verticalrectangle/pop-maker-studio" target="_blank" rel="noopener">Source · pop-maker-studio ↗</a>
+        </header>
+        <div class="prose">
+          <p>When you use an AI voice model to sound like someone else, there's one knob you always end up fighting: pitch. If the model was trained on a deep voice and yours is high, you have to guess. Shift down an octave? Convert, listen, try again. Everyone does it by ear, and it's the single most common "why does this sound bad."</p>
+          <p class="lead">You don't have to guess. The model already knows its own range. It's sitting in the weights, and you can read it out in a microsecond, without playing a note.</p>
+
+          <h2>Why the range is in there</h2>
+          <p>These models (RVC) handle pitch with a small lookup table called a <strong>pitch embedding</strong>: 256 slots, one per pitch step from low to high, each holding a learned vector. A slot only changes during training when the training audio actually hits that pitch. If the voice never sang low, the low slots never get touched.</p>
+          <p>And every voice model is <strong>fine-tuned from the same shared starting point</strong> (a "base" model). So line up a finished voice's pitch table against that base, look at which slots <em>moved</em>, and you've got a map of exactly which pitches the voice was trained on. That map <strong>is</strong> its vocal range.</p>
+
+          <h2>How you read it (it's basically subtraction)</h2>
+          <p>The code is short. At export time (<code>rvc_onnx.cpp:1359-1410</code>):</p>
+          <ol>
+            <li>Subtract the base pitch table from the voice's, slot by slot.</li>
+            <li>For each slot, measure how far it moved (the length of that difference).</li>
+            <li>Smooth it a touch, then keep the slots that moved more than ~30% of the biggest mover.</li>
+          </ol>
+          <p>That's the range: a 256-slot "trained / not trained" map.</p>
+          <p>Auto-key is then just arithmetic (<code>vc_onnx.cpp:316-381</code>). The input's pitch over time is already a list of numbers, and you measure it once anyway as a normal first step. Shifting it an octave is multiplying those numbers; checking "unshifted vs. up vs. down" is counting how many of them fall inside the trained map. You pick the shift with the best count, and ties stay put. <strong>Nothing is converted or played to decide.</strong> The choice happens on the pitch numbers, before any audio is generated.</p>
+          <p>The payoff: you sing in your natural pitch and it lands you in the model's range automatically. A high voice into a model trained on a deep one just works, with no knob.</p>
+
+          <h2>The part that isn't about audio</h2>
+          <p>Nothing here is specific to voices. Any model with an embedding lookup, like the word table in a language model or the class table in a classifier, has the same property: <strong>a row only moves if training touched it.</strong> Diff a fine-tuned model's embedding against its base, and the rows that moved tell you what the fine-tune actually saw. Vocal range is just the case where that map happens to be immediately useful, and where you can turn it into a feature people press a button on.</p>
+
+          <h2>Related work</h2>
+          <p>Other people read things out of weight differences too, for different goals: some train a model to <em>describe</em> how a fine-tune changed its behavior; others reconstruct training examples from gradients. This is the simple, narrow end of that street. It reads one concrete number (a range) straight off the embedding, with subtraction and a threshold, and uses it to fix a real annoyance.</p>
+        </div>
+        <table class="spec">
+          <tr><th scope="row">Domain</th><td>RVC Voice Models</td></tr>
+          <tr><th scope="row">Method</th><td>Pitch Embedding Diff</td></tr>
+          <tr><th scope="row">Cost</th><td>Microseconds · No Audio</td></tr>
+          <tr><th scope="row">Application</th><td>Auto-Key Selection</td></tr>
+          <tr><th scope="row">Source</th><td>Pop Maker Studio</td></tr>
+        </table>
+        <div class="ends"><a class="btn" href="#research" data-vt-link="paper">← Research</a><a class="btn" href="#pop-maker-studio">Pop Maker Studio →</a></div>
+      </article>
+      <aside class="margin" aria-hidden="true">
+        <svg class="rect" viewBox="0 0 200 240"><use href="../shared/sprite.svg#rect-mic"/></svg>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════════ RESEARCH PAPER 02 ═════════════════ -->
+<section id="local-llm-on-12gb" class="page">
+  <div class="wrap">
+    <a class="back" href="#research" data-vt-link="paper2">← Research</a>
+    <div class="article">
+      <article>
+        <header class="ahead">
+          <span class="label"><span>Research</span><span>02</span></span>
+          <h1>Training and serving real LLMs inside 12 GB of VRAM</h1>
+        </header>
+        <div class="prose">
+          <p>One RX 7700 XT (12.87 GB VRAM), 32 GB of DDR4, and a wall-clock obsession. Everything below was measured on that machine — training runs, serving tiers, and the crashes in between — with two questions: how far can you train your own model, and what is the biggest uncensored model you can actually live with?</p>
+          <p class="lead">256k-context training from scratch at 41k tok/s, a 1M-token training step that fits, and a 35B-parameter MoE serving uncensored — all inside a card that costs less than a game.</p>
+          <h2>Training from scratch: the 256k trainer</h2>
+          <p>The trainer is fully from-scratch PyTorch on ROCm (torch 2.9, HSA override 11.0.0). At 84.5M parameters it sustains <strong>41,830 tok/s at 32k context with a 6.9 GB peak</strong>, and the full <strong>256k window trains at 41 s/step</strong>. The machinery that unlocks long context on a small card: query-chunked flex attention with per-chunk backward (no full-block graph), a shared global mask cache, FP8 e4m3 CPU-offloaded boundary tensors, a kv pre-pass with a single detached backward, norm offload, CPU-parked chunk assembly, Muon per-head plus AdamW, QK-norm, and chunked cross-entropy. The 1M-token training step works too — 183 s/step at 5.7k tok/s with a 9.8 GB peak — via boundary quantize-offload and careful host/device placement.</p>
+          <h2>The shape law nobody told us</h2>
+          <p>At this scale, wide and shallow beats deep — and the quality guard (40-step validation on real traces) caught it before any speed claim could hide it. At 84.5M, 4 layers × d768 × d_ff3072 beat both 3L and 6L at the 100-step horizon (val 2.628). At 306M, 6 layers × d1536 with d_ff = 4×d (6144) beat the deeper 8L shape at every horizon and ran 20% faster (8,733 tok/s, 5.3 GB peak, val 2.9079 at 40 steps). The rule of thumb that fell out: layers ≈ d/256 at ~350M scale, ≈ d/192 at ~85M. Learning rate must be re-swept per scale — 1e-3 at 84.5M, 4.5e-4 at 306M. Everything is bit-identical reproducible (fixed seeds, synthetic data, deterministic harness).</p>
+          <h2>Serving: the 100 tok/s physics problem</h2>
+          <p>Getting 100 tok/s decode with a Qwen3.6-35B-A3B on 12 GB is a VRAM-budget problem, and the budget wins. Measured tiers: the 2B Q4 hits 140 tok/s short-context; the 35B at IQ2 hits 73 tok/s at 64k with KV on GPU; the same model serves <strong>262k context at 29 tok/s</strong> only by offloading KV to RAM (the whole-KV-per-token readback is what costs the speed); MTP speculative decoding recovers ~82 tok/s at short context; and the uncensored HauhauCS IQ2_M variant runs the whole stack. The pattern across every crash we survived: a compositor needs ~1 GB of VRAM, and below ~0.6 GB of headroom the amdgpu driver wedges hard — Xorg and KDE both died with core dumps before we found the working envelope (CPU-parked experts, KV in RAM, software-GL terminals).</p>
+          <h2>The 2027 MoE landscape, from inside 12 GB</h2>
+          <p>Surveying what actually competes: Qwen3.6-35B-A3B is the class leader on coding and speed; Gemma 4 26B A4B leads general knowledge (57.1 vs 50.5 public score) and fits the same envelope at Q3; Qwen3.6-27B is dense (better quality, 4× slower, won't fit at usable quant); PrismML's Bonsai ternary is the only 12GB path to the 27B and remains unproven. Uncensored options are real: TrevorJS's Gemma 4 abliterations (0/100 refusals) and the HauhauCS Qwen3.6 variant both run here. The honest summary: on 12 GB you pick speed + coding (Qwen 35B) or general quality + writing (Gemma 26B), and Sonnet 4.5 keeps the coding crown only if you're willing to pay per token and accept its alignment.</p>
+        </div>
+        <table class="spec">
+          <tr><th scope="row">Domain</th><td>LLM training &amp; serving</td></tr>
+          <tr><th scope="row">Hardware</th><td>RX 7700 XT · 12.87 GB</td></tr>
+          <tr><th scope="row">Training</th><td>256k ctx · 41.8k tok/s · 1M step OK</td></tr>
+          <tr><th scope="row">Serving</th><td>35B MoE @ 262k ctx</td></tr>
+          <tr><th scope="row">Source</th><td>Local lab · measured</td></tr>
+        </table>
+        <div class="ends"><a class="btn" href="#research" data-vt-link="paper2">← Research</a><a class="btn" href="#voice-range-weights">Research 01 →</a></div>
+      </article>
+      <aside class="margin" aria-hidden="true">
+        <svg class="rect" viewBox="0 0 200 240"><use href="../shared/sprite.svg#rect-gpu"/></svg>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" id="connect">
+  <div class="wrap footer-in">
+    <div>
+      <h2>Connect</h2>
+      <a class="mail" href="mailto:alexis@verticalrectangle.com">alexis@verticalrectangle.com</a>
+      <div class="socials"><a class="btn" href="https://x.com/VertRect" target="_blank" rel="noopener">@VertRect ↗</a></div>
+    </div>
+    <div class="brand-end">
+      <svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><use href="../shared/sprite.svg#logo"/></svg>
+      <span class="wordmark">Vertical Rectangle</span>
+      <p class="label">© 2026 · Prototype D</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var root = document.documentElement;
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Spines: open one at a time; Escape closes.
+  (function () {
+    var spines = Array.prototype.slice.call(document.querySelectorAll('.spine'));
+    function set(spine, open) {
+      spine.classList.toggle('is-open', open);
+      spine.querySelector('.spine-face').setAttribute('aria-expanded', String(open));
+    }
+    spines.forEach(function (spine) {
+      spine.querySelector('.spine-face').addEventListener('click', function () {
+        var open = !spine.classList.contains('is-open');
+        spines.forEach(function (s) { if (s !== spine) set(s, false); });
+        set(spine, open);
+        if (open && spine.parentElement.scrollWidth > spine.parentElement.clientWidth) {
+          setTimeout(function () { spine.scrollIntoView({ inline: 'center', block: 'nearest', behavior: still ? 'auto' : 'smooth' }); }, 120);
+        }
+      });
+    });
+    addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      spines.forEach(function (s) { if (s.classList.contains('is-open')) { set(s, false); s.querySelector('.spine-face').focus(); } });
+    });
+  })();
+
+  // Page morphs: the open spine becomes the page header and back again.
+  (function () {
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a[data-vt-link]');
+      if (!a || e.metaKey || e.ctrlKey || e.shiftKey || !document.startViewTransition || still) return;
+      e.preventDefault();
+      var hash = a.getAttribute('href');
+      root.classList.add('vt-nav');
+      var vt = document.startViewTransition(function () {
+        location.hash = hash;
+        var target = document.querySelector(hash);
+        if (target && target.classList.contains('page')) scrollTo(0, 0);
+        else if (target) target.scrollIntoView({ block: 'start' });
+      });
+      vt.finished.finally(function () { root.classList.remove('vt-nav'); });
+    });
+  })();
+
+  // Nav: underline the section in view; detail pages underline their parent section.
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll('.nav a'));
+    var PARENT = { 'pop-maker-studio': 'development', 'mk-mmd': 'development', 'voice-range-weights': 'research', 'local-llm-on-12gb': 'research' };
+    var visible = {};
+    function mark(id) { links.forEach(function (a) { a.setAttribute('aria-current', String(a.hash === '#' + id)); }); }
+    function update() {
+      var page = location.hash.slice(1);
+      if (PARENT[page]) return mark(PARENT[page]);
+      var best = null;
+      ['development', 'research', 'artists', 'connect'].forEach(function (id) { if (visible[id]) best = best || id; });
+      mark(best || '');
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+      update();
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    ['development', 'research', 'artists', 'connect'].forEach(function (id) { io.observe(document.getElementById(id)); });
+    addEventListener('hashchange', update);
+  })();
+
+  // Pop Maker Studio screenshots.
+  (function () {
+    var shot = document.getElementById('shot');
+    var buttons = document.querySelectorAll('.thumbs button');
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        buttons.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+        shot.src = b.dataset.src; shot.alt = b.dataset.alt;
+        shot.classList.remove('swap'); void shot.offsetWidth; shot.classList.add('swap');
+      });
+    });
+  })();
+
+  // mk-mmd: the exported scene loads when its page is first opened; it follows the site's theme (dark is its 1-bit
+  // mono), sizes its frame to its content, and the hero video goes quiet while the timeline plays.
+  (function () {
+    var frame = document.getElementById('mk-scene');
+    var hero = document.getElementById('mk-hero');
+    var sound = document.getElementById('mk-sound');
+    var theme = function () { return root.dataset.theme === 'dark' ? 'mono' : 'light'; };
+    function load() {
+      if (location.hash !== '#mk-mmd' || frame.src) return;
+      frame.src = frame.dataset.src + '?theme=' + theme() + '&maxh=' + (innerWidth < 760 ? 420 : 520);
+    }
+    addEventListener('hashchange', load);
+    load();
+    new MutationObserver(function () {
+      if (frame.contentWindow) frame.contentWindow.postMessage({ source: 'mk-host', type: 'theme', theme: theme() }, '*');
+    }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+    function setSound(on) {
+      hero.muted = !on;
+      sound.setAttribute('aria-pressed', String(on));
+      sound.textContent = on ? 'Sound on' : 'Sound off';
+    }
+    sound.addEventListener('click', function () {
+      setSound(hero.muted);
+      if (!hero.muted) { hero.currentTime = 0; hero.play(); }
+    });
+    addEventListener('message', function (e) {
+      var m = e.data;
+      if (e.source !== frame.contentWindow || !m || m.source !== 'mk-export') return;
+      if (m.type === 'height') frame.style.height = m.height + 'px';
+      if (m.type === 'clock' && m.playing && !hero.muted) setSound(false);
+    });
+    addEventListener('hashchange', function () { if (location.hash !== '#mk-mmd') setSound(false); });
+  })();
+
+  // Depravity box set: the box opens a drawer of members below the shelf.
+  // #depravity deep-links to it open; Escape closes it.
+  (function () {
+    var box = document.querySelector('.box');
+    var drawer = document.getElementById('depravity-members');
+    function set(open) {
+      box.setAttribute('aria-expanded', String(open));
+      drawer.classList.toggle('is-open', open);
+      drawer.inert = !open;
+      if (open) drawer.querySelectorAll('img').forEach(function (img) { img.loading = 'eager'; });
+    }
+    box.addEventListener('click', function () {
+      var open = box.getAttribute('aria-expanded') !== 'true';
+      set(open);
+      history.replaceState(null, '', open ? '#depravity' : '#artists');
+    });
+    addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && box.getAttribute('aria-expanded') === 'true') { set(false); box.focus(); }
+    });
+    function fromHash() {
+      if (location.hash !== '#depravity') return;
+      set(true);
+      document.getElementById('depravity').scrollIntoView({ block: 'start' });
+    }
+    addEventListener('hashchange', fromHash);
+    fromHash();
+  })();
+
+  // Member photos: skim one person's own photos by moving across their card (tap steps on touch).
+  (function () {
+    document.querySelectorAll('[data-skim]').forEach(function (skim) {
+      var imgs = Array.prototype.slice.call(skim.querySelectorAll('img'));
+      var ticks = document.createElement('div');
+      ticks.className = 'skim-ticks';
+      ticks.setAttribute('aria-hidden', 'true');
+      imgs.forEach(function () { ticks.appendChild(document.createElement('i')); });
+      skim.appendChild(ticks);
+      var bars = ticks.querySelectorAll('i');
+      var cur = 0;
+      function show(i) {
+        cur = i;
+        imgs.forEach(function (img, k) { img.classList.toggle('on', k === i); if (k === i) img.loading = 'eager'; });
+        bars.forEach(function (b, k) { b.classList.toggle('on', k === i); });
+      }
+      skim.addEventListener('pointermove', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        var r = skim.getBoundingClientRect();
+        show(Math.min(imgs.length - 1, Math.max(0, Math.floor((e.clientX - r.left) / r.width * imgs.length))));
+      });
+      skim.addEventListener('pointerleave', function () { show(0); });
+      skim.addEventListener('click', function () { show((cur + 1) % imgs.length); });
+      show(0);
+    });
+  })();
+</script>
+</body>
+</html>
