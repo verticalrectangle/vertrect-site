@@ -173,7 +173,8 @@ if (still) document.querySelectorAll('.spine-video').forEach(function (v) { v.re
       var r = skim.getBoundingClientRect();
       show(Math.min(imgs.length - 1, Math.max(0, Math.floor((e.clientX - r.left) / r.width * imgs.length))));
     });
-    skim.addEventListener('pointerleave', function () { show(0); });
+    // Touch fires pointerleave as the finger lifts, just before click: resetting then pinned taps to photos 1-2.
+    skim.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') show(0); });
     skim.addEventListener('click', function () { show((cur + 1) % imgs.length); });
     show(0);
   });

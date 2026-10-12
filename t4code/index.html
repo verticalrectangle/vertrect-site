@@ -73,8 +73,7 @@
   .lightbox .lb-next { right: 24px; }
   .t4-foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 72px; padding-top: 18px; border-top: var(--b3); }
 
-/* ── terminal mockup (pixel-true to the t4 TUI) ─────────────── */
-  .termwrap { margin-top: 20px; }
+  /* ── terminal mockup (pixel-true to the t4 TUI) ─────────────── */
   .term {
     --t4-bg: #000000; --t4-panel: #0c0c0e; --t4-line: #262626; --t4-line-faint: #141414; --t4-ink: #ffffff;
     --t4-body: #cccccc; --t4-muted: #949494; --t4-label: #666666; --t4-ghost: #404040; --t4-accent: #c8d6e5;
@@ -111,7 +110,7 @@
   .term .help-hint { margin-left: auto; color: var(--t4-label); font-size: 11px; }
   .term-body { display: flex; min-height: 380px; }
   .term .rail {
-    width: 250px; flex: none;
+    width: 270px; flex: none;
     border-right: 1px solid var(--t4-line);
     padding: 8px 0;
   }
@@ -157,9 +156,10 @@
   .term .rail-legend em { font-style: normal; margin-right: 6px; }
   .term .rail-legend .unread { margin-left: 0; margin-right: 0; }
   .term .composer .hint { color: var(--t4-ghost); font-style: italic; }
-  @media (max-width: 760px) {
-  .term .rail { width: 150px; }
-  .term-body { min-height: 300px; }
+  /* Narrow screens: the terminal keeps its size and scrolls sideways in its frame, as a real one would. */
+  @media (max-width: 860px) {
+    .termwrap { overflow-x: auto; padding: 0 12px 12px 0; }
+    .term { min-width: 800px; }
   }
 
   
