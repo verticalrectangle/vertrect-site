@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- The source of /og-image.png: open at 1200×630 (device scale 1) and screenshot the viewport. -->
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="base.css">
+<style>
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  .card {
+    position: absolute; inset: 40px 56px 56px 40px; display: grid; grid-template-columns: minmax(0, 1fr) 430px;
+    background: var(--surface); border: 6px solid var(--ink); box-shadow: 16px 16px 0 var(--ink);
+  }
+  .copy { display: flex; flex-direction: column; justify-content: center; padding: 0 0 0 56px; }
+  .copy svg.logo { width: 92px; height: 92px; }
+  .copy .wordmark { margin-top: 28px; font-size: 88px; line-height: .9; color: var(--ink); }
+  .copy p { margin-top: 24px; font-size: 29px; font-weight: 500; color: var(--subtle); }
+  .shelf {
+    display: flex; align-items: flex-end; gap: 12px; padding: 0 36px 0 0; margin-bottom: 56px;
+    border-bottom: 10px solid var(--ink); align-self: end; height: 360px;
+  }
+  .spine { width: 50px; border: 4px solid var(--ink); border-bottom: 0; background: var(--c); position: relative; }
+  .spine::before { content: ""; position: absolute; left: 7px; right: 7px; top: 22px; height: 46%; background: var(--surface); border: 3px solid var(--ink); }
+  .shelf svg.rect { width: 200px; height: auto; aspect-ratio: 200 / 240; margin: 0 -40px 0 -18px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="copy">
+      <svg class="logo" viewBox="0 0 512 512" aria-hidden="true"><use href="sprite.svg#logo"/></svg>
+      <h1 class="wordmark">Vertical<br>Rectangle</h1>
+      <p>Independent creative technology studio</p>
+    </div>
+    <div class="shelf">
+      <span class="spine" style="--c: var(--gold); height: 270px"></span>
+      <span class="spine" style="--c: var(--rose); height: 248px"></span>
+      <span class="spine" style="--c: var(--foam); height: 282px"></span>
+      <span class="spine" style="--c: var(--iris); height: 238px"></span>
+      <span class="spine" style="--c: var(--pine); height: 262px"></span>
+      <svg class="rect" viewBox="0 0 200 240" aria-hidden="true"><use href="sprite.svg#rect-casual"/></svg>
+    </div>
+  </div>
+</body>
+</html>

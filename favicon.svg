@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<style>
+  .ring { fill: #faf4ed; } .disc { fill: #575279; } .rect { fill: none; stroke: #faf4ed; stroke-width: 20; }
+  @media (prefers-color-scheme: dark) { .ring { fill: #fff; } .disc { fill: #000; } .rect { stroke: #fff; } }
+</style>
+<circle class="ring" cx="256" cy="256" r="256"/>
+<circle class="disc" cx="256" cy="256" r="236"/>
+<rect class="rect" x="176" y="96" width="160" height="320"/>
+</svg>
